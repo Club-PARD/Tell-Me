@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     youtubeId = widget.id;
   }
 
-  final YoutubePlayerController _con = YoutubePlayerController(initialVideoId: instanceId,
+  final YoutubePlayerController _con = YoutubePlayerController(initialVideoId: youtubeId,
   flags: const YoutubePlayerFlags(
     autoPlay: true,
     mute: true,

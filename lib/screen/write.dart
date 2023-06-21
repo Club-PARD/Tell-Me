@@ -34,22 +34,34 @@ final TextEditingController _editCon = TextEditingController();
       body: Center(
         child: GestureDetector(
           onTap: ()=>FocusScope.of(context).unfocus(),
-          child: Column(
-            children: [
-              Padding(padding: const EdgeInsets.all(20),
-              child: TextField(
-                controller: _editCon,
-                decoration: const InputDecoration(
-                  hintText: 'url을 입력해주세요',
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(padding: const EdgeInsets.all(20),
+                child: TextField(
+                  controller: _editCon,
+                  decoration: const InputDecoration(
+                    hintText: 'url을 입력해주세요',
+                  ),
+                  keyboardType: TextInputType.emailAddress,
                 ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              ),
-              const Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(
-                onPressed: () { Navigator.pushNamed(context, '/home',arguments: inputText,);},
-               child: const Text('Search')),
-            ],
+                ),
+                const Padding(padding: EdgeInsets.all(10)),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      inputText = _editCon.text;
+                    });
+                  },
+                  child: const Text('Enter'),
+                ),
+                Text(_editCon.text),
+                const Padding(padding: EdgeInsets.all(10)),
+                ElevatedButton(
+                  onPressed: () { Navigator.pushNamed(context, '/home',arguments: inputText,);},
+                 child: const Text('Search')),
+              ],
+            ),
           ),
         ),
       )
