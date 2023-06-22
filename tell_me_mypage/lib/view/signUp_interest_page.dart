@@ -45,18 +45,20 @@ class signUpInterestPage extends StatelessWidget {
           // 검색어가 변경될 때 수행할 동작 (ex.ViewModel의 검색 메서드 호출?)
         },
         decoration: InputDecoration(
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.grey.shade400,
-          ),
-          filled: true,
-          fillColor: Color.fromARGB(255, 67, 65, 65),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          labelText: string,
-        ),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.grey.shade400,
+            ),
+            filled: true,
+            fillColor: Color.fromARGB(255, 67, 65, 65),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            labelText: string,
+            labelStyle: TextStyle(
+              color: Color(0xFF9E9E9E),
+            )),
       ),
     );
   }
