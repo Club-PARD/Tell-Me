@@ -48,7 +48,7 @@ String? url;
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
-                     url=getIdFromUrl(_editCon.text);    //parsing성공, 누르면 파싱한 값 61번 줄의 argument로 보내고 싶은데 elevatedButton밖에서 값을 사용하지 못함
+                     url=getIdFromUrl(_editCon.text);
                     });
                   },
                   child: const Text('Enter'),
