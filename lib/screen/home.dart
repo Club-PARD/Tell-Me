@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     youtubeId = widget.id;
+    _con.reload();
   }
 
   final YoutubePlayerController _con = YoutubePlayerController(initialVideoId: youtubeId,

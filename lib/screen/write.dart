@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_parser/youtube_parser.dart';
 
 class WriteScreen extends StatefulWidget {
   const WriteScreen({super.key});
@@ -9,16 +10,14 @@ class WriteScreen extends StatefulWidget {
 
 class __WriteScreenState extends State<WriteScreen> {
 final TextEditingController _editCon = TextEditingController();
-
+String? url;
   @override
   void initState() {
     super.initState();
-  _editCon.addListener(() {});
   }
 
   @override
   void dispose() {
-    // Dispose the controller when the widget is disposed
     _editCon.dispose();
     super.dispose();
   }
@@ -43,7 +42,7 @@ final TextEditingController _editCon = TextEditingController();
                   decoration: const InputDecoration(
                     hintText: 'url을 입력해주세요',
                   ),
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.text,
                 ),
                 ),
                 const Padding(padding: EdgeInsets.all(10)),
@@ -51,14 +50,15 @@ final TextEditingController _editCon = TextEditingController();
                   onPressed: () {
                     setState(() {
                       inputText = _editCon.text;
+                     String? url=getIdFromUrl(_editCon.text);    //parsing성공, 누르면 파싱한 값 61번 줄의 argument로 보내고 싶은데 elevatedButton밖에서 값을 사용하지 못함
                     });
                   },
                   child: const Text('Enter'),
                 ),
-                Text(_editCon.text),
+                Text('$url'),
                 const Padding(padding: EdgeInsets.all(10)),
                 ElevatedButton(
-                  onPressed: () { Navigator.pushNamed(context, '/home',arguments: inputText,);},
+                  onPressed: () { Navigator.pushNamed(context, '/home',arguments: url,);},
                  child: const Text('Search')),
               ],
             ),
