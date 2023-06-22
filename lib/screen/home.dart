@@ -11,14 +11,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static late String youtubeId;
-  
   static String instanceId = 'mvQHqxmdYV0';
 
    @override
   void initState() {
     super.initState();
     youtubeId = widget.id;
-    _con.reload();
   }
 
   final YoutubePlayerController _con = YoutubePlayerController(initialVideoId: youtubeId,
