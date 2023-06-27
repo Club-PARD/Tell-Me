@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:youtube/screen/home.dart';
-import 'package:youtube/screen/write.dart';
-void main() { 
+import 'package:youtube/view/homeView.dart';
+import 'package:youtube/view/writeView.dart';
+
+void main() {
   runApp(const MyApp());
 }
 
@@ -10,13 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      
+    return MaterialApp(
       title: 'YouTube API',
-      initialRoute: '/write', 
+      initialRoute: '/write',
       routes: {
-        '/home': (context) => HomeScreen(id: ModalRoute.of(context)!.settings.arguments as String),
-        '/write':(context) => const WriteScreen(),
+        '/home': (context) => HomeScreen(
+            id: ModalRoute.of(context)!.settings.arguments as String),
+        '/write': (context) => const WriteScreen(),
       },
     );
   }

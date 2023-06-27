@@ -3,3 +3,4 @@ flutter pub run build_runner build
 
 # 유튜브 링크 API
 https://www.googleapis.com/youtube/v3/videos?id=VIDEO_ID&key=YOUR_API_KEY&fields=items(id,snippet(publishedAt,title,thumbnails),statistics(viewCount))&part=snippet,statistics
+https://www.googleapis.com/youtube/v3/videos?id=fa7DifS9AFY&key=AIzaSyBHdbdKJmDcfDuF_XcbHLXbpwzueO9ISB8&fields=items(id,snippet(publishedAt,title,thumbnails),statistics(viewCount))&part=snippet,statistics
