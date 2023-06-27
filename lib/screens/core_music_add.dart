@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CoreMusicAdd extends StatefulWidget {
-  const CoreMusicAdd({super.key});
+  const CoreMusicAdd({Key? key}): super(key: key);
 
   @override
   State<CoreMusicAdd> createState() => _CoreMusicAddState();
