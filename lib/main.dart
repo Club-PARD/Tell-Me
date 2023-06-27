@@ -1,23 +1,16 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:middle_ui/screens/core_music_add.dart';
-import 'package:middle_ui/screens/make_room.dart';
+import 'package:window_manager/window_manager.dart';
+
+import 'app.dart';
 
 void main() {
-  runApp(const MyApp());
-}
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const DLive());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/makeroom',
-      routes: {
-        '/makeroom': (context)=> const MakeRoom(),
-        '/coremusicadd':(context) => const CoreMusicAdd(),
-      },
-    );
+  if (Platform.isMacOS) {
+    final windowManager = WindowManager.instance;
+    windowManager.setMinimumSize(const Size(1650, 1600));
+    windowManager.setMaximumSize(const Size(1650, 1600));
   }
-}
+
