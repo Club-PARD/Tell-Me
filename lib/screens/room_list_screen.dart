@@ -5,6 +5,19 @@ class RoomListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'MY DLIVE',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
+      ),
+      body: const Center(
+        child: Text('Room List'),
+      ),
+    );
   }
 }
