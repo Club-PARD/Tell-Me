@@ -37,9 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   window_manager: ^0.3.4
   transition: ^2.0.2
-  google_sign_in: ^6.1.4
   firebase_auth: ^4.6.3
   firebase_core: ^2.14.0
+  google_sign_in: ^6.1.4
 
 dev_dependencies:
   flutter_test:
