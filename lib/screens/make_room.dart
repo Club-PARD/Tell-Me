@@ -36,7 +36,14 @@ class _MakeRoomState extends State<MakeRoom> {
         ),
         centerTitle: true,
         actions: [
-          TextButton(onPressed: () {Navigator.pushNamed(context, '/coremusicadd');}, child: const Text('확인',style: TextStyle(color: Color(0XFFFFFFFF)),)),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/coremusicadd');
+              },
+              child: const Text(
+                '확인',
+                style: TextStyle(color: Color(0XFFFFFFFF)),
+              )),
         ],
       ),
       body: Column(
@@ -45,17 +52,17 @@ class _MakeRoomState extends State<MakeRoom> {
             height: height * 0.05,
           ),
           SizedBox(
-           // width: width,
+            // width: width,
             height: height * 0.001,
           ),
           Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(35),
                   color: const Color(0XFFD9D9D9),
                 ),
-                width: width * 0.35,
+                width: height * 0.17,
                 height: height * 0.17,
                 child: const Center(
                   child: Text(
@@ -72,7 +79,7 @@ class _MakeRoomState extends State<MakeRoom> {
                     _showDialog(context);
                   },
                   child: Image.asset(
-                    'assets/camera.png',
+                    'assets/images/camera.png',
                     width: 24,
                     height: 24,
                   ),
@@ -101,7 +108,7 @@ class _MakeRoomState extends State<MakeRoom> {
             ),
           ),
           SizedBox(height: height * 0.05),
-           const Text(
+          const Text(
             '음악 재생전, 내가 설정한 그룹청취방의 사진과 이름은\n 다른 모든 멤버에게도 동일하게 보입니다.',
             style: TextStyle(color: Color(0XFF9C9C9C)),
           ),
@@ -112,20 +119,40 @@ class _MakeRoomState extends State<MakeRoom> {
 }
 
 Future<dynamic> _showDialog(BuildContext context) {
-  return showDialog(context: context,
-   builder: (BuildContext context)=> AlertDialog(
-    actions: [
-      Center(
-        child: Column(
-          children: [
-            TextButton(onPressed: (){}, child: const Text('대표 사진 설정',style: TextStyle(color: Color(0XFF383838)),)),
-            TextButton(onPressed: (){}, child: const Text('앨범에서 사진/동영상 선택',style: TextStyle(color: Color(0XFF383838)),)),
-            TextButton(onPressed: (){}, child: const Text('기본 이미지로 변경',style: TextStyle(color: Color(0XFF383838)),)),
-            TextButton(onPressed: (){}, child: const Text('취소',style: TextStyle(color: Color(0XFF383838)),)),
-          ],
-        ),
-      )
-    ],
-   )
-   );
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+            actions: [
+              Center(
+                child: Column(
+                  children: [
+                    TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          '대표 사진 설정',
+                          style: TextStyle(color: Color(0XFF383838)),
+                        )),
+                    TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          '앨범에서 사진/동영상 선택',
+                          style: TextStyle(color: Color(0XFF383838)),
+                        )),
+                    TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          '기본 이미지로 변경',
+                          style: TextStyle(color: Color(0XFF383838)),
+                        )),
+                    TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          '취소',
+                          style: TextStyle(color: Color(0XFF383838)),
+                        )),
+                  ],
+                ),
+              )
+            ],
+          ));
 }
