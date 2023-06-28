@@ -10,9 +10,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: ColorStyle.background,
       body: Container(
         width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           // SizedBox(
           //   height: MediaQuery.of(context).size.height / 812 * 78,
           // ),
@@ -21,17 +19,20 @@ class HomePage extends StatelessWidget {
           ),
           ClipOval(
             child: Container(
-                  color: Color(0xffD9D9D9),
-                  height: MediaQuery.of(context).size.height / 812 * 244,
-                  width: MediaQuery.of(context).size.height / 812 * 244,
-                  child: Center(
-                    child: Text('드라이브 하는\n캐릭터 모션',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+              color: Color(0xffD9D9D9),
+              height: MediaQuery.of(context).size.height / 812 * 244,
+              width: MediaQuery.of(context).size.height / 812 * 244,
+              child: Center(
+                child: Text(
+                  '드라이브 하는\n캐릭터 모션',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 812 * 58,),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 812 * 58,
+          ),
           const Text(
             '붕붕붕 ~ 꼬마작은 디리차!',
             textAlign: TextAlign.center,
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
           ),
         ]),
       ),
-       floatingActionButton: ClipOval(
+      floatingActionButton: ClipOval(
         child: FloatingActionButton.large(
           backgroundColor: Colors.white,
           onPressed: () {
@@ -55,11 +56,10 @@ class HomePage extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/navigation_bar.png'),
-            fit: BoxFit.cover,
-          )
-        ),
+            image: DecorationImage(
+          image: AssetImage('assets/navigation_bar.png'),
+          fit: BoxFit.cover,
+        )),
         child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
           currentIndex: 0,
@@ -70,6 +70,7 @@ class HomePage extends StatelessWidget {
               case 1:
                 break;
               case 2:
+                Navigator.pushNamed(context, '/roomlist');
                 break;
             }
           },
@@ -84,16 +85,18 @@ class HomePage extends StatelessWidget {
               label: '홈',
             ),
             BottomNavigationBarItem(
-                icon: Container(
-                  height: 50,
-                ),
-                label: ''),
+              icon: Container(
+                height: 50,
+              ),
+              label: '',
+            ),
             const BottomNavigationBarItem(
-                icon: Icon(Icons.person_2_outlined),
-                activeIcon: Icon(Icons.person_2),
-                label: 'My DL'),
+              icon: Icon(Icons.person_2_outlined),
+              activeIcon: Icon(Icons.person_2),
+              label: 'My DL',
+            ),
           ],
-          selectedItemColor: Colors.black, 
+          selectedItemColor: Colors.black,
           unselectedItemColor: Colors.black,
         ),
       ),
