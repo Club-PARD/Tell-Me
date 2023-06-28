@@ -61,8 +61,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-assets:
-    lib/.env 
+  assets:
+      - lib/.env 
+      - assets/screenshot.png
   # path to your .env file
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
