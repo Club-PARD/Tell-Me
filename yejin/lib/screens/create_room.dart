@@ -14,6 +14,7 @@ class CustomWidget extends StatefulWidget {
   _CustomWidgetState createState() => _CustomWidgetState();
 }
 
+//노래 single List
 class _CustomWidgetState extends State<CustomWidget> {
   late bool _isChecked;
 
@@ -88,7 +89,7 @@ class _CustomWidgetState extends State<CustomWidget> {
           height: MediaQuery.of(context).size.height / 300,
         ),
         Divider(
-          color: Colors.grey,
+          color: Color(0xFF707070),
           thickness: 0.5,
         ),
       ],
@@ -107,6 +108,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   List<bool> isSelectedList = List.filled(10, false);
   List<bool> isOutlineVisibleList = List.filled(10, false);
 
+  //포기할 수 없는 3곡(밑에서 슝 올라오는거)
   void _showModalSheet(int index) {
     showModalBottomSheet(
       context: context,
@@ -134,10 +136,13 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                     height: 80,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
+                      color: isOutlineVisibleList[innerIndex]
+                          ? Color(0XFFD9D9D9)
+                          : Color(0XFFD9D9D9),
                       border: Border.all(
                         color: isOutlineVisibleList[innerIndex]
                             ? Colors.green
-                            : Colors.grey,
+                            : Color(0XFFD9D9D9),
                         width: 4,
                       ),
                     ),
@@ -156,7 +161,7 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(280, 45),
-                    primary: Color(0XFFCBCBCB),
+                    primary: Color(0XFFCCCCCC),
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(8), // 원하는 radius 값으로 조정

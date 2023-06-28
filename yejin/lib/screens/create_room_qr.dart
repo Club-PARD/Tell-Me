@@ -32,6 +32,8 @@ class CreateRoomQrScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 30,
             ),
+
+            //사용자 profile 이미지
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -51,6 +53,8 @@ class CreateRoomQrScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 20,
             ),
+
+            //QR이미지
             Container(
               width: 230,
               height: 230,
@@ -58,15 +62,17 @@ class CreateRoomQrScreen extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
               ),
-              padding: EdgeInsets.all(10), // 상하좌우에 10씩 내부 여백을 설정합니다.
+              padding: EdgeInsets.all(10),
               child: Image.asset(
                 'assets/images/QR_Code_example.png',
                 fit: BoxFit.contain,
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 5,
+              height: MediaQuery.of(context).size.height / 6,
             ),
+
+            //"링크 공유" 버튼
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -78,7 +84,7 @@ class CreateRoomQrScreen extends StatelessWidget {
                   fixedSize: const Size(280, 45),
                   primary: Color(0XFFCBCBCB),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), // 원하는 radius 값으로 조정
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 child: const Text(
