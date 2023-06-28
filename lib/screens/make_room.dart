@@ -27,7 +27,7 @@ class _MakeRoomState extends State<MakeRoom> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {Navigator.pop(context);},
           icon: const Icon(Icons.close),
         ),
         title: const Text(

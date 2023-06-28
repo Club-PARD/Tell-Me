@@ -69,7 +69,6 @@ flutter:
     - assets/images/camera.png
     - assets/images/profile.png
     - assets/images/QR_Code_example.png
-    - assets/camera.png
     - assets/google_login.png
     - assets/navigation_bar.png
 
