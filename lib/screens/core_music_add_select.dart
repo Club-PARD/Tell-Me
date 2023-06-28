@@ -69,11 +69,21 @@ class _CustomWidgetState extends State<CustomWidget> {
             SizedBox(
               width: MediaQuery.of(context).size.height / 20,
             ),
-            Transform.scale(
-              scale: 1.5,
+            Container(
+              width: 25,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: _isChecked ? Colors.green : Colors.grey,
+                  width: 1,
+                ),
+                color: _isChecked ? Colors.green : Colors.transparent,
+              ),
               child: Checkbox(
                 value: _isChecked,
                 activeColor: Colors.green,
+                fillColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                checkColor: Colors.white,
                 shape: CircleBorder(),
                 onChanged: (value) {
                   setState(() {
