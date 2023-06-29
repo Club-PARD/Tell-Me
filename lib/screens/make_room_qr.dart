@@ -25,6 +25,14 @@ class MakeRoomQrScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.pushNamed(context, '/home');
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(

@@ -165,10 +165,7 @@ class _CoreMusicAddSelectScreenState extends State<CoreMusicAddSelectScreen> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MakeRoomQrScreen()));
+                    Navigator.pushNamed(context, '/MakeRoomQrScreen');
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(280, 45),
