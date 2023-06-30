@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dlive/screens/make_room_qr.dart';
 import 'package:flutter/material.dart';
 
@@ -118,69 +120,81 @@ class CoreMusicAddSelectScreen extends StatefulWidget {
 class _CoreMusicAddSelectScreenState extends State<CoreMusicAddSelectScreen> {
   List<bool> isSelectedList = List.filled(10, false);
   List<bool> isOutlineVisibleList = List.filled(10, false);
+  bool isCompleteButtonVisible = false;
 
-  //포기할 수 없는 3곡(밑에서 슝 올라오는거)
+  // 포기할 수 없는 3곡(밑에서 슝 올라오는거)
   void _showModalSheet(int index) {
+    Timer(Duration(seconds: 1), () {
+      Navigator.pop(context); // 모달 닫기
+    });
     showModalBottomSheet(
       context: context,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
-        return Container(
-          height: 270,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '포기할 수 없는 3곡을 골라주세요!',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+        return ClipRRect(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(50.0)),
+          child: Container(
+            height: 270,
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '포기할 수 없는 3곡을 골라주세요!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height / 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(
-                  3,
-                  (innerIndex) => Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isOutlineVisibleList[innerIndex]
-                          ? Color(0XFFD9D9D9)
-                          : Color(0XFFD9D9D9),
-                      border: Border.all(
+                SizedBox(height: MediaQuery.of(context).size.height / 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(
+                    3,
+                    (innerIndex) => Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
                         color: isOutlineVisibleList[innerIndex]
-                            ? Colors.green
+                            ? Color(0XFFD9D9D9)
                             : Color(0XFFD9D9D9),
-                        width: 4,
+                        border: Border.all(
+                          color: isOutlineVisibleList[innerIndex]
+                              ? Colors.green
+                              : Color(0XFFD9D9D9),
+                          width: 4,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 20,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/MakeRoomQrScreen');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(280, 45),
-                    primary: Color(0XFFCCCCCC),
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(8), // 원하는 radius 값으로 조정
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 20,
+                ),
+                if (index == 2)
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/makeroomqr');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(280, 45),
+                      primary: Color(0XFFCCCCCC),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
+                      '완성!',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  child: const Text(
-                    '완성!',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                  )),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -253,14 +267,43 @@ class _CoreMusicAddSelectScreenState extends State<CoreMusicAddSelectScreen> {
                       setState(() {
                         isSelectedList = List.filled(10, false);
                         isSelectedList[index] = value;
-                        //isOutlineVisibleList = List.filled(10, false);
+                        // isOutlineVisibleList = List.filled(10, false);
                         isOutlineVisibleList[index] = value;
+
+                        // 완성 버튼 표시 여부 확인
+                        int selectedCount = 0;
+                        for (int i = 0; i < isSelectedList.length; i++) {
+                          if (isSelectedList[i]) {
+                            selectedCount++;
+                          }
+                        }
+                        isCompleteButtonVisible = selectedCount == 3;
                       });
                     },
                   );
                 },
               ),
             ),
+            if (isCompleteButtonVisible)
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/makeroomqr');
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(280, 45),
+                  primary: Color(0XFFCCCCCC),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  '완성!',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
           ],
         ),
       ),
