@@ -55,7 +55,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             onPressed: () {
               Navigator.pushNamed(context, '/home');
             },
