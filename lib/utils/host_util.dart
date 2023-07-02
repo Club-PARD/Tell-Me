@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:dlive/models/host_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -57,6 +55,7 @@ class HostUtil {
   }
 
   Future<void> getHost(HostProvider hostProvider) async {
+    
     User? user = auth.currentUser;
     String uid = user!.uid;
     DocumentSnapshot snapshot = await firestore.collection('Host').doc(uid).get();
