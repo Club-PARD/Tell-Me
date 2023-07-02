@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 //   @override
 //   Widget build(BuildContext context) {
 //     OpenAI.apiKey = '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';
+//     int time = 60; //min
+//     String numOfSongs = (time/3).toString();
 
 //     List<List<String>> selections = [
 //     ['지코 - Artist', '호미들 - 사이렌', '창모 - METHEO'],
@@ -40,7 +42,7 @@ import 'package:flutter/material.dart';
 
 //페이지에 출력
 
-// Widget showPlaylist(List<List<String>> selections) {
+// Widget showPlaylist(List<List<String>> selections, String numOfSongs) {
 //   return FutureBuilder<List<List<String>>>(
 //     future: songs(selections,generateText(selections)),
 //     builder: (context, snapshot) {
@@ -56,9 +58,9 @@ import 'package:flutter/material.dart';
 // }
 
 //print로 출력
-Widget showPlaylist(List<List<String>> selections) {
+Widget showPlaylist(List<List<String>> selections, String numOfSongs) {
   return FutureBuilder<List<List<String>>>(
-    future: songs(selections, generateText(selections)),
+    future: songs(selections, generateText(selections, numOfSongs)),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return const Center(child: CircularProgressIndicator());
@@ -72,7 +74,7 @@ Widget showPlaylist(List<List<String>> selections) {
   );
 }
 
-Future<String> generateText(List<List<String>> selections) async {
+Future<String> generateText(List<List<String>> selections, String numOfSongs) async {
   OpenAIChatCompletionModel chatCompletion =
       await OpenAI.instance.chat.create(model: "gpt-3.5-turbo", messages: [
     OpenAIChatCompletionChoiceMessageModel(
@@ -81,7 +83,7 @@ Future<String> generateText(List<List<String>> selections) async {
     ),
     OpenAIChatCompletionChoiceMessageModel(
       role: OpenAIChatMessageRole.user,
-      content: '${selections[0][0]}\n${selections[1][0]}\n${selections[2][0]}\n${selections[3][0]}\n${selections[4][0]}\n${selections[5][0]}\n${selections[0][1]}\n${selections[1][1]}\n${selections[2][1]}\n${selections[3][1]}\n${selections[4][1]}\n${selections[5][1]}\n${selections[0][2]}\n${selections[1][2]}\n${selections[2][2]}\n${selections[3][2]}\n${selections[4][2]}\n${selections[5][2]}\n\nAdd all the songs in the playlist in this order, except for the song with the value "", and then add more songs of the same genre in the same order to create a playlist of 30 songs (Never print any other text, just the playlist).',
+      content: '${selections[0][0]}\n${selections[1][0]}\n${selections[2][0]}\n${selections[3][0]}\n${selections[4][0]}\n${selections[5][0]}\n${selections[0][1]}\n${selections[1][1]}\n${selections[2][1]}\n${selections[3][1]}\n${selections[4][1]}\n${selections[5][1]}\n${selections[0][2]}\n${selections[1][2]}\n${selections[2][2]}\n${selections[3][2]}\n${selections[4][2]}\n${selections[5][2]}\n\nAdd all the songs in the playlist in this order, except for the song with the value "", and then add more songs of the same genre in the same order to create a playlist of {$numOfSongs} songs (Never print any other text, just the playlist).',
     ),
   ]);
   return chatCompletion.choices.first.message.content;

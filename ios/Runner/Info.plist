@@ -58,5 +58,7 @@
 	        </array>
 	    </dict>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>'디라이브'가 사용자의 사진을 접근하려고 합니다</string>
 </dict>
 </plist>

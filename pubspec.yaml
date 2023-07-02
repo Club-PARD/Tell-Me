@@ -43,6 +43,9 @@ dependencies:
   fluttertoast: ^8.2.2
   flutter_carousel_widget: ^2.0.4
   dart_openai: ^3.0.0
+  cloud_firestore: ^4.8.2
+  provider: ^6.0.5
+  image_picker: ^1.0.0
 
 dev_dependencies:
   flutter_test:
