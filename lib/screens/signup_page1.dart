@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dlive/constants.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
 class SignUpPage1 extends StatelessWidget {
   const SignUpPage1({super.key});
@@ -22,22 +22,55 @@ class SignUpPage1 extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height / 812 * 66,
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.width / 375 * 240,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return Text('캐릭터$index');
-            },
-            separatorBuilder: (context, index) => ClipOval(
-              child: Container(
-                color: Color(0xffD9D9D9),
-                height: MediaQuery.of(context).size.width / 375 * 240,
-                width: MediaQuery.of(context).size.width / 375 * 240,
-              ),
-            ),
+        // SizedBox(
+        //   height: MediaQuery.of(context).size.width / 375 * 240,
+        //   child: ListView.builder(
+        //     scrollDirection: Axis.horizontal,
+        //     itemCount: 5,
+        //     itemExtent: MediaQuery.of(context).size.width / 375 * 240,
+        //     physics: PageScrollPhysics(), // 페이지별 스크롤을 위한 설정
+        //     itemBuilder: (context, index) {
+        //       return Row(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           ClipOval(
+        //             child: Container(
+        //               color: Color(0xffD9D9D9),
+        //               height: MediaQuery.of(context).size.width / 375 * 240,
+        //               width: MediaQuery.of(context).size.width / 375 * 240,
+        //             ),
+        //           ),
+        //           SizedBox(width: 10), // ClipOval 사이의 간격 조정
+        //           Text('캐릭터$index'),
+        //         ],
+        //       );
+        //     },
+        //   ),
+        // ),
+        ExpandableCarousel(
+          options: CarouselOptions(
+            autoPlay: false,
+            showIndicator: false,
           ),
+          items: [1, 2, 3, 4].map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  child: ClipOval(
+                    child: AspectRatio(
+                      aspectRatio: 1.0,
+                      child: Container(
+                        color: Color(0xffD9D9D9),
+                        height: MediaQuery.of(context).size.width / 375 * 240,
+                        width: MediaQuery.of(context).size.width / 375 * 240,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }).toList(),
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height / 812 * 177,
