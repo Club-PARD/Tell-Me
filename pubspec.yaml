@@ -43,6 +43,9 @@ dependencies:
   retrofit: ^4.0.1
   json_annotation: ^4.8.1
   logger: ^1.4.0
+  http: ^0.13.6
+  flutter_spinkit: ^5.2.0
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
