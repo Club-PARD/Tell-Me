@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'app.dart';
 
 import 'package:dlive/utils/host_util.dart';
+import 'package:dlive/utils/room_util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,9 @@ void main() async {
       providers: [
         ChangeNotifierProvider<HostProvider>(
           create: (_) => HostProvider(),
+        ),
+        ChangeNotifierProvider<RoomProvider>(
+          create: (_) => RoomProvider(),
         ),
       ],
       child: DLive(),

@@ -1,8 +1,8 @@
 class Host {
-  late final String name;
-  late final String email;
-  late final String character;
-  late final List room;
+  late String name;
+  late String email;
+  late String character;
+  late List room;
 
   Host({
     required this.name,
