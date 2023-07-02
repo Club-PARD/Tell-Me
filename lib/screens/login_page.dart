@@ -31,75 +31,66 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 812 * 113,
+                  height: MediaQuery.of(context).size.height / 812 * 102,
+                ),
+                Image.asset(
+                  'assets/logo_image.png',
+                  height: MediaQuery.of(context).size.height / 812 * 130,
+                  width: MediaQuery.of(context).size.height / 812 * 130,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 812 * 34,
                 ),
                 const Text(
-                  '환영합니다!\n\nD-LIVE에서 활동하기 위해서는\n계정생성이 필요해요.',
+                  '환영합니다!',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 812 * 50,
+                  height: MediaQuery.of(context).size.height / 812 * 14,
                 ),
-                GestureDetector(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 812 * 46,
-                    width: MediaQuery.of(context).size.width / 375 * 249,
-                    decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                            height:
-                                MediaQuery.of(context).size.height / 812 * 24,
-                            width:
-                                MediaQuery.of(context).size.height / 812 * 24,
-                            child: Image.asset('assets/google_login.png')),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 375 * 10,
-                        ),
-                        Text(
-                          '구글로 로그인 하기',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/logo_text_black.png',
+                      height: MediaQuery.of(context).size.height / 812 * 24,
+                      width: MediaQuery.of(context).size.width / 375 * 68,
                     ),
-                  ),
-                  onTap: () async {
-                    final credential = await signInWithGoogle();
-                    Navigator.pushNamed(context, '/signup1');
+                    const Text(
+                      '에서 활동하기 위해서는',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                const Text(
+                  '계정생성이 필요해요.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 812 * 60,
+                ),
+                FutureBuilder(
+                  future: Authentication.initializeFirebase(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Error initializing Firebase');
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.done) {
+                      return const GoogleSignInButton();
+                    }
+                    return const CircularProgressIndicator();
                   },
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 812 * 15,
+                  height: MediaQuery.of(context).size.height / 812 * 50,
                 ),
-                GestureDetector(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 812 * 46,
-                    width: MediaQuery.of(context).size.width / 375 * 249,
-                    decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: Center(
-                      child: Text(
-                        '일단 둘러보고 싶어요',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    // Navigator.pushNamed(context, '/navigation');
-                    Navigator.pushNamed(context, '/signup1');
-                  },
+                Image.asset(
+                  'assets/agree.png',
+                  width: MediaQuery.of(context).size.width / 375 * 252,
                 ),
               ],
             ),
