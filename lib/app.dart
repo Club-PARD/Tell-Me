@@ -23,7 +23,7 @@ class DLive extends StatelessWidget {
     return MaterialApp(
       title: 'DLive',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/splash',
+      initialRoute: '/makeroom',
       // initialRoute: '/coremusicaddselect',
       routes: {
         '/roomlist': (context) => const RoomListScreen(),

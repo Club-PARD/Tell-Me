@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
 class ColorStyle {
-  static const background = Colors.black;
-} 
+  static const background = Colors.white;
+}

@@ -85,8 +85,8 @@ class _MakeRoomState extends State<MakeRoom> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
                           child: Image.asset(
-                             height: height / 812 * 106,
-                          width: width / 375 * 106,
+                            height: height / 812 * 106,
+                            width: width / 375 * 106,
                             roomProvider.img,
                             fit: BoxFit.cover,
                           ),
