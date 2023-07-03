@@ -23,81 +23,94 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
     double width = screenSize.width;
     double height = screenSize.height;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: const Color(0XFFD9D9D9),
+        backgroundColor: Colors.white,
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new)),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text(
-          '내 코어 음악 추가',
-          style: TextStyle(color: Colors.white),
+          "내 음악 추가",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         centerTitle: true,
         actions: [
           TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CoreMusicAddSelectScreen()));
-              },
-              child: const Text(
-                '확인',
-                style: TextStyle(color: Color(0XFFFFFFFF)),
-              )),
-        ],
-      ),
-      body: Column(
-        children: [
-          Container(
-            height: height * 0.23,
-            decoration: const BoxDecoration(color: Color(0XFFD9D9D9)),
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () => FocusScope.of(context).unfocus(),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: TextField(
-                            controller: _textEditingController,
-                            decoration: const InputDecoration(
-                              hintText: '곡, 앨범, 아티스트 명으로 검색',
-                              hintStyle: TextStyle(color: Color(0XFF888888)),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CoreMusicAddSelectScreen(),
                 ),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                const Text(
-                  '최근 검색 내역이 없습니다',
-                  style: TextStyle(color: Color(0XFF9C9C9C)),
-                ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                const Divider(
-                  color: Color(0XFFADADAD),
-                ),
-                const Text(
-                  '닫기',
-                  style: TextStyle(color: Color(0XFF9C9C9C)),
-                )
-              ],
+              );
+            },
+            child: const Text(
+              '확인',
+              style: TextStyle(color: Colors.black),
             ),
           ),
         ],
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 100,
+            ),
+            Container(
+              child: TextField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.transparent,
+                  hintText: '곡, 앨범, 아티스트 명 등등의 텍스트',
+                  hintStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFFEEEEEE)),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height / 17 / 2 - 14,
+                    horizontal: 10,
+                  ),
+                  suffixIcon: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.clear,
+                        color: Color(0xFFD8D8D8),
+                      ),
+                      Icon(
+                        Icons.search,
+                        color: Color(0xFF9C9C9C),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.height / 50),
+                    ],
+                  ),
+                ),
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              width: MediaQuery.of(context).size.height / 2.05,
+              height: MediaQuery.of(context).size.height / 17,
+            ),
+          ],
+        ),
       ),
     );
   }

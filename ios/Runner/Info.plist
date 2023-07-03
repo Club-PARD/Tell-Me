@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Middle Ui</string>
+	<string>Dlive</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -54,9 +54,11 @@
 	        <string>Editor</string>
 	        <key>CFBundleURLSchemes</key>
 	        <array>
-	        	<string>com.googleusercontent.apps.859778165587-ce61tvvf6ghk4oud2uthqbf9skfgf5aj</string>
+	        	<string>com.googleusercontent.apps.401451695303-kjklp471adk0ctksik6utm5jhho8oo0n</string>
 	        </array>
 	    </dict>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>'디라이브'가 사용자의 사진을 접근하려고 합니다</string>
 </dict>
 </plist>
