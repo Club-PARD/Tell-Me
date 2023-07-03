@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "401451695303",
+    "project_id": "pard-dlive-b27d9",
+    "storage_bucket": "pard-dlive-b27d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401451695303:android:f87ddccc71ef0367b712e2",
+        "android_client_info": {
+          "package_name": "com.example.middle_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401451695303-mtihm2nppu041emo4gvdptm6sdv44ti3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvd5GT9bgakpG89C7_ln54JMMjDOaLygY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401451695303-13pc26j31l66q8f72h4aurs3h1i3tug3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
