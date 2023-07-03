@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:dlive/utils/room_util.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+import 'package:path/path.dart';
 
 class MakeRoom extends StatefulWidget {
   const MakeRoom({super.key});
@@ -139,53 +142,79 @@ class _MakeRoomState extends State<MakeRoom> {
   }
 }
 
+
+
+// ...
+
 Future<dynamic> _showDialog(BuildContext context) {
   final roomProvider = Provider.of<RoomProvider>(context, listen: false);
   return showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-            actions: [
-              Center(
-                child: Column(
-                  children: [
-                    const Text(
-                      '대표 사진 설정',
-                      style: TextStyle(color: Color(0XFF383838)),
-                    ),
-                    TextButton(
-                        onPressed: () async {
-                          var picker = ImagePicker();
-                          var image = await picker.pickImage(
-                              source: ImageSource.gallery);
-                          if (image != null) {
-                            roomProvider.setImg(image.path);
-                          }
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          '앨범에서 사진/동영상 선택',
-                          style: TextStyle(color: Color(0XFF383838)),
-                        )),
-                    TextButton(
-                        onPressed: () {
-                          roomProvider.setImg('assets/room_default_color.png');
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          '기본 이미지로 변경',
-                          style: TextStyle(color: Color(0XFF383838)),
-                        )),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          '취소',
-                          style: TextStyle(color: Color(0XFF383838)),
-                        )),
-                  ],
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      actions: [
+        Center(
+          child: Column(
+            children: [
+              const Text(
+                '대표 사진 설정',
+                style: TextStyle(color: Color(0XFF383838)),
+              ),
+              TextButton(
+                onPressed: () async {
+                  var picker = ImagePicker();
+                  var image = await picker.pickImage(source: ImageSource.gallery);
+                  if (image != null) {
+                    // Delete previous image if it exists
+                    if (roomProvider.img != null) {
+                      var previousImageRef = FirebaseStorage.instance.ref().child(roomProvider.img);
+                      await previousImageRef.delete();
+                    }
+
+                    var file = File(image.path);
+                    var fileName = basename(file.path);
+                    var uploadTask = FirebaseStorage.instance.ref().child(fileName).putFile(file);
+
+                    await uploadTask.whenComplete(() async {
+                      var downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+                      roomProvider.setImg(downloadUrl);
+                      Navigator.pop(context);
+                    });
+                  }
+                },
+                child: const Text(
+                  '앨범에서 사진/동영상 선택',
+                  style: TextStyle(color: Color(0XFF383838)),
                 ),
-              )
+              ),
+              TextButton(
+                onPressed: () async {
+                  // Delete previous image if it exists
+                  if (roomProvider.img != null) {
+                    var previousImageRef = FirebaseStorage.instance.ref().child(roomProvider.img);
+                    await previousImageRef.delete();
+                  }
+
+                  roomProvider.setImg('assets/room_default_color.png');
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  '기본 이미지로 변경',
+                  style: TextStyle(color: Color(0XFF383838)),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  '취소',
+                  style: TextStyle(color: Color(0XFF383838)),
+                ),
+              ),
             ],
-          ));
+          ),
+        ),
+      ],
+    ),
+  );
 }
