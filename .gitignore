@@ -216,3 +216,6 @@ app.*.symbols
 
 # Firebase configuration file
 lib/firebase_options.dart
+
+# API Key
+lib/.env
