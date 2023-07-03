@@ -1,5 +1,10 @@
+import 'package:dlive/utils/host_util.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+
+import '../utils/room_util.dart';
 
 class MakeRoomQrScreen extends StatefulWidget {
   const MakeRoomQrScreen({Key? key}) : super(key: key);
@@ -24,114 +29,126 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
       textColor: Colors.white,
       fontSize: 16.0,
     );
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        isCopied = false;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final hostProvider = Provider.of<HostProvider>(context);
+    final roomProvider = Provider.of<RoomProvider>(context);
+
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          "친구들 초대하기",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 1,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-          ),
           onPressed: () {
             Navigator.pop(context);
           },
+          icon: const Icon(
+            Icons.close,
+            color: Colors.black,
+          ),
         ),
+        title: const Text(
+          '내 QR 코드',
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.black,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        centerTitle: true,
         actions: [
-          IconButton(
-            icon: Icon(Icons.home),
+          TextButton(
             onPressed: () {
               Navigator.pushNamed(context, '/home');
             },
+            child: const Text(
+              '확인',
+              style: TextStyle(color: Colors.black),
+            ),
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 30,
-            ),
-
-            //사용자 profile 이미지
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 812 * 36,
+          ),
+          Center(
+            child: Stack(
+              alignment: Alignment.center,
               children: [
                 Image.asset(
-                  'assets/images/profile.png',
-                  width: 140,
+                  'assets/QR_backG.png',
+                  height: MediaQuery.of(context).size.height / 812 * 512,
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height / 812 * 200,
+                  left: 0,
+                  right: 0,
+                  child: Text(
+                    '@${roomProvider.name}or${hostProvider.name}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height / 812 * 250,
+                  child: PrettyQr(
+                    image: const AssetImage('assets/logo_image.png'),
+                    typeNumber: 3,
+                    size: MediaQuery.of(context).size.height / 812 * 230,
+                    data:
+                        '${roomProvider.name}', // Replace with your QR code data
+                    errorCorrectLevel: QrErrorCorrectLevel.M,
+                    roundEdges: true,
+                  ),
                 ),
               ],
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 100,
-            ),
-            Text(
-              '이번엔 칠포다.',
-              style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 20,
-            ),
-
-            //QR이미지
-            Expanded(
-              child: Container(
-                width: 230,
-                height: 230,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                padding: EdgeInsets.all(10),
-                child: Image.asset(
-                  'assets/images/QR_Code_example.png',
-                  fit: BoxFit.contain,
-                ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 812 * 56,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              _showCopiedMessage();
+            },
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(
+                MediaQuery.of(context).size.width / 375 * 146,
+                MediaQuery.of(context).size.height / 812 * 61,
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 6,
-            ),
-
-            //"링크 공유" 버튼
-            ElevatedButton(
-              onPressed: () {
-                _showCopiedMessage();
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(280, 45),
-                primary: Color(0XFFCBCBCB),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+              primary: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
               ),
-              child: const Text(
-                '링크공유',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              elevation: 12, // 그림자 크기 조절
+              shadowColor: Colors.black.withOpacity(0.8), // 그림자 색상
             ),
-          ],
-        ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/ph_link.png',
+                  width: 20, // 이미지의 크기 조정
+                ),
+                const SizedBox(width: 8), // 이미지와 텍스트 사이의 간격 조정
+                const Text(
+                  '링크 공유',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF438BC3),
+                    fontWeight: (FontWeight.w600),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

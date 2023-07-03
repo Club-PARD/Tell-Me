@@ -88,8 +88,8 @@ class _MakeRoomState extends State<MakeRoom> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(40.0),
                           child: Image.asset(
-                             height: height / 812 * 106,
-                          width: width / 375 * 106,
+                            height: height / 812 * 106,
+                            width: width / 375 * 106,
                             roomProvider.img,
                             fit: BoxFit.cover,
                           ),
@@ -142,8 +142,6 @@ class _MakeRoomState extends State<MakeRoom> {
   }
 }
 
-
-
 // ...
 
 Future<dynamic> _showDialog(BuildContext context) {
@@ -162,20 +160,27 @@ Future<dynamic> _showDialog(BuildContext context) {
               TextButton(
                 onPressed: () async {
                   var picker = ImagePicker();
-                  var image = await picker.pickImage(source: ImageSource.gallery);
+                  var image =
+                      await picker.pickImage(source: ImageSource.gallery);
                   if (image != null) {
                     // Delete previous image if it exists
                     if (roomProvider.img != null) {
-                      var previousImageRef = FirebaseStorage.instance.ref().child(roomProvider.img);
+                      var previousImageRef = FirebaseStorage.instance
+                          .ref()
+                          .child(roomProvider.img);
                       await previousImageRef.delete();
                     }
 
                     var file = File(image.path);
                     var fileName = basename(file.path);
-                    var uploadTask = FirebaseStorage.instance.ref().child(fileName).putFile(file);
+                    var uploadTask = FirebaseStorage.instance
+                        .ref()
+                        .child(fileName)
+                        .putFile(file);
 
                     await uploadTask.whenComplete(() async {
-                      var downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+                      var downloadUrl =
+                          await uploadTask.snapshot.ref.getDownloadURL();
                       roomProvider.setImg(downloadUrl);
                       Navigator.pop(context);
                     });
@@ -190,7 +195,8 @@ Future<dynamic> _showDialog(BuildContext context) {
                 onPressed: () async {
                   // Delete previous image if it exists
                   if (roomProvider.img != null) {
-                    var previousImageRef = FirebaseStorage.instance.ref().child(roomProvider.img);
+                    var previousImageRef =
+                        FirebaseStorage.instance.ref().child(roomProvider.img);
                     await previousImageRef.delete();
                   }
 

@@ -84,8 +84,10 @@ class MakeRoomExplainpage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
                   child: Center(
-                    child: Text('음악 선택하러 가기',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    child: Text(
+                      '음악 선택하러 가기',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
