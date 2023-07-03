@@ -48,6 +48,7 @@ dependencies:
   image_picker: ^1.0.0
   firebase_storage: ^11.2.4
   pretty_qr_code: ^2.0.3
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
   assets:
     - assets/images/
     - assets/
+    - lib/.env
     # - assets/images/profile.png
     # - assets/images/QR_Code_example.png
     # - assets/camera.png
