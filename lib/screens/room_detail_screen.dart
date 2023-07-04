@@ -25,12 +25,17 @@ class RoomDetailScreen extends StatelessWidget {
             fontSize: 18,
           ),
         ),
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.pushNamed(context, '/mainstation');
+          }, icon: const Icon(Icons.search, color: Colors.white,)),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               _buildRoomInfoTile(context),
               _buildQR(context),
               _buildPlaylistPreview(context),
@@ -53,7 +58,7 @@ class RoomDetailScreen extends StatelessWidget {
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Row(
+      child: const Row(
         children: [
           SizedBox(
             width: 100,
@@ -64,13 +69,13 @@ class RoomDetailScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   '이번엔 칠포닷!',
                   style: TextStyle(
                     fontSize: 18,
@@ -78,8 +83,8 @@ class RoomDetailScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 8),
-                const Text(
+                SizedBox(height: 8),
+                Text(
                   '2023.06.27 ~2023.06.27',
                   style: TextStyle(
                     fontSize: 14,
@@ -114,10 +119,10 @@ class RoomDetailScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
+          const Row(
             children: [
-              const SizedBox(width: 10),
-              const Text(
+              SizedBox(width: 10),
+              Text(
                 '입장코드',
                 style: TextStyle(
                   fontSize: 18,
@@ -181,7 +186,7 @@ class RoomDetailScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/playlist');
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.white,
                   ),
@@ -189,7 +194,7 @@ class RoomDetailScreen extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.black,
             thickness: 1.5,
           ),
@@ -222,7 +227,7 @@ class RoomDetailScreen extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            margin: EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5),
             width: 100,
             child: Image.network(
               'https://i.ytimg.com/vi/3YxaaGgTQYM/maxresdefault.jpg',
@@ -230,12 +235,12 @@ class RoomDetailScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Expanded(
+          const Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Bring Me To Life',
                   style: TextStyle(
                     fontSize: 18,
@@ -243,8 +248,8 @@ class RoomDetailScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 8),
-                const Text(
+                SizedBox(height: 8),
+                Text(
                   'Evanescence',
                   style: TextStyle(
                     fontSize: 14,
