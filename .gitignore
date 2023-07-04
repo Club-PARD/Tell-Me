@@ -146,6 +146,7 @@ unlinked_spec.ds
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
 *.jks
+**/android/.gradle/buildOutputCleanup.lock
 
 # iOS/XCode related
 **/ios/**/*.mode1v3

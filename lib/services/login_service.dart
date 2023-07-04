@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -82,13 +83,14 @@ class GoogleSignInButton extends StatefulWidget {
 
 class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   bool _isSigningIn = false;
+  static final sStorage = FlutterSecureStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     CollectionReference Host = FirebaseFirestore.instance.collection('Host');
     final hostProvider = Provider.of<HostProvider>(context, listen: false);
-    
+
     return Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: _isSigningIn
@@ -131,6 +133,9 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                   setState(() {
                     _isSigningIn = false;
                   });
+
+                  // 로그인 성공시 uid를 flutter secure storage에 저장
+                  await sStorage.write(key: "login", value: user!.uid);
 
                   if (user != null) {
                     // Check if user's email exists in Firestore 'Host' collection

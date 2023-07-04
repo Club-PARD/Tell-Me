@@ -49,6 +49,8 @@ dependencies:
   firebase_storage: ^11.2.4
   pretty_qr_code: ^2.0.3
   flutter_dotenv: ^5.1.0
+  flutter_spinkit: ^5.2.0
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:
