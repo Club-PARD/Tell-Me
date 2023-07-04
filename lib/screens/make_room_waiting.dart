@@ -15,7 +15,7 @@ class _MakeRoomWaitingScreenState extends State<MakeRoomWaitingScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 4), () {
       Navigator.pushNamed(context, '/makeroomqr'); // 2초 후 '/makeroomqr' 페이지로 이동
     });
   }

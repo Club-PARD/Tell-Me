@@ -2,6 +2,10 @@ import 'package:dlive/screens/make_room_qr.dart';
 import 'package:dlive/screens/make_room_waiting.dart';
 import 'package:dlive/screens/playing_youtube_screen.dart';
 import 'package:dlive/screens/playlist_screen.dart';
+import 'package:dlive/screens/profile_detail_screen.dart';
+import 'package:dlive/screens/profile_name_screen.dart';
+import 'package:dlive/screens/profile_character_screen.dart';
+import 'package:dlive/screens/profile_character2_screen.dart';
 import 'package:dlive/screens/room_detail_screen.dart';
 import 'package:dlive/screens/splash_page.dart';
 import 'package:dlive/screens/login_page.dart';
@@ -24,8 +28,7 @@ class DLive extends StatelessWidget {
     return MaterialApp(
       title: 'DLive',
       debugShowCheckedModeBanner: false,
-      // initialRoute: '/splash',
-      initialRoute: '/coremusicaddselect',
+      initialRoute: '/splash',
       routes: {
         '/roomlist': (context) => const RoomListScreen(),
         '/roomdetail': (context) => const RoomDetailScreen(),
@@ -43,6 +46,10 @@ class DLive extends StatelessWidget {
         '/coremusicadd': (context) => const CoreMusicAdd(),
         '/coremusicaddselect': (context) => const CoreMusicAddSelectScreen(),
         '/makeroomwaiting': (context) => const MakeRoomWaitingScreen(),
+        '/profile': (context) => const ProfileDetailScreen(),
+        '/profilename': (context) => const ProfileNameScreen(),
+        '/profilecharacter': (context) => const ProfileCharacterScreen(),
+        '/profilecharacter2': (context) => const ProfileCharacter2Screen(),
       },
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
