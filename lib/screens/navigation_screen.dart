@@ -163,7 +163,7 @@ class HomePage extends StatelessWidget {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    //Navigator.pushNamed();
+                                    Navigator.pushNamed(context, '/profile');
                                   },
                                   icon: Image.asset(
                                     'assets/setting.png',
