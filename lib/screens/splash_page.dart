@@ -12,7 +12,7 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  String uid = '';
+  String? uid = '';
   static final sStorage = FlutterSecureStorage();
 
   @override
@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
     //read 함수를 통하여 key값에 맞는 정보를 불러옴.
     //이때 불러오는 결과의 타입은 String 타입임.
     //(데이터가 없을때는 null을 반환)
-    uid = (await sStorage.read(key: "login"))!;
+    uid = await sStorage.read(key: "login");
     print(uid);
 
     //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.pop(context);
       });
     } else {
-      Navigator.popAndPushNamed(context, '/home');
+      Navigator.popAndPushNamed(context, '/navigation');
     }
   }
 
