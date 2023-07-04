@@ -5,10 +5,8 @@ import 'package:dlive/screens/playlist_screen.dart';
 import 'package:dlive/screens/room_detail_screen.dart';
 import 'package:dlive/screens/splash_page.dart';
 import 'package:dlive/screens/login_page.dart';
-import 'package:dlive/screens/signup_page1.dart';
-import 'package:dlive/screens/signup_page2.dart';
-import 'package:dlive/screens/signup_page3.dart';
-import 'package:dlive/screens/home_page.dart';
+import 'package:dlive/screens/signup_screen.dart';
+import 'package:dlive/screens/navigation_screen.dart';
 import 'package:dlive/screens/core_music_add.dart';
 import 'package:dlive/screens/core_music_add_select.dart';
 import 'package:dlive/screens/room_list_screen.dart';
@@ -36,7 +34,7 @@ class DLive extends StatelessWidget {
         '/signup1': (context) => const SignUpPage1(),
         '/signup2': (context) => const SignUpPage2(),
         '/signup3': (context) => const SignUpPage3(),
-        '/home': (context) => const HomePage(),
+        '/navigation': (context) => const NavigationScreen(),
         '/makeroom': (context) => const MakeRoom(),
         '/makeroomexplain': (context) => const MakeRoomExplainpage(),
         '/makeroomqr': (context) => const MakeRoomQrScreen(),

@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class RoomProvider extends ChangeNotifier {
 
   String _name = '';
-  String _img = 'assets/room_default_color.png';
+  String _img = 'https://firebasestorage.googleapis.com/v0/b/pard-dlive-b27d9.appspot.com/o/room_img%2Froom_default_color.png?alt=media&token=22258b36-f315-4bc5-b159-f7e73f98baba';
   String _url = '';
   String _playlist = '';
   List _member = [];

@@ -147,7 +147,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
 
                     if (snapshot.docs.isNotEmpty) {
                       // Email exists in Firestore, navigate to '/home'
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamed(context, '/navigation');
                     } else {
                       // Email does not exist in Firestore, navigate to '/signup1'
                       hostProvider.setEmail(user.email!);
