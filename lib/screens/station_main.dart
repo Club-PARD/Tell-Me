@@ -118,11 +118,59 @@ class _StationMainState extends State<StationMain> {
 
             ],
           ),
-          // FutureBuilder(
-          //   future: ,
-          //   builder: 
-            
-          //   ),
+          const SizedBox(height: 10,),
+          Expanded(
+            child: FutureBuilder<void>(
+              future: parseVideoUrls(),
+              builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                 if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text('Error occurred while parsing video URLs.'),
+                  );
+                }
+                else{
+                  return ListView.builder(
+                    itemCount: videoUrl.length,
+                    itemBuilder: (BuildContext context, index){
+                      return SizedBox(
+                        width: width,
+                        height: height/8,
+                        child: 
+                        Row(
+                          children: [
+                            const SizedBox(width: 5,),
+                            const Icon(Icons.toc_outlined),
+                            Container(
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                              width: width/3,
+                              height: height/9,
+                              child: Image.network(thumbNail[index],fit: BoxFit.fill, )),
+                              const SizedBox(width: 10,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(titles[index]),
+                                  const SizedBox(height: 10,),
+                                  Text(artist[index]),                           
+                                ],                               
+                              ),
+                              const SizedBox(width: 20,),
+                              
+                              
+                          ],
+                        ),
+                      );
+                    } 
+                    );
+                }
+              }
+              )
+          )
         ],
       ),
     );
