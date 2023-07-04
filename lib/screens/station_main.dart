@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:youtube_parser/youtube_parser.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+
 class StationMain extends StatefulWidget {
   const StationMain({super.key});
 
@@ -11,18 +12,26 @@ class StationMain extends StatefulWidget {
 }
 
 class _StationMainState extends State<StationMain> {
+  late YoutubeMetaData metaYoutube;
+
   List<String> videoUrl = [
     'https://www.youtube.com/watch?v=fHI8X4OXluQ',
     'https://www.youtube.com/watch?v=ApXoWvfEYVU',
+    'https://www.youtube.com/watch?v=mEZqJ65ra08',
+    'https://www.youtube.com/watch?v=mNEUkkoUoIA',
+    'https://www.youtube.com/watch?v=XR7Ev14vUh8',
+    'https://www.youtube.com/watch?v=bfXsQ9k9PtY',
+
   ];
   List<String> videoIds = [];
-  List<String> titles = [];
-  List<String> artist = [];
+  late List<String> titles = [];
+  late List<String> artist = [];
   List<String> thumbNail = [];
 
    @override
   void initState() {
     super.initState();
+    metaYoutube = const YoutubeMetaData();
     parseVideoUrls();
   }
 
@@ -36,11 +45,19 @@ class _StationMainState extends State<StationMain> {
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
       thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
-      titles.add(const YoutubeMetaData().title);
-      artist.add(const YoutubeMetaData().author);
+      late final controller = YoutubePlayerController(
+        initialVideoId: videoId,
+        flags: const YoutubePlayerFlags(autoPlay: false),
+      );
+      controller;
+      final videoMetaData = controller.metadata;
+      titles.add(videoMetaData.title);
+      artist.add(videoMetaData.author);
     }
     setState(() {});
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +95,7 @@ class _StationMainState extends State<StationMain> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const Text('참여자',style: TextStyle(color: Color(0XFF929292)),),
-                    const Text('멜로디언들~',style: TextStyle(),),
+                    const Text('멜로디언',style: TextStyle(),),
                     SizedBox(height: height/15,),
                     Text(formatDate),
                   ],
@@ -124,8 +141,8 @@ class _StationMainState extends State<StationMain> {
               future: parseVideoUrls(),
               builder: (BuildContext context, AsyncSnapshot<void> snapshot){
                  if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: Image.asset('assets/car_moving_final.gif'),
                   );
                 } else if (snapshot.hasError) {
                   return const Center(
@@ -133,40 +150,75 @@ class _StationMainState extends State<StationMain> {
                   );
                 }
                 else{
-                  return ListView.builder(
-                    itemCount: videoUrl.length,
-                    itemBuilder: (BuildContext context, index){
-                      return SizedBox(
-                        width: width,
-                        height: height/8,
-                        child: 
-                        Row(
-                          children: [
-                            const SizedBox(width: 5,),
-                            const Icon(Icons.toc_outlined),
-                            Container(
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                              width: width/3,
-                              height: height/9,
-                              child: Image.network(thumbNail[index],fit: BoxFit.fill, )),
-                              const SizedBox(width: 10,),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(titles[index]),
-                                  const SizedBox(height: 10,),
-                                  Text(artist[index]),                           
-                                ],                               
-                              ),
-                              const SizedBox(width: 20,),
-                              
-                              
-                          ],
-                        ),
-                      );
-                    } 
-                    );
+                  return GestureDetector(
+                    onTap: (){
+                      Navigator.pushNamed(context, '');
+                    },
+                    child: ListView.builder(
+                      itemCount: videoUrl.length,
+                      itemBuilder: (BuildContext context, index){
+                        return SizedBox(
+                          width: width,
+                          height: height/8,
+                          child: 
+                          Row(
+                            children: [
+                              const SizedBox(width: 5,),
+                              const Icon(Icons.menu),
+                              Container(
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                                width: width/3,
+                                height: height/9,
+                                child: Image.network(thumbNail[index],fit: BoxFit.fill, )),
+                                const SizedBox(width: 10,),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(titles[index]),
+                                    const SizedBox(height: 10),
+                                    Text(artist[index]),
+                                  ],                               
+                                ),
+                                Expanded(child: SizedBox(width: width/3,)),
+                                IconButton(onPressed: () {
+                                    showDialog(context: context, builder: (BuildContext context){
+                                      return AlertDialog(
+                                        backgroundColor: Colors.black,
+                                       // contentPadding: EdgeInsets.zero,
+                                        content: 
+                                          Container(
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(70)),
+                                            width: width,
+                                            height: height/8,
+                                            child: TextButton(onPressed: (){
+                                            },
+                                            style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(30),
+                                                                ),
+                                                              ),
+                                            ), 
+                                            child: const Row(
+                                              children: [
+                                                Icon(Icons.delete, color: Colors.white,),
+                                                //SizedBox(width: 10,),
+                                                Text('현재 스테이션 재생 목록에서 삭제',style: TextStyle(color: Colors.white, fontSize: 16),),
+                                              ],
+                                            )),
+                                          )
+                                        
+                                      );
+                                    });
+                                  }, icon: const Icon(Icons.more_vert))
+                                
+                            ],
+                          ),
+                        );
+                      } 
+                      ),
+                  );
                 }
               }
               )
