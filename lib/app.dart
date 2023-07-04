@@ -16,6 +16,7 @@ import 'package:dlive/screens/core_music_add_select.dart';
 import 'package:dlive/screens/room_list_screen.dart';
 import 'package:dlive/screens/make_room.dart';
 import 'package:dlive/screens/make_room_explain.dart';
+import 'package:dlive/screens/station_main.dart';
 import 'package:flutter/material.dart';
 
 class DLive extends StatelessWidget {
@@ -48,10 +49,11 @@ class DLive extends StatelessWidget {
         '/profilename': (context) => const ProfileNameScreen(),
         '/profilecharacter': (context) => const ProfileCharacterScreen(),
         '/profilecharacter2': (context) => const ProfileCharacter2Screen(),
+        '/stationmain' :(context) => const StationMain(),
       },
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
-        primaryColor: Color(0xff888888),
+        primaryColor: const Color(0xff888888),
       ),
     );
   }
