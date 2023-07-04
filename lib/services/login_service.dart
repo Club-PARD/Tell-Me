@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -82,13 +83,37 @@ class GoogleSignInButton extends StatefulWidget {
 
 class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   bool _isSigningIn = false;
+  String uid = '';
+  static final sStorage = new FlutterSecureStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    //비동기로 flutter secure storage 정보를 불러오는 작업.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _asyncMethod();
+    });
+  }
+
+  _asyncMethod() async {
+    //read 함수를 통하여 key값에 맞는 정보를 불러옴.
+    //이때 불러오는 결과의 타입은 String 타입임.
+    //(데이터가 없을때는 null을 반환)
+    uid = (await sStorage.read(key: "login"))!;
+    print(uid);
+
+    //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
+    if (uid != null) {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     CollectionReference Host = FirebaseFirestore.instance.collection('Host');
     final hostProvider = Provider.of<HostProvider>(context, listen: false);
-    
+
     return Padding(
         padding: const EdgeInsets.only(bottom: 16.0),
         child: _isSigningIn
@@ -131,6 +156,9 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                   setState(() {
                     _isSigningIn = false;
                   });
+
+                  // 로그인 성공시 uid를 flutter secure storage에 저장
+                  await sStorage.write(key: "login", value: user!.uid);
 
                   if (user != null) {
                     // Check if user's email exists in Firestore 'Host' collection
