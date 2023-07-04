@@ -124,12 +124,13 @@ class _CoreMusicAddSelectScreenState extends State<CoreMusicAddSelectScreen> {
 
   // 포기할 수 없는 3곡(밑에서 슝 올라오는거)
   void _showModalSheet(int index) {
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(milliseconds: 1500), () {
       Navigator.pop(context); // 모달 닫기
     });
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isDismissible: false,
       builder: (BuildContext context) {
         return ClipRRect(
           borderRadius: BorderRadius.vertical(top: Radius.circular(50.0)),
@@ -177,11 +178,11 @@ class _CoreMusicAddSelectScreenState extends State<CoreMusicAddSelectScreen> {
                 if (index == 2)
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/makeroomqr');
+                      Navigator.pushNamed(context, '/makeroomwaiting');
                     },
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(280, 45),
-                      primary: Color(0XFFCCCCCC),
+                      fixedSize: const Size(249, 46),
+                      primary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -205,15 +206,8 @@ class _CoreMusicAddSelectScreenState extends State<CoreMusicAddSelectScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage(
-          'assets/background.jpg',
-        ),
-      )),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,

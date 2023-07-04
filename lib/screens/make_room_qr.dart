@@ -20,6 +20,26 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
     setState(() {
       isCopied = true;
     });
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: Container(
+    //       height: MediaQuery.of(context).size.height / 812 * 23,
+    //       width: MediaQuery.of(context).size.width / 375 * 290,
+    //       //color: Colors.black.withOpacity(0.5), // 투명도가 있는 검은색 배경
+    //       child: Center(
+    //         child: Text(
+    //           '복사 완료!',
+    //           style: TextStyle(
+    //             fontSize: 16.0,
+    //             color: Colors.white,
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //     duration: Duration(milliseconds: 500),
+    //     behavior: SnackBarBehavior.floating,
+    //   ),
+    // );
     Fluttertoast.showToast(
       msg: '복사 완료!',
       toastLength: Toast.LENGTH_SHORT,
@@ -92,7 +112,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                   child: Text(
                     '@${roomProvider.name}or${hostProvider.name}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ),
                 Positioned(
@@ -101,8 +121,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                     image: const AssetImage('assets/logo_image.png'),
                     typeNumber: 3,
                     size: MediaQuery.of(context).size.height / 812 * 230,
-                    data:
-                        '${roomProvider.name}', // Replace with your QR code data
+                    data: '${roomProvider.name}',
                     errorCorrectLevel: QrErrorCorrectLevel.M,
                     roundEdges: true,
                   ),
