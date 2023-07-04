@@ -83,31 +83,8 @@ class GoogleSignInButton extends StatefulWidget {
 
 class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   bool _isSigningIn = false;
-  String uid = '';
-  static final sStorage = new FlutterSecureStorage();
+  static final sStorage = FlutterSecureStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    //비동기로 flutter secure storage 정보를 불러오는 작업.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _asyncMethod();
-    });
-  }
-
-  _asyncMethod() async {
-    //read 함수를 통하여 key값에 맞는 정보를 불러옴.
-    //이때 불러오는 결과의 타입은 String 타입임.
-    //(데이터가 없을때는 null을 반환)
-    uid = (await sStorage.read(key: "login"))!;
-    print(uid);
-
-    //user의 정보가 있다면 바로 로그아웃 페이지로 넝어가게 합니다.
-    if (uid != null) {
-      Navigator.pushReplacementNamed(context, '/home');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
