@@ -1,3 +1,4 @@
+import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:youtube_parser/youtube_parser.dart';
@@ -27,6 +28,7 @@ class _StationMainState extends State<StationMain> {
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
+  late List<YoutubePlayerController> cons;
 
    @override
   void initState() {
@@ -37,27 +39,29 @@ class _StationMainState extends State<StationMain> {
 
   @override
   void dispose() {
+    for (var controller in cons) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
   Future<void> parseVideoUrls() async{
+    cons = [];
     for(String url in videoUrl){
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
       thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
-      late final controller = YoutubePlayerController(
+      final controller = YoutubePlayerController(
         initialVideoId: videoId,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
-      controller;
+      cons.add(controller);
       final videoMetaData = controller.metadata;
       titles.add(videoMetaData.title);
       artist.add(videoMetaData.author);
     }
     setState(() {});
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +109,17 @@ class _StationMainState extends State<StationMain> {
           Row(
             children: [
               const SizedBox(width: 15,),
-              ElevatedButton(onPressed: (){}, style: ButtonStyle(
+              ElevatedButton(onPressed: (){
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlaylistScreen(
+                                        videoUrl: videoIds,
+                                        initialIndex: 0,
+                                      ),
+                                    ),
+                                  );
+              }, style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -119,7 +133,17 @@ class _StationMainState extends State<StationMain> {
                       ],
                     )),
             const SizedBox(width: 20,),
-            ElevatedButton(onPressed: (){}, style: ButtonStyle(
+            ElevatedButton(onPressed: (){
+                           Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlaylistScreen(
+                                        videoUrl: videoIds,
+                                        initialIndex: 0,
+                                      ),
+                                    ),
+                                  );
+            }, style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -150,14 +174,22 @@ class _StationMainState extends State<StationMain> {
                   );
                 }
                 else{
-                  return GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context, '');
-                    },
-                    child: ListView.builder(
-                      itemCount: videoUrl.length,
-                      itemBuilder: (BuildContext context, index){
-                        return SizedBox(
+                  return ListView.builder(
+                    itemCount: videoUrl.length,
+                    itemBuilder: (BuildContext context, index){
+                      return GestureDetector(
+                        onTap: () async{
+                          Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlaylistScreen(
+                                        videoUrl: videoIds,
+                                        initialIndex: index,
+                                      ),
+                                    ),
+                                  );
+                        },
+                        child: SizedBox(
                           width: width,
                           height: height/8,
                           child: 
@@ -191,7 +223,9 @@ class _StationMainState extends State<StationMain> {
                                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(70)),
                                             width: width,
                                             height: height/8,
-                                            child: TextButton(onPressed: (){
+                                            child: TextButton(
+                                              onPressed: (){
+                                                
                                             },
                                             style: ButtonStyle(
                                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -215,10 +249,10 @@ class _StationMainState extends State<StationMain> {
                                 
                             ],
                           ),
-                        );
-                      } 
-                      ),
-                  );
+                        ),
+                      );
+                    } 
+                    );
                 }
               }
               )
