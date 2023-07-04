@@ -119,34 +119,35 @@ class HomePage extends StatelessWidget {
                                   if (hostProvider.room.length > 0) {
                                     return GestureDetector(
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(54, 255, 255, 255),
-                                          borderRadius:
-                                              BorderRadius.circular(47.0),
-                                        ),
-                                        child: ListTile(
-                                          leading: Image.asset('assets/room_default_black.png'),
-                                          title: Text('설정 방이름'),
-                                          subtitle: Text('00명 생성날짜'),
-                                        )
-                                      ),
+                                          decoration: BoxDecoration(
+                                            color: Color.fromARGB(
+                                                54, 255, 255, 255),
+                                            borderRadius:
+                                                BorderRadius.circular(47.0),
+                                          ),
+                                          child: ListTile(
+                                            leading: Image.asset(
+                                                'assets/room_default_black.png'),
+                                            title: Text('설정 방이름'),
+                                            subtitle: Text('00명 생성날짜'),
+                                          )),
                                     );
-                                  } else {//방 없을 때,
+                                  } else {
+                                    //방 없을 때,
                                     return GestureDetector(
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Color(0xFFCCCCCC).withOpacity(0.54),
-                                          borderRadius:
-                                              BorderRadius.circular(47.0),
-                                        ),
-                                        child: ListTile(
-                                          leading: Image.asset('assets/room_default_color.png'),
-                                          title: Text('아직 생성된 방이 없어요'),
-                                          subtitle: Text('함께 즐거운 음악을 들어보아요~'),
-                                        )
-                                      ),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFCCCCCC)
+                                                .withOpacity(0.54),
+                                            borderRadius:
+                                                BorderRadius.circular(47.0),
+                                          ),
+                                          child: ListTile(
+                                            leading: Image.asset(
+                                                'assets/room_default_color.png'),
+                                            title: Text('아직 생성된 방이 없어요'),
+                                            subtitle: Text('함께 즐거운 음악을 들어보아요~'),
+                                          )),
                                     );
                                   }
                                 },
