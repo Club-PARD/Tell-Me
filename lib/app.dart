@@ -25,7 +25,7 @@ class DLive extends StatelessWidget {
       title: 'DLive',
       debugShowCheckedModeBanner: false,
       // initialRoute: '/splash',
-      initialRoute: '/coremusicaddselect',
+      initialRoute: '/splash',
       routes: {
         '/roomlist': (context) => const RoomListScreen(),
         '/roomdetail': (context) => const RoomDetailScreen(),
