@@ -11,7 +11,7 @@ import 'package:dlive/utils/room_util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "lib/.env");
   await Firebase.initializeApp();
   runApp(MultiProvider(
     providers: [

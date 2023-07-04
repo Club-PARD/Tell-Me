@@ -1,5 +1,8 @@
+import 'package:dlive/models/youtube_video_model.dart';
 import 'package:dlive/screens/core_music_add_select.dart';
+import 'package:dlive/services/youtube_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CoreMusicAdd extends StatefulWidget {
   const CoreMusicAdd({Key? key}) : super(key: key);
@@ -9,12 +12,46 @@ class CoreMusicAdd extends StatefulWidget {
 }
 
 class _CoreMusicAddState extends State<CoreMusicAdd> {
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _queryController = TextEditingController();
+  ApiService _apiService = ApiService();
+  String query = "";
+  List<YoutubeVideo> videos = [];
+  List<String> videoIds = [];
+  List<List<String>> songs = [];
+  // List<List<String>> songs = [
+  //   ["지코", "Artist"],
+  //   ["아이유", "팔레트"],
+  //   ["김동률", "감사"],
+  //   ["닐로", "지나오다"],
+  //   ["호미들", "사이렌"],
+  //   ["폴킴", "모든 날 모든 순간"]
+  // ];
+
+  @override
+  void initState() {
+    super.initState();
+    _queryController.addListener(_onQueryChanged);
+    _fetchVideos();
+  }
 
   @override
   void dispose() {
-    _textEditingController.dispose();
+    _queryController.dispose();
     super.dispose();
+  }
+
+  void _onQueryChanged() {
+    setState(() {
+      query = _queryController.text;
+    });
+  }
+
+  void _fetchVideos() {
+    _apiService.fetchTopViewedVideos(songs).then((fetchedVideos) {
+      setState(() {
+        videos = fetchedVideos;
+      });
+    });
   }
 
   @override
@@ -68,8 +105,14 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
             SizedBox(
               height: MediaQuery.of(context).size.height / 100,
             ),
-            Container(
+            SizedBox(
+              width: MediaQuery.of(context).size.height / 2.05,
+              height: MediaQuery.of(context).size.height / 17,
               child: TextField(
+                controller: _queryController,
+                onChanged: (value) {
+                  _onQueryChanged();
+                },
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.transparent,
@@ -90,13 +133,30 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.clear,
-                        color: Color(0xFFD8D8D8),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.clear,
+                          color: Color(0xFFD8D8D8),
+                        ),
+                        onPressed: () {
+                          _queryController.clear();
+                          _onQueryChanged();
+                        },
                       ),
-                      Icon(
-                        Icons.search,
-                        color: Color(0xFF9C9C9C),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.search,
+                          color: Color(0xFF9C9C9C),
+                        ),
+                        onPressed: () {
+                          if (query.isNotEmpty) {
+                            _apiService.fetchVideos(query).then((videos) {
+                              setState(() {
+                                this.videos = videos;
+                              });
+                            });
+                          }
+                        },
                       ),
                       SizedBox(width: MediaQuery.of(context).size.height / 50),
                     ],
@@ -106,8 +166,25 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                   color: Colors.white,
                 ),
               ),
-              width: MediaQuery.of(context).size.height / 2.05,
-              height: MediaQuery.of(context).size.height / 17,
+            ),
+            Expanded(
+              child: videos.isEmpty
+                  ? Center(
+                      child: SpinKitCircle(
+                        color: Colors.blue,
+                        size: 50.0,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: videos.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: Image.network(videos[index].thumbnailUrl),
+                          title: Text(videos[index].title),
+                          onTap: () {},
+                        );
+                      },
+                    ),
             ),
           ],
         ),
