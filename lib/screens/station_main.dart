@@ -1,4 +1,5 @@
 
+import 'package:dlive/models/youtube_video_model.dart';
 import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +16,7 @@ class StationMain extends StatefulWidget {
 
 class _StationMainState extends State<StationMain> {
   late YoutubeMetaData metaYoutube;
+  late Future<YoutubeVideo> youtube;
 
   List<String> videoUrl = [
     'https://www.youtube.com/watch?v=fHI8X4OXluQ',
@@ -29,6 +31,7 @@ class _StationMainState extends State<StationMain> {
   List<String> artist = [];
   List<String> thumbNail = [];
   late List<YoutubePlayerController> controllers;
+
 
   @override
   void initState() {
@@ -50,19 +53,11 @@ class _StationMainState extends State<StationMain> {
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
       thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
-      final controller = YoutubePlayerController(
-        initialVideoId: url,
-        flags: const YoutubePlayerFlags(autoPlay: false),
-      );
-      controllers.add(controller);
-      final videoMetaData = controller.metadata;
-      titles.add(videoMetaData.title);
-      artist.add(videoMetaData.author);
     }
     setState(() {});
   }
 
-   
+    
 
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
@@ -101,7 +96,7 @@ class _StationMainState extends State<StationMain> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/navigation');
+              Navigator.popUntil(context,ModalRoute.withName('/navigation'));
             },
             icon: const Icon(Icons.home, color: Colors.black),
           )
@@ -192,16 +187,18 @@ class _StationMainState extends State<StationMain> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PlaylistScreen(
-                        videoUrl: videoIds,
-                        initialIndex: 0,
-                        count: videoUrl.length
-                      ),
-                    ),
-                  );
+                  setState(() {
+                        videoUrl.clear();
+                        videoIds.clear();
+                        titles.clear();
+                        artist.clear();
+                        thumbNail.clear();
+                        for (var controller in controllers) {
+                          controller.dispose();
+                        }
+                        controllers.clear();
+                      });
+                      parseVideoUrls();
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -293,59 +290,57 @@ class _StationMainState extends State<StationMain> {
                                   const Text('왜 안나오냐'),
                                 ],
                               ),
-                              Expanded(child: SizedBox(width: width / 3)),
+                              Expanded(child: SizedBox(width: width / 5)),
                               IconButton(
                                 onPressed: () {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        backgroundColor: Colors.black,
-                                        // contentPadding: EdgeInsets.zero,
+                                        backgroundColor: const Color(0XFF212121),
                                         content: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(70),
-                                          ),
-                                          width: width,
-                                          height: height / 8,
-                                          child: TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                          videoUrl.removeAt(index);
-                                          videoIds.removeAt(index);
-                                          titles.removeAt(index);
-                                          artist.removeAt(index);
-                                          thumbNail.removeAt(index);
-                                        });
-                                              Navigator.pop(context);
-                                            },
-                                            style: ButtonStyle(
-                                              shape:
-                                                  MaterialStateProperty.all<
-                                                          RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              )),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(70),
                                             ),
-                                            child: const Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.delete,
-                                                  color: Colors.white,
+                                            width: width,
+                                            height: height / 10,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                            videoUrl.removeAt(index);
+                                            videoIds.removeAt(index);
+                                            titles.removeAt(index);
+                                            artist.removeAt(index);
+                                            thumbNail.removeAt(index);
+                                          });
+                                                Navigator.pop(context);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: const Color(0XFF212121),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(30),
                                                 ),
-                                                Text(
-                                                  '현재 스테이션 재생 목록에서 삭제',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16,
+                                                maximumSize: Size(width, height/10),
                                                   ),
-                                                ),
-                                              ],
+                                              child: const Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.delete,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Text(
+                                                    '현재 스테이션 재생 목록에서 삭제',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        contentPadding: const EdgeInsets.only(bottom: 10),
                                       );
                                     },
                                   );
