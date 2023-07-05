@@ -101,7 +101,7 @@ class _StationMainState extends State<StationMain> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/navigation');
+              Navigator.popUntil(context,ModalRoute.withName('/navigation'));
             },
             icon: const Icon(Icons.home, color: Colors.black),
           )
@@ -121,7 +121,7 @@ class _StationMainState extends State<StationMain> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: Image.asset('assets/room_defualt_black.png'),
+                child: Image.asset('assets/room_default_black.png'),
               ),
               const SizedBox(
                 width: 5,
@@ -192,16 +192,18 @@ class _StationMainState extends State<StationMain> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PlaylistScreen(
-                        videoUrl: videoIds,
-                        initialIndex: 0,
-                        count: videoUrl.length
-                      ),
-                    ),
-                  );
+                  setState(() {
+                        videoUrl.clear();
+                        videoIds.clear();
+                        titles.clear();
+                        artist.clear();
+                        thumbNail.clear();
+                        for (var controller in controllers) {
+                          controller.dispose();
+                        }
+                        controllers.clear();
+                      });
+                      parseVideoUrls();
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -300,53 +302,52 @@ class _StationMainState extends State<StationMain> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        backgroundColor: Colors.black,
-                                        // contentPadding: EdgeInsets.zero,
+                                        backgroundColor: const Color(0XFF212121),
                                         content: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(70),
-                                          ),
-                                          width: width,
-                                          height: height / 8,
-                                          child: TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                          videoUrl.removeAt(index);
-                                          videoIds.removeAt(index);
-                                          titles.removeAt(index);
-                                          artist.removeAt(index);
-                                          thumbNail.removeAt(index);
-                                        });
-                                              Navigator.pop(context);
-                                            },
-                                            style: ButtonStyle(
-                                              shape:
-                                                  MaterialStateProperty.all<
-                                                          RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              )),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(70),
                                             ),
-                                            child: const Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.delete,
-                                                  color: Colors.white,
+                                            width: width,
+                                            height: height / 10,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                            videoUrl.removeAt(index);
+                                            videoIds.removeAt(index);
+                                            titles.removeAt(index);
+                                            artist.removeAt(index);
+                                            thumbNail.removeAt(index);
+                                          });
+                                                Navigator.pop(context);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: const Color(0XFF212121),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(30),
                                                 ),
-                                                Text(
-                                                  '현재 스테이션 재생 목록에서 삭제',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16,
+                                                maximumSize: Size(width, height/10),
                                                   ),
-                                                ),
-                                              ],
+                                              child: const Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.delete,
+                                                    color: Colors.white,
+                                                  ),
+                                                  Text(
+                                                    '현재 스테이션 재생 목록에서 삭제',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        contentPadding: const EdgeInsets.only(bottom: 10),
                                       );
+
                                     },
                                   );
                                 },
