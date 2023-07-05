@@ -69,14 +69,13 @@ class _MakeRoomWaitingScreenState extends State<MakeRoomWaitingScreen> {
                 height: MediaQuery.of(context).size.height / 812 * 37,
               ),
               Image.asset(
-                'assets/car_moving_final.gif',
-                height: MediaQuery.of(context).size.height / 812 * 150,
-                //width: MediaQuery.of(context).size.height / 812 * 492,
+                'assets/car_moving.gif',
+                height: MediaQuery.of(context).size.height * 0.4,
+                width: double.infinity,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 812 * 27,
               ),
-              //Image.asset('assets/logo_text_white.png', height: MediaQuery.of(context).size.height / 812 * 61, width: MediaQuery.of(context).size.height / 375 * 200,),
             ],
           ),
         ),

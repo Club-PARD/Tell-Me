@@ -47,7 +47,7 @@ class _CustomWidgetState extends State<CustomWidget> {
             SizedBox(
               width: MediaQuery.of(context).size.height / 40,
             ),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -69,7 +69,7 @@ class _CustomWidgetState extends State<CustomWidget> {
               ],
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.height / 6,
+              width: MediaQuery.of(context).size.height / 23,
             ),
             Container(
               width: 25,
@@ -231,108 +231,115 @@ class _CoreMusicAddSelectScreenState extends State<CoreMusicAddSelectScreen> {
           centerTitle: true,
         ),
         body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 100,
-              ),
-              Container(
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    hintText: '곡, 앨범, 아티스트 명 등등의 텍스트',
-                    hintStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 13.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 100,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.height / 2.05,
+                  height: MediaQuery.of(context).size.height / 17,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.transparent,
+                      hintText: '곡, 앨범, 아티스트 명 등등의 텍스트',
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFEEEEEE)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Color(0xFFEEEEEE)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical:
+                            MediaQuery.of(context).size.height / 17 / 2 - 14,
+                        horizontal: 10,
+                      ),
+                      suffixIcon: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.clear,
+                            color: Color(0xFFD8D8D8),
+                          ),
+                          Icon(
+                            Icons.search,
+                            color: Color(0xFF9C9C9C),
+                          ),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.height / 50),
+                        ],
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFEEEEEE)),
-                      borderRadius: BorderRadius.circular(15),
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical:
-                          MediaQuery.of(context).size.height / 17 / 2 - 14,
-                      horizontal: 10,
-                    ),
-                    suffixIcon: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.clear,
-                          color: Color(0xFFD8D8D8),
-                        ),
-                        Icon(
-                          Icons.search,
-                          color: Color(0xFF9C9C9C),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.height / 50),
-                      ],
-                    ),
-                  ),
-                  style: TextStyle(
-                    color: Colors.white,
                   ),
                 ),
-                width: MediaQuery.of(context).size.height / 2.05,
-                height: MediaQuery.of(context).size.height / 17,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 50,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: isSelectedList.length,
-                  itemBuilder: (context, index) {
-                    return CustomWidget(
-                      isChecked: isSelectedList[index],
-                      onChanged: (value) {
-                        if (value!) {
-                          _showModalSheet(index);
-                        }
-                        setState(() {
-                          isSelectedList = List.filled(10, false);
-                          isSelectedList[index] = value;
-                          // isOutlineVisibleList = List.filled(10, false);
-                          isOutlineVisibleList[index] = value;
-
-                          // 완성 버튼 표시 여부 확인
-                          int selectedCount = 0;
-                          for (int i = 0; i < isSelectedList.length; i++) {
-                            if (isSelectedList[i]) {
-                              selectedCount++;
-                            }
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 50,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: isSelectedList.length,
+                    itemBuilder: (context, index) {
+                      return CustomWidget(
+                        isChecked: isSelectedList[index],
+                        onChanged: (value) {
+                          if (value!) {
+                            _showModalSheet(index);
                           }
-                          isCompleteButtonVisible = selectedCount == 3;
-                        });
-                      },
-                    );
-                  },
+                          setState(() {
+                            isSelectedList = List.filled(10, false);
+                            isSelectedList[index] = value;
+                            // isOutlineVisibleList = List.filled(10, false);
+                            isOutlineVisibleList[index] = value;
+
+                            // 완성 버튼 표시 여부 확인
+                            int selectedCount = 0;
+                            for (int i = 0; i < isSelectedList.length; i++) {
+                              if (isSelectedList[i]) {
+                                selectedCount++;
+                              }
+                            }
+                            isCompleteButtonVisible = selectedCount == 3;
+                          });
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-              // if (isCompleteButtonVisible)
-              //   ElevatedButton(
-              //     onPressed: () {
-              //       Navigator.pushNamed(context, '/makeroomqr');
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //       fixedSize: const Size(280, 45),
-              //       primary: Color(0XFFCCCCCC),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(8),
-              //       ),
-              //     ),
-              //     child: const Text(
-              //       '완성!',
-              //       style: TextStyle(
-              //         color: Colors.black,
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     ),
-              //   ),
-            ],
+                // if (isCompleteButtonVisible)
+                //   ElevatedButton(
+                //     onPressed: () {
+                //       Navigator.pushNamed(context, '/makeroomqr');
+                //     },
+                //     style: ElevatedButton.styleFrom(
+                //       fixedSize: const Size(280, 45),
+                //       primary: Color(0XFFCCCCCC),
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(8),
+                //       ),
+                //     ),
+                //     child: const Text(
+                //       '완성!',
+                //       style: TextStyle(
+                //         color: Colors.black,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //   ),
+              ],
+            ),
           ),
         ),
       ),
