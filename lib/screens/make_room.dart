@@ -71,10 +71,16 @@ class _MakeRoomState extends State<MakeRoom> {
           actions: [
             TextButton(
                 onPressed: () {
-                  roomProvider.setName(_textEditingController.text);
-                  _generateRandomRoomId(); // 무작위 roomId 생성
-                  roomProvider.setId(roomId); // setid()를 사용하여 roomId 저장
-                  Navigator.pushNamed(context, '/makeroomexplain');
+                  if (_textEditingController.text.isNotEmpty) {
+                    roomProvider.setName(_textEditingController.text);
+                    _generateRandomRoomId(); // 무작위 roomId 생성
+                    roomProvider.setId(roomId); // setid()를 사용하여 roomId 저장
+                    Navigator.pushNamed(context, '/makeroomexplain');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('공습경보!!! 방 이름을 적어주세요!')),
+                    );
+                  }
                 },
                 child: const Text(
                   '확인',
