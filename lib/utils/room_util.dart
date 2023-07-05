@@ -4,18 +4,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RoomProvider extends ChangeNotifier {
-
   String _name = '';
-  String _img = 'https://firebasestorage.googleapis.com/v0/b/pard-dlive-b27d9.appspot.com/o/room_img%2Froom_default_color.png?alt=media&token=22258b36-f315-4bc5-b159-f7e73f98baba';
+  String _img =
+      'https://firebasestorage.googleapis.com/v0/b/pard-dlive-b27d9.appspot.com/o/room_img%2Froom_default_color.png?alt=media&token=22258b36-f315-4bc5-b159-f7e73f98baba';
   String _url = '';
   String _playlist = '';
   List _member = [];
+  String _id = ''; //room ID 추가
 
   String get name => _name;
   String get img => _img;
   String get url => _url;
   String get playlist => _playlist;
   List get member => _member;
+  String get id => _id;
 
   void setName(String name) {
     _name = name;
@@ -39,6 +41,11 @@ class RoomProvider extends ChangeNotifier {
 
   void setMember(List member) {
     _member = member;
+    notifyListeners();
+  }
+
+  void setId(String id) {
+    _id = id;
     notifyListeners();
   }
 }

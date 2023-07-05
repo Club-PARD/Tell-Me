@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +20,7 @@ class MakeRoom extends StatefulWidget {
 
 class _MakeRoomState extends State<MakeRoom> {
   final TextEditingController _textEditingController = TextEditingController();
+  late String roomId = '';
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +72,8 @@ class _MakeRoomState extends State<MakeRoom> {
             TextButton(
                 onPressed: () {
                   roomProvider.setName(_textEditingController.text);
+                  _generateRandomRoomId(); // 무작위 roomId 생성
+                  roomProvider.setId(roomId); // setid()를 사용하여 roomId 저장
                   Navigator.pushNamed(context, '/makeroomexplain');
                 },
                 child: const Text(
@@ -226,6 +231,21 @@ class _MakeRoomState extends State<MakeRoom> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _generateRandomRoomId() {
+    final random = Random();
+    final roomIdLength = 6; // Length of the generated roomId
+    final alphanumericChars =
+        '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    final codeUnits = alphanumericChars.codeUnits;
+
+    roomId = String.fromCharCodes(
+      List.generate(
+        roomIdLength,
+        (_) => codeUnits[random.nextInt(codeUnits.length)],
       ),
     );
   }
