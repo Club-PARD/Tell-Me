@@ -3,6 +3,7 @@ import 'package:dlive/models/youtube_video_model.dart';
 import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:youtube_data_api/youtube_data_api.dart';
 import 'package:youtube_parser/youtube_parser.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -17,6 +18,9 @@ class StationMain extends StatefulWidget {
 class _StationMainState extends State<StationMain> {
   late YoutubeMetaData metaYoutube;
   late Future<YoutubeVideo> youtube;
+  YoutubeDataApi youtubeDataApi = YoutubeDataApi();
+  
+
 
   List<String> videoUrl = [
     'https://www.youtube.com/watch?v=fHI8X4OXluQ',
@@ -31,7 +35,6 @@ class _StationMainState extends State<StationMain> {
   List<String> artist = [];
   List<String> thumbNail = [];
   late List<YoutubePlayerController> controllers;
-
 
   @override
   void initState() {
@@ -53,6 +56,9 @@ class _StationMainState extends State<StationMain> {
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
       thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
+      
+      final YoutubeDataApi yt = YoutubeDataApi(
+);
     }
     setState(() {});
   }
