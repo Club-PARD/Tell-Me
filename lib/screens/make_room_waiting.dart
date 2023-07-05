@@ -15,8 +15,11 @@ class _MakeRoomWaitingScreenState extends State<MakeRoomWaitingScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
-      Navigator.pushNamed(context, '/makeroomqr'); // 2초 후 '/makeroomqr' 페이지로 이동
+    Timer(const Duration(seconds: 2), () {
+      if (mounted) {
+        Navigator.pushNamed(
+            context, '/makeroomqr'); // 2초 후 '/makeroomqr' 페이지로 이동
+      }
     });
   }
 
@@ -28,7 +31,7 @@ class _MakeRoomWaitingScreenState extends State<MakeRoomWaitingScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -76,7 +79,6 @@ class _MakeRoomWaitingScreenState extends State<MakeRoomWaitingScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 812 * 27,
               ),
-              //Image.asset('assets/logo_text_white.png', height: MediaQuery.of(context).size.height / 812 * 61, width: MediaQuery.of(context).size.height / 375 * 200,),
             ],
           ),
         ),

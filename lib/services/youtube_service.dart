@@ -29,28 +29,6 @@ class ApiService {
     }
   }
 
-  // 검색어 리스트를 받아와서 ID 리스트로 반환
-  Future<List<String>> fetchTopViewedVideoIds(List<List<String>> songs) async {
-    List<String> videoIds = [];
-
-    for (List<String> song in songs) {
-      // song[0]은 아티스트 이름, song[1]은 노래 제목
-      String query = '${song[0]} ${song[1]}';
-      final response = await http.get(Uri.parse(
-          'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=$query&type=video&key=$apiKey'));
-
-      if (response.statusCode == 200) {
-        var data = json.decode(response.body);
-        var videoId = data['items'][0]['id']['videoId'];
-        videoIds.add(videoId);
-      } else {
-        throw Exception('Failed to load videos');
-      }
-    }
-
-    return videoIds;
-  }
-
   // 검색어 리스트를 받아와서 영상 리스트로 반환
   Future<List<YoutubeVideo>> fetchTopViewedVideos(
       List<List<String>> songs) async {
@@ -75,4 +53,27 @@ class ApiService {
 
     return videos;
   }
+
+  // 검색어 리스트를 받아와서 ID 리스트로 반환
+  // Future<List<String>> fetchTopViewedVideoIds(List<List<String>> songs) async {
+  //   List<String> videoIds = [];
+
+  //   for (List<String> song in songs) {
+  //     // song[0]은 아티스트 이름, song[1]은 노래 제목
+  //     String query = '${song[0]} ${song[1]}';
+  //     final response = await http.get(Uri.parse(
+  //         'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=$query&type=video&key=$apiKey'));
+
+  //     if (response.statusCode == 200) {
+  //       var data = json.decode(response.body);
+  //       var videoId = data['items'][0]['id']['videoId'];
+  //       videoIds.add(videoId);
+  //     } else {
+  //       throw Exception('Failed to load videos');
+  //     }
+  //   }
+  //   print(videoIds);
+
+  //   return videoIds;
+  // }
 }
