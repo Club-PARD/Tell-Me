@@ -21,6 +21,9 @@ void main() async {
       ChangeNotifierProvider<RoomProvider>(
         create: (_) => RoomProvider(),
       ),
+      ChangeNotifierProvider<ProfileProvider>(
+        create: (_) => ProfileProvider(),
+      ),
     ],
     child: DLive(),
   ));

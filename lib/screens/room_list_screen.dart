@@ -31,7 +31,7 @@ class RoomListScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 _buildSortButton(),
               ],
             ),
@@ -46,7 +46,7 @@ class RoomListScreen extends StatelessWidget {
 
   // 최신순 정렬 버튼
   Widget _buildSortButton() {
-    return Container(
+    return SizedBox(
       width: 100,
       height: 40,
       child: TextButton(
@@ -64,7 +64,7 @@ class RoomListScreen extends StatelessWidget {
 
   // 프로필 영역
   Widget _buildProfile() {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -78,8 +78,8 @@ class RoomListScreen extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 10),
-        const Text(
+        SizedBox(width: 10),
+        Text(
           '언덕님,\n오늘도 즐거운 DLive~',
           style: TextStyle(
             height: 2,
@@ -119,9 +119,9 @@ class RoomListScreen extends StatelessWidget {
   Widget _buildRoomListItem(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/roomdetail');
+        Navigator.pushNamed(context, '/stationmain');
       },
-      child: Row(
+      child: const Row(
         children: [
           SizedBox(
             width: 100,
@@ -132,13 +132,13 @@ class RoomListScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   '이번엔 칠포닷!',
                   style: TextStyle(
                     fontSize: 18,
@@ -146,16 +146,16 @@ class RoomListScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 8),
-                const Text(
+                SizedBox(height: 8),
+                Text(
                   '2023.06.27 ~2023.06.27',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 8),
-                const Text(
+                SizedBox(height: 8),
+                Text(
                   '방 멤버수: 4명',
                   style: TextStyle(
                     fontSize: 14,

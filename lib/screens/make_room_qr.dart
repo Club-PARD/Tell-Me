@@ -53,8 +53,10 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final hostProvider = Provider.of<HostProvider>(context);
-    final roomProvider = Provider.of<RoomProvider>(context);
+    HostProvider hostProvider = Provider.of<HostProvider>(context);
+    RoomProvider roomProvider = Provider.of<RoomProvider>(context);
+    HostUtil hostUtil = HostUtil();
+    RoomUtil roomUtil = RoomUtil();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -82,7 +84,15 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/home');
+              roomUtil.addRoom(
+                roomProvider.name,
+                roomProvider.id,
+                roomProvider.img,
+                roomProvider.url,
+                roomProvider.playlist,
+                roomProvider.member,
+              );
+              Navigator.pushNamed(context, '/stationloading');
             },
             child: const Text(
               '확인',
@@ -102,7 +112,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  'assets/QR_backG.png',
+                  hostUtil.getQr(hostProvider.character),
                   height: MediaQuery.of(context).size.height / 812 * 512,
                 ),
                 Positioned(
@@ -110,7 +120,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                   left: 0,
                   right: 0,
                   child: Text(
-                    '@${roomProvider.name}or${hostProvider.name}',
+                    '@${roomProvider.name}',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 15),
                   ),
@@ -121,7 +131,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                     image: const AssetImage('assets/logo_image.png'),
                     typeNumber: 3,
                     size: MediaQuery.of(context).size.height / 812 * 230,
-                    data: '${roomProvider.name}',
+                    data: '${roomProvider.id}',
                     errorCorrectLevel: QrErrorCorrectLevel.M,
                     roundEdges: true,
                   ),
