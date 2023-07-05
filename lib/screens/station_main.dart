@@ -19,6 +19,7 @@ class _StationMainState extends State<StationMain> {
   late YoutubeMetaData metaYoutube;
   late Future<YoutubeVideo> youtube;
   YoutubeDataApi youtubeDataApi = YoutubeDataApi();
+  late YoutubeMetaData metaData;
   
 
 
@@ -56,12 +57,21 @@ class _StationMainState extends State<StationMain> {
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
       thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
-      
-      final YoutubeDataApi yt = YoutubeDataApi(
-);
+    
+    final con=YoutubePlayerController(initialVideoId: videoId)..addListener(listener); 
+      controllers.add(con);
+
+     // _con.
     }
-    setState(() {});
   }
+
+  void listener(){
+    setState(() {
+    //  metaData = controllers[i].metadata;
+    });
+  }
+  
+  
 
     
 
