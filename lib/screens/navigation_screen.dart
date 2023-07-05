@@ -1,7 +1,8 @@
-import 'package:dlive/screens/room_list_screen.dart';
 import 'package:dlive/utils/host_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:dlive/models/room_model.dart';
+import 'package:dlive/utils/room_util.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -56,7 +57,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             items: [
               BottomNavigationBarItem(
                 icon: Image.asset(
-                  'assets/home.png',
+                  'assets/home_rounded.png',
                   height: MediaQuery.of(context).size.height / 812 * 18,
                   width: MediaQuery.of(context).size.height / 812 * 18,
                 ),
@@ -84,7 +85,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               ),
               BottomNavigationBarItem(
                 icon: Image.asset(
-                  'assets/storage.png',
+                  'assets/storage_rounded.png',
                   height: MediaQuery.of(context).size.height / 812 * 18,
                   width: MediaQuery.of(context).size.height / 812 * 18,
                 ),
@@ -210,7 +211,7 @@ class HomePage extends StatelessWidget {
                             ),
                             Expanded(
                               child: ListView.builder(
-                                itemCount: hostProvider.room.length > 0
+                                itemCount: hostProvider.room.isNotEmpty
                                     ? hostProvider.room.length
                                     : 1,
                                 itemBuilder: (context, index) {
@@ -259,6 +260,173 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class RoomListScreen extends StatelessWidget {
+  const RoomListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    HostProvider hostProvider = Provider.of<HostProvider>(context);
+    HostUtil hostUtil = HostUtil();
+    hostUtil.getRoomId(hostProvider);
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Text(
+          '보관함',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            _buildRoomListView(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 최신순 정렬 버튼
+  // Widget _buildSortButton() {
+  //   return SizedBox(
+  //     width: 100,
+  //     height: 40,
+  //     child: TextButton(
+  //       onPressed: () {},
+  //       child: const Text(
+  //         '최신순',
+  //         style: TextStyle(
+  //           color: Colors.black,
+  //           fontSize: 18,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // 프로필 영역
+  // Widget _buildProfile() {
+  //   return const Row(
+  //     mainAxisAlignment: MainAxisAlignment.start,
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     children: [
+  //       SizedBox(
+  //         width: 162,
+  //         height: 102,
+  //         child: CircleAvatar(
+  //           radius: 51.0,
+  //           backgroundImage: NetworkImage(
+  //             'https://dddwwa.cafe24.com/web/product/extra/big/201703/25_shop1_742463.png',
+  //           ),
+  //         ),
+  //       ),
+  //       SizedBox(width: 10),
+  //       Text(
+  //         '언덕님,\n오늘도 즐거운 DLive~',
+  //         style: TextStyle(
+  //           height: 2,
+  //           fontSize: 18,
+  //           fontWeight: FontWeight.bold,
+  //           color: Colors.white,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  // 방 목록 영역
+  Widget _buildRoomListView(BuildContext context) {
+    HostProvider hostProvider = Provider.of<HostProvider>(context);
+    RoomProvider roomProvider = Provider.of<RoomProvider>(context);
+    HostUtil hostUtil = HostUtil();
+    RoomUtil roomUtil = RoomUtil();
+    hostUtil.getRoomId(hostProvider);
+    roomUtil.getRooms(hostProvider.room, roomProvider);
+
+    //print(hostProvider.room);
+    return Expanded(
+      child: ListView.builder(
+        itemCount: hostProvider.room.length,
+        itemBuilder: (context, index) {
+          return Container(
+            height: MediaQuery.of(context).size.height / 812 * 77,
+            margin: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.height / 812 * 23,
+              vertical: MediaQuery.of(context).size.width / 375 * 9,
+            ),
+            child: _buildRoomListItem(context, index),
+          );
+        },
+      ),
+    );
+  }
+
+  // 방 목록 아이템
+  Widget _buildRoomListItem(BuildContext context, int index) {
+    RoomProvider roomProvider = Provider.of<RoomProvider>(context);
+    Room room = roomProvider.rooms[index];
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, '/stationmain');
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 812 * 68,
+            child: Image.network(room.img),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 375 * 12,
+                ),
+                Text(
+                  room.name, // Access the room's name property
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 375 * 6,
+                ),
+                Text(
+                  '${room.member.length}명',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xff929292),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 375 * 89,
+                ),
+                Text(
+                  '생성 날짜',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color(0xff929292),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
