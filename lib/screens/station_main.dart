@@ -35,6 +35,7 @@ class _StationMainState extends State<StationMain> {
   void initState() {
     super.initState();
     parseVideoUrls();
+    fetchMetaData();
   }
 
   @override
@@ -43,6 +44,11 @@ class _StationMainState extends State<StationMain> {
       controller.dispose();
     }
     super.dispose();
+  }
+
+  Future <List<String>> fetchMetaData() async{
+    List<String> titles = await getMetaData();
+  return titles;
   }
 
   Future<void> parseVideoUrls() async {
@@ -56,7 +62,6 @@ class _StationMainState extends State<StationMain> {
       );
       controllers.add(controller);
     }
-    setState(() {});
   }
 
  Future<List<String>> getMetaData() async {
@@ -66,21 +71,21 @@ class _StationMainState extends State<StationMain> {
   for (String url in videoUrl) {
     final String? videoId = getIdFromUrl(url);
     thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
-    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/search?part=snippet&key=$apiKey'));
+    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$videoId&key=$apiKey'));
 
     if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body);
-      String title = jsonResponse['items'][0]['snippet']['title'];
+      final jsonResponse = jsonDecode(response.body);
+      final title = jsonResponse['items'][0]['snippet']['title'];
       print(title);
       titles.add(title);
     } else {
       throw Exception('Failed to fetch video title');
     }
   }
+  setState(() {});
   return titles;
 
 }
-
 
 
   void removeFromPlaylist(int index) {
@@ -255,7 +260,7 @@ class _StationMainState extends State<StationMain> {
           const SizedBox(height: 10),
           Expanded(
             child: FutureBuilder<List<String>>(
-              future: getMetaData(),
+              future: fetchMetaData(),
               builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -267,7 +272,7 @@ class _StationMainState extends State<StationMain> {
                   );
                 } else {
                   return ListView.builder(
-                    itemCount: videoIds.length,
+                    itemCount: titles.length,
                     itemBuilder: (BuildContext context, index) {
                       return GestureDetector(
                         onTap: () {
