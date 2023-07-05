@@ -11,6 +11,7 @@ class RoomProvider extends ChangeNotifier {
   String _url = '';
   String _playlist = '';
   List _member = [];
+  List _rooms = [];
 
   String get name => _name;
   String get id => _id;
@@ -18,6 +19,7 @@ class RoomProvider extends ChangeNotifier {
   String get url => _url;
   String get playlist => _playlist;
   List get member => _member;
+  List get rooms => _rooms;
 
   void setName(String name) {
     _name = name;
@@ -48,6 +50,11 @@ class RoomProvider extends ChangeNotifier {
     _member = member;
     notifyListeners();
   }
+
+  void setRooms(List rooms) {
+    _rooms = rooms;
+    notifyListeners();
+  }
 }
 
 class RoomUtil {
@@ -75,10 +82,10 @@ class RoomUtil {
     });
   }
 
-  Future<List<Room>> getRooms(List<dynamic> roomIds) async {
+  Future<void> getRooms(List roomIds, RoomProvider roomProvider) async {
     List<Room> rooms = [];
 
-    for (String roomId in roomIds) {
+    for (var roomId in roomIds) {
       DocumentSnapshot roomSnapshot =
           await firestore.collection('Room').doc(roomId).get();
       if (roomSnapshot.exists) {
@@ -89,7 +96,7 @@ class RoomUtil {
         String img = roomData['img'];
         String url = roomData['url'];
         String playlist = roomData['playlist'];
-        List<dynamic> member = roomData['member'];
+        List member = roomData['member'];
 
         Room room = Room(
           name: name,
@@ -103,6 +110,6 @@ class RoomUtil {
         rooms.add(room);
       }
     }
-    return rooms;
+    roomProvider.setRooms(rooms);
   }
 }

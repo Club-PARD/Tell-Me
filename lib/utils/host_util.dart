@@ -115,8 +115,21 @@ class HostUtil {
       List room = data['room'];
 
       hostProvider.setName(name);
-      hostProvider.setEmail(email);
+      hostProvider.setEmail(email);   
       hostProvider.setCharacter(character);
+      hostProvider.setRoom(room);
+    }
+  }
+
+  Future<void> getRoomId(HostProvider hostProvider) async {
+    User? user = auth.currentUser;
+    String uid = user!.uid;
+    DocumentSnapshot snapshot =
+        await firestore.collection('Host').doc(uid).get();
+    if (snapshot.exists) {
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      List room = data['room'];
+      
       hostProvider.setRoom(room);
     }
   }
