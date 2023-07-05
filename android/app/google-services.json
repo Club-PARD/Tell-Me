@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:401451695303:android:f87ddccc71ef0367b712e2",
         "android_client_info": {
-          "package_name": "com.example.middle_ui"
+          "package_name": "com.dlive.middle_ui"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "401451695303-mojdtialavvvgh0hrsakalu78qanhrvr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.middle_ui",
+            "package_name": "com.dlive.middle_ui",
             "certificate_hash": "ebf7ebace5082b3e4f25a250f20314cecdfa0ae5"
           }
         },
@@ -42,7 +42,7 @@
               "client_id": "401451695303-1e55do4ombj2hp6qj19qbkr5mu7r8ufg.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.middleUi.RunnerTests"
+                "bundle_id": "com.dlive.middleUi.RunnerTests"
               }
             }
           ]

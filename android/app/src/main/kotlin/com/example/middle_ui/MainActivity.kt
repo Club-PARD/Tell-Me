@@ -1,4 +1,4 @@
-package com.example.middle_ui
+package com.dlive.middle_ui
 
 import io.flutter.embedding.android.FlutterActivity
 
