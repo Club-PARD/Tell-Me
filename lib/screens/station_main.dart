@@ -212,12 +212,12 @@ class _StationMainState extends State<StationMain> {
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.shuffle),
+                    Icon(Icons.change_circle_outlined),
                     SizedBox(
                       width: 8,
                     ),
                     Text(
-                      '다시재생',
+                      '다시생성',
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
