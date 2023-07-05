@@ -3,7 +3,7 @@
         android:label="Dlive"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name="com.example.middle_ui.MainActivity"
+            android:name="com.dlive.middle_ui.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
