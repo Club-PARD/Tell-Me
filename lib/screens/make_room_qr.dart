@@ -56,6 +56,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
     HostProvider hostProvider = Provider.of<HostProvider>(context);
     RoomProvider roomProvider = Provider.of<RoomProvider>(context);
     HostUtil hostUtil = HostUtil();
+    RoomUtil roomUtil = RoomUtil();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -83,6 +84,14 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
         actions: [
           TextButton(
             onPressed: () {
+              roomUtil.addRoom(
+                roomProvider.name,
+                roomProvider.id,
+                roomProvider.img,
+                roomProvider.url,
+                roomProvider.playlist,
+                roomProvider.member,
+              );
               Navigator.pushNamed(context, '/stationloading');
             },
             child: const Text(
