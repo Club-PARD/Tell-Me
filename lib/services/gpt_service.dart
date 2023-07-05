@@ -2,7 +2,7 @@ import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class GptServise {
+class GptService {
   static String? apiKey = dotenv.env['OPENAI_API_KEY'];
 
 // class MyApp extends StatelessWidget {
