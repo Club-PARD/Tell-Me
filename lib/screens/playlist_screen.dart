@@ -15,11 +15,13 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   late YoutubePlayerController con;
   late int initialIndex;
   static late String youtubeId ;
+  late int currentIndex;
 
   @override
   void initState() {
     super.initState();
     initialIndex=widget.initialIndex;
+    currentIndex = initialIndex;
     youtubeId = widget.videoUrl[initialIndex];
     con = YoutubePlayerController(initialVideoId: youtubeId,
     flags: const YoutubePlayerFlags(
@@ -41,7 +43,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
-      int currentIndex=initialIndex;
 
     return Scaffold(
       appBar: AppBar(leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_rounded)), forceMaterialTransparency: true,),
@@ -49,9 +50,10 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         children: [
           YoutubePlayer(controller: con,
           onEnded: (data){
-            // currentIndex++;
-            // currentIndex=initialIndex+currentIndex;
-            con.load(widget.videoUrl[(currentIndex+1)%widget.videoUrl.length-1]);
+            setState(() {
+            currentIndex = currentIndex + 1;
+            con.load(widget.videoUrl[(currentIndex)%widget.videoUrl.length-1]);
+            });
           },
           ),
 
