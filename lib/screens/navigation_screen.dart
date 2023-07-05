@@ -132,7 +132,7 @@ class HomePage extends StatelessWidget {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(
-                            'assets/pink-car.gif',
+                            hostUtil.getCar(hostProvider.character),
                           ),
                         ),
                       ),

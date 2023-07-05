@@ -7,7 +7,9 @@ class ProfileDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hostProvider = Provider.of<HostProvider>(context);
+    HostProvider hostProvider = Provider.of<HostProvider>(context);
+    ProfileProvider profileProvider = Provider.of<ProfileProvider>(context);
+    HostUtil hostUtil = HostUtil();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -35,7 +37,12 @@ class ProfileDetailScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/home');
+              hostUtil.updateHostCharacterAndName(
+                  profileProvider.character != ''
+                      ? profileProvider.character
+                      : hostProvider.character,
+                  profileProvider.name);
+              Navigator.popUntil(context, ModalRoute.withName('/navigation'));
             },
             child: const Text(
               '완료',
@@ -53,7 +60,9 @@ class ProfileDetailScreen extends StatelessWidget {
           height: MediaQuery.of(context).size.height / 812 * 23,
         ),
         Image.asset(
-          'assets/profile_pink.png',
+          profileProvider.character != ''
+              ? hostUtil.getProfile(profileProvider.character)
+              : hostUtil.getProfile(hostProvider.character),
           height: MediaQuery.of(context).size.height / 812 * 116,
         ),
         SizedBox(
@@ -91,7 +100,7 @@ class ProfileDetailScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 375 * 45,
             ),
             Text(
-              '${hostProvider.name}',
+              profileProvider.name,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,

@@ -23,8 +23,6 @@ class _SignUpPage1State extends State<SignUpPage1> {
       'assets/character_blue.png',
     ];
 
-    String selectedCharacter = character[0];
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -271,7 +269,7 @@ class _SignUpPage3State extends State<SignUpPage3> {
             onTap: () {
               hostUtil.addHost(hostProvider.name, hostProvider.email, hostProvider.character);
               
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushNamed(context, '/navigation');
             },
           ),
         ]),

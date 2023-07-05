@@ -1,4 +1,6 @@
+import 'package:dlive/utils/host_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileNameScreen extends StatefulWidget {
   const ProfileNameScreen({super.key});
@@ -29,8 +31,13 @@ class _ProfileNameScreenState extends State<ProfileNameScreen> {
     });
   }
 
+  HostUtil hostUtil = HostUtil();
+
   @override
   Widget build(BuildContext context) {
+    final profileProvider = Provider.of<ProfileProvider>(context);
+    final hostProvider = Provider.of<HostProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -58,7 +65,9 @@ class _ProfileNameScreenState extends State<ProfileNameScreen> {
           TextButton(
             onPressed: _isTextFieldEmpty
                 ? null
-                : () {
+                : () async{
+                    profileProvider.setName(_controller.text); 
+                    print(profileProvider.name);
                     Navigator.pushNamed(context, '/profile');
                   },
             style: TextButton.styleFrom(
