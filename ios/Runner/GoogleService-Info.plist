@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.middleUi</string>
+	<string>com.dlive.middleUi</string>
 	<key>PROJECT_ID</key>
 	<string>pard-dlive-b27d9</string>
 	<key>STORAGE_BUCKET</key>
