@@ -110,7 +110,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                   left: 0,
                   right: 0,
                   child: Text(
-                    '@${roomProvider.name}or${hostProvider.name}',
+                    '@${roomProvider.name}',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 15),
                   ),
@@ -121,7 +121,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                     image: const AssetImage('assets/logo_image.png'),
                     typeNumber: 3,
                     size: MediaQuery.of(context).size.height / 812 * 230,
-                    data: '${roomProvider.name}',
+                    data: '${roomProvider.id}',
                     errorCorrectLevel: QrErrorCorrectLevel.M,
                     roundEdges: true,
                   ),
