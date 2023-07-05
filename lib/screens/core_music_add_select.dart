@@ -221,7 +221,7 @@ class _CoreMusicAddSelectScreenState extends State<CoreMusicAddSelectScreen> {
             },
           ),
           title: const Text(
-            "내 음악 추가",
+            "이거 곧 삭제할 페이지임~",
             style: TextStyle(
               color: Colors.black,
               fontSize: 18,
