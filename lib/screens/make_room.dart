@@ -172,12 +172,12 @@ class _MakeRoomState extends State<MakeRoom> {
                         await picker.pickImage(source: ImageSource.gallery);
                     if (image != null) {
                       // Delete previous image if it exists
-                      if (roomProvider.img != defaultImgUrl) {
-                        var previousImageRef = FirebaseStorage.instance
-                            .refFromURL(roomProvider.img);
-                        await previousImageRef.delete();
-                        print('이전 사진 삭제');
-                      }
+                      // if (roomProvider.img != defaultImgUrl) {
+                      //   var previousImageRef = FirebaseStorage.instance
+                      //       .refFromURL(roomProvider.img);
+                      //   await previousImageRef.delete();
+                      //   print('이전 사진 삭제');
+                      // }
 
                       print('삭제할 사진 없음');
                       var file = File(image.path);
@@ -204,10 +204,10 @@ class _MakeRoomState extends State<MakeRoom> {
                 TextButton(
                   onPressed: () async {
                     // Delete previous image if it exists
-                    var previousImageRef =
-                        FirebaseStorage.instance.refFromURL(roomProvider.img);
-                    await previousImageRef.delete();
-                    print('이전 사진 삭제');
+                    // var previousImageRef =
+                    //     FirebaseStorage.instance.refFromURL(roomProvider.img);
+                    // await previousImageRef.delete();
+                    // print('이전 사진 삭제');
 
                     print(roomProvider.img);
                     roomProvider.setImg(defaultImgUrl);
