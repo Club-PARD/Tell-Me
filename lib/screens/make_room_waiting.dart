@@ -15,7 +15,7 @@ class _MakeRoomWaitingScreenState extends State<MakeRoomWaitingScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushNamed(context, '/makeroomqr'); // 2초 후 '/makeroomqr' 페이지로 이동
     });
   }
@@ -28,7 +28,7 @@ class _MakeRoomWaitingScreenState extends State<MakeRoomWaitingScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
