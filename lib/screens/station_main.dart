@@ -1,6 +1,10 @@
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
 import 'package:youtube_parser/youtube_parser.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -8,14 +12,11 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class StationMain extends StatefulWidget {
   const StationMain({super.key});
-
   @override
   State<StationMain> createState() => _StationMainState();
 }
 
 class _StationMainState extends State<StationMain> {
-  late YoutubeMetaData metaYoutube;
-
   List<String> videoUrl = [
     'https://www.youtube.com/watch?v=fHI8X4OXluQ',
     'https://www.youtube.com/watch?v=ApXoWvfEYVU',
@@ -24,12 +25,12 @@ class _StationMainState extends State<StationMain> {
     'https://www.youtube.com/watch?v=XR7Ev14vUh8',
     'https://www.youtube.com/watch?v=bfXsQ9k9PtY',
   ];
-  List<String> videoIds = [];
-  List<String> titles = [];
-  List<String> artist = [];
+  late List<String> videoIds = [];
+  late List<String> titles = [];
+  late List<String> artist = [];
   List<String> thumbNail = [];
+  
   late List<YoutubePlayerController> controllers;
-
   @override
   void initState() {
     super.initState();
@@ -49,20 +50,38 @@ class _StationMainState extends State<StationMain> {
     for (String url in videoUrl) {
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
-      thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
       controllers.add(controller);
-      final videoMetaData = controller.metadata;
-      titles.add(videoMetaData.title);
-      artist.add(videoMetaData.author);
     }
     setState(() {});
   }
 
-   
+ Future<List<String>> getMetaData() async {
+  List<String> titles = [];
+  final String? apiKey = dotenv.env['YOUTUBE_API'];
+
+  for (String url in videoUrl) {
+    final String? videoId = getIdFromUrl(url);
+    thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
+    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/search?part=snippet&key=$apiKey'));
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      String title = jsonResponse['items'][0]['snippet']['title'];
+      print(title);
+      titles.add(title);
+    } else {
+      throw Exception('Failed to fetch video title');
+    }
+  }
+  return titles;
+
+}
+
+
 
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
@@ -204,6 +223,7 @@ class _StationMainState extends State<StationMain> {
                         controllers.clear();
                       });
                       parseVideoUrls();
+                      getMetaData();
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -234,23 +254,23 @@ class _StationMainState extends State<StationMain> {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: FutureBuilder<void>(
-              future: parseVideoUrls(),
-              builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+            child: FutureBuilder<List<String>>(
+              future: getMetaData(),
+              builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: Image.asset('assets/car_moving_final.gif'),
                   );
                 } else if (snapshot.hasError) {
                   return const Center(
-                    child: Text('Error occurred while parsing video URLs.'),
+                    child: Text('FutureBuilder에 값 없음'),
                   );
                 } else {
                   return ListView.builder(
-                    itemCount: videoUrl.length,
+                    itemCount: videoIds.length,
                     itemBuilder: (BuildContext context, index) {
                       return GestureDetector(
-                        onTap: () async {
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -277,8 +297,8 @@ class _StationMainState extends State<StationMain> {
                                 ),
                                 width: width / 3,
                                 height: height / 9,
-                                child: Image.network(
-                                  thumbNail[index],
+                                child: CachedNetworkImage(
+                                  imageUrl: thumbNail[index],
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -289,10 +309,35 @@ class _StationMainState extends State<StationMain> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(titles[index]),
+                                  Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: titles[index]
+                                      .split('-')
+                                      .map((line) {
+                                        final text = line.trim();
+                                        final startIndex = text.indexOf('(');
+                                        final endIndex = text.indexOf(')');
+                                        final formattedText = startIndex != -1 && endIndex != -1
+                                            ? text.substring(0, startIndex) + text.substring(endIndex + 1)
+                                            : text;
+
+                                        return Text(
+                                          formattedText,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Color(0xFF000000),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        );
+                                      })
+                                      .toList(),
+                                ),
+
+ 
                                   const SizedBox(height: 10),
-                                  Text(artist[index]),
-                                  const Text('왜 안나오냐'),
+                                  //Text(artist[index]),
                                 ],
                               ),
                               Expanded(child: SizedBox(width: width / 3)),

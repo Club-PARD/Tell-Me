@@ -57,6 +57,9 @@ dependencies:
   http: ^0.13.6
   html: ^0.15.4
   youtube_data_api: ^1.0.4
+  youtube_video_info: ^1.0.1
+  cached_network_image: ^3.2.3
+  googleapis_auth: ^1.4.1
 
 dev_dependencies:
   flutter_test:
