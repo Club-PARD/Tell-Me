@@ -55,7 +55,7 @@ class DLive extends StatelessWidget {
         '/profilecharacter': (context) => const ProfileCharacterScreen(),
         '/profilecharacter2': (context) => const ProfileCharacter2Screen(),
         '/stationloading': (context) => const StationLoadingScreen(),
-        '/stationmain': (context) => const StationMain(),
+        '/stationmain': (context) => StationMain(),
       },
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
