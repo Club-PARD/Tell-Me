@@ -5,7 +5,6 @@ import 'package:dlive/screens/playlist_screen.dart';
 import 'package:dlive/screens/profile_detail_screen.dart';
 import 'package:dlive/screens/profile_name_screen.dart';
 import 'package:dlive/screens/profile_character_screen.dart';
-import 'package:dlive/screens/profile_character2_screen.dart';
 import 'package:dlive/screens/room_detail_screen.dart';
 import 'package:dlive/screens/splash_page.dart';
 import 'package:dlive/screens/login_page.dart';
