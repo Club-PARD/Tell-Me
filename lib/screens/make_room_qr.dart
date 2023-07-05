@@ -83,7 +83,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/navigation');
+              Navigator.pushNamed(context, '/stationloading');
             },
             child: const Text(
               '확인',
