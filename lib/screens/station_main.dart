@@ -1,9 +1,7 @@
 
-import 'package:dlive/models/youtube_video_model.dart';
 import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:youtube_data_api/youtube_data_api.dart';
 import 'package:youtube_parser/youtube_parser.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -17,11 +15,6 @@ class StationMain extends StatefulWidget {
 
 class _StationMainState extends State<StationMain> {
   late YoutubeMetaData metaYoutube;
-  late Future<YoutubeVideo> youtube;
-  YoutubeDataApi youtubeDataApi = YoutubeDataApi();
-  late YoutubeMetaData metaData;
-  
-
 
   List<String> videoUrl = [
     'https://www.youtube.com/watch?v=fHI8X4OXluQ',
@@ -57,23 +50,19 @@ class _StationMainState extends State<StationMain> {
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
       thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
-    
-    final con=YoutubePlayerController(initialVideoId: videoId)..addListener(listener); 
-      controllers.add(con);
-
-     // _con.
+      final controller = YoutubePlayerController(
+        initialVideoId: url,
+        flags: const YoutubePlayerFlags(autoPlay: false),
+      );
+      controllers.add(controller);
+      final videoMetaData = controller.metadata;
+      titles.add(videoMetaData.title);
+      artist.add(videoMetaData.author);
     }
+    setState(() {});
   }
 
-  void listener(){
-    setState(() {
-    //  metaData = controllers[i].metadata;
-    });
-  }
-  
-  
-
-    
+   
 
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
@@ -132,7 +121,7 @@ class _StationMainState extends State<StationMain> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: Image.asset('assets/room_defualt_black.png'),
+                child: Image.asset('assets/room_default_black.png'),
               ),
               const SizedBox(
                 width: 5,
@@ -306,7 +295,7 @@ class _StationMainState extends State<StationMain> {
                                   const Text('왜 안나오냐'),
                                 ],
                               ),
-                              Expanded(child: SizedBox(width: width / 5)),
+                              Expanded(child: SizedBox(width: width / 3)),
                               IconButton(
                                 onPressed: () {
                                   showDialog(
@@ -358,6 +347,7 @@ class _StationMainState extends State<StationMain> {
                                           ),
                                         contentPadding: const EdgeInsets.only(bottom: 10),
                                       );
+
                                     },
                                   );
                                 },
