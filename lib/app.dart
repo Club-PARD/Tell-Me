@@ -31,6 +31,7 @@ class DLive extends StatelessWidget {
         '/roomlist': (context) => const RoomListScreen(),
         '/roomdetail': (context) => const RoomDetailScreen(),
         '/playlist': (context) => PlaylistScreen(
+              count: ModalRoute.of(context)?.settings.arguments as int,
               videoUrl:
                   ModalRoute.of(context)?.settings.arguments as List<String>,
               initialIndex: ModalRoute.of(context)?.settings.arguments as int,

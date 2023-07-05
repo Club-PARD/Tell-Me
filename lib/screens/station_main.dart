@@ -1,3 +1,4 @@
+
 import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -24,37 +25,32 @@ class _StationMainState extends State<StationMain> {
     'https://www.youtube.com/watch?v=bfXsQ9k9PtY',
   ];
   List<String> videoIds = [];
-  late List<String> titles = [];
-  late List<String> artist = [];
+  List<String> titles = [];
+  List<String> artist = [];
   List<String> thumbNail = [];
-  late List<YoutubePlayerController> cons;
+  late YoutubePlayerController cons;
 
   @override
   void initState() {
     super.initState();
-    metaYoutube = const YoutubeMetaData();
     parseVideoUrls();
   }
 
   @override
   void dispose() {
-    for (var controller in cons) {
-      controller.dispose();
-    }
+    cons.dispose();
     super.dispose();
   }
 
   Future<void> parseVideoUrls() async {
-    cons = [];
     for (String url in videoUrl) {
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
       thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
       final controller = YoutubePlayerController(
-        initialVideoId: videoId,
+        initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
-      cons.add(controller);
       final videoMetaData = controller.metadata;
       titles.add(videoMetaData.title);
       artist.add(videoMetaData.author);
@@ -62,14 +58,15 @@ class _StationMainState extends State<StationMain> {
     setState(() {});
   }
 
+   
+
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
     videoIds.removeAt(index);
     thumbNail.removeAt(index);
     titles.removeAt(index);
     artist.removeAt(index);
-    cons[index].dispose();
-    cons.removeAt(index);
+    cons.dispose();
     setState(() {});
   }
 
@@ -157,6 +154,7 @@ class _StationMainState extends State<StationMain> {
                       builder: (context) => PlaylistScreen(
                         videoUrl: videoIds,
                         initialIndex: 0,
+                        count: videoUrl.length,
                       ),
                     ),
                   );
@@ -195,6 +193,7 @@ class _StationMainState extends State<StationMain> {
                       builder: (context) => PlaylistScreen(
                         videoUrl: videoIds,
                         initialIndex: 0,
+                        count: videoUrl.length
                       ),
                     ),
                   );
@@ -213,12 +212,12 @@ class _StationMainState extends State<StationMain> {
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.shuffle),
+                    Icon(Icons.change_circle_outlined),
                     SizedBox(
                       width: 8,
                     ),
                     Text(
-                      '다시재생',
+                      '다시생성',
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -251,6 +250,7 @@ class _StationMainState extends State<StationMain> {
                               builder: (context) => PlaylistScreen(
                                 videoUrl: videoIds,
                                 initialIndex: index,
+                                count: videoUrl.length,
                               ),
                             ),
                           );
@@ -285,6 +285,7 @@ class _StationMainState extends State<StationMain> {
                                   Text(titles[index]),
                                   const SizedBox(height: 10),
                                   Text(artist[index]),
+                                  const Text('왜 안나오냐'),
                                 ],
                               ),
                               Expanded(child: SizedBox(width: width / 3)),
@@ -311,8 +312,7 @@ class _StationMainState extends State<StationMain> {
                                                 titles.removeAt(index);
                                                 artist.removeAt(index);
                                                 thumbNail.removeAt(index);
-                                                cons[index].dispose();
-                                                cons.removeAt(index);
+                                                cons.dispose();
                                               });
                                               Navigator.pop(context);
                                             },

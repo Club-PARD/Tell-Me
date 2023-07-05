@@ -4,8 +4,9 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class PlaylistScreen extends StatefulWidget {
   List<String> videoUrl;
   int initialIndex;
+  int count;
 
-  PlaylistScreen({Key? key, required this.videoUrl, required this.initialIndex}) : super(key: key);
+  PlaylistScreen({Key? key, required this.videoUrl, required this.initialIndex, required this.count}) : super(key: key);
 
   @override
   State<PlaylistScreen> createState() => _PlaylistScreenState();
@@ -52,7 +53,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           onEnded: (data){
             setState(() {
             currentIndex = currentIndex + 1;
-            con.load(widget.videoUrl[(currentIndex)%widget.videoUrl.length-1]);
+            con.load(widget.videoUrl[(currentIndex)%widget.videoUrl.length]);
             });
           },
           ),
@@ -63,8 +64,10 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       itemBuilder: (BuildContext context, index){
                         return GestureDetector(
                           onTap: () async{
-                            currentIndex=index;
+                            setState(() {
+                              currentIndex=index;
                            con.load(widget.videoUrl[index]);
+                            });
                           },
                           child: SizedBox(
                             width: width,
@@ -104,22 +107,20 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                         );
                                       });
                                 }, icon: const Icon(Icons.menu, color: Color(0XFF929292),)),
-                                SizedBox(width: width/4,),
-                                Container(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                                  width: width/3,
-                                  height: height/9,
-                                  child: Image.network('https://img.youtube.com/vi/${widget.videoUrl[index]}/0.jpg',fit: BoxFit.fill, )),
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                    currentIndex=index;
+                                    con.load(widget.videoUrl[index]);
+                            });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                                    width: width/3,
+                                    height: height/9,
+                                    child: Image.network('https://img.youtube.com/vi/${widget.videoUrl[index]}/0.jpg',fit: BoxFit.fill, )),
+                                ),
                                   const SizedBox(width: 10,),
-                                  // Column(
-                                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                  //   children: [
-                                  //     Text(widget.videoUrl[index].title),
-                                  //     const SizedBox(height: 10),
-                                  //     Text(artist[index]),
-                                  //   ],                               
-                                  // ),
                                   Expanded(child: SizedBox(width: width/3,)),
                                   IconButton(onPressed: () {
                                       showDialog(context: context, builder: (BuildContext context){
