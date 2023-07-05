@@ -73,6 +73,21 @@ class _StationMainState extends State<StationMain> {
     setState(() {});
   }
 
+  void resetState() {
+    setState(() {
+      videoUrl.clear();
+      videoIds.clear();
+      thumbNail.clear();
+      titles.clear();
+      artist.clear();
+      for (var controller in cons) {
+        controller.dispose();
+      }
+      cons.clear();
+    });
+    initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -189,15 +204,7 @@ class _StationMainState extends State<StationMain> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PlaylistScreen(
-                        videoUrl: videoIds,
-                        initialIndex: 0,
-                      ),
-                    ),
-                  );
+                  resetState();
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -213,12 +220,12 @@ class _StationMainState extends State<StationMain> {
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.shuffle),
+                    Icon(Icons.change_circle_outlined),
                     SizedBox(
                       width: 8,
                     ),
                     Text(
-                      '다시재생',
+                      '다시생성',
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
