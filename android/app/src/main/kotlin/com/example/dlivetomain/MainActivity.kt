@@ -1,4 +1,4 @@
-package com.dlive.dlivetomain
+package com.example.dlivetomain
 
 import io.flutter.embedding.android.FlutterActivity
 
