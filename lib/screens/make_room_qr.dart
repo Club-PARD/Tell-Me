@@ -53,8 +53,9 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final hostProvider = Provider.of<HostProvider>(context);
-    final roomProvider = Provider.of<RoomProvider>(context);
+    HostProvider hostProvider = Provider.of<HostProvider>(context);
+    RoomProvider roomProvider = Provider.of<RoomProvider>(context);
+    HostUtil hostUtil = HostUtil();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -82,7 +83,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushNamed(context, '/navigation');
             },
             child: const Text(
               '확인',
@@ -102,7 +103,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  'assets/QR_backG.png',
+                  hostUtil.getQr(hostProvider.character),
                   height: MediaQuery.of(context).size.height / 812 * 512,
                 ),
                 Positioned(

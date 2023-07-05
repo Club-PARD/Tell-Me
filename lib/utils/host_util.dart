@@ -52,6 +52,24 @@ class ProfileProvider extends ChangeNotifier {
   }
 }
 
+// class QrProvider extends ChangeNotifier {
+//   String _name = '';
+//   String _character = '';
+
+//   String get name => _name;
+//   String get character => _character;
+
+//   void setName(String name) {
+//     _name = name;
+//     notifyListeners();
+//   }
+
+//   void setCharacter(String character) {
+//     _character = character;
+//     notifyListeners();
+//   }
+// }
+
 class HostUtil {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
@@ -143,5 +161,26 @@ class HostUtil {
         return blueProfile;
     }
     return pinkProfile;
+  }
+
+  String getQr(String character) {
+    String purpleQr = 'assets/purple_qr.png';
+    String pinkQr = 'assets/pink_qr.png';
+    String yellowQr = 'assets/yellow_qr.png';
+    String greenQr = 'assets/green_qr.png';
+    String blueQr = 'assets/blue_qr.png';
+    switch (character) {
+      case 'assets/character_pale.png':
+        return purpleQr;
+      case 'assets/character_pink.png':
+        return pinkQr;
+      case 'assets/character_yellow.png':
+        return yellowQr;
+      case 'assets/character_green.png':
+        return greenQr;
+      case 'assets/character_blue.png':
+        return blueQr;
+    }
+    return pinkQr;
   }
 }

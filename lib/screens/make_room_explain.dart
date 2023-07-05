@@ -67,7 +67,7 @@ class MakeRoomExplainpage extends StatelessWidget {
                     left: 0,
                     right: 0,
                     child: Text(
-                      '@${roomProvider.name}or${hostProvider.name}',
+                      '@${roomProvider.name}',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16),
                     ),
