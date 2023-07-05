@@ -28,7 +28,7 @@ class _StationMainState extends State<StationMain> {
   List<String> titles = [];
   List<String> artist = [];
   List<String> thumbNail = [];
-  late YoutubePlayerController cons;
+  late List<YoutubePlayerController> controllers;
 
   @override
   void initState() {
@@ -38,11 +38,14 @@ class _StationMainState extends State<StationMain> {
 
   @override
   void dispose() {
-    cons.dispose();
+    for (var controller in controllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
   Future<void> parseVideoUrls() async {
+    controllers = [];
     for (String url in videoUrl) {
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
@@ -51,6 +54,7 @@ class _StationMainState extends State<StationMain> {
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
+      controllers.add(controller);
       final videoMetaData = controller.metadata;
       titles.add(videoMetaData.title);
       artist.add(videoMetaData.author);
@@ -66,7 +70,8 @@ class _StationMainState extends State<StationMain> {
     thumbNail.removeAt(index);
     titles.removeAt(index);
     artist.removeAt(index);
-    cons.dispose();
+    controllers[index].dispose();
+    controllers.removeAt(index);
     setState(() {});
   }
 
@@ -307,13 +312,12 @@ class _StationMainState extends State<StationMain> {
                                           child: TextButton(
                                             onPressed: () {
                                               setState(() {
-                                                videoUrl.removeAt(index);
-                                                videoIds.removeAt(index);
-                                                titles.removeAt(index);
-                                                artist.removeAt(index);
-                                                thumbNail.removeAt(index);
-                                                cons.dispose();
-                                              });
+                                          videoUrl.removeAt(index);
+                                          videoIds.removeAt(index);
+                                          titles.removeAt(index);
+                                          artist.removeAt(index);
+                                          thumbNail.removeAt(index);
+                                        });
                                               Navigator.pop(context);
                                             },
                                             style: ButtonStyle(
