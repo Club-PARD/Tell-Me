@@ -52,6 +52,7 @@ class DLive extends StatelessWidget {
         '/profile': (context) => const ProfileDetailScreen(),
         '/profilename': (context) => const ProfileNameScreen(),
         '/profilecharacter': (context) => const ProfileCharacterScreen(),
+        '/profilecharacter2': (context) => const ProfileCharacter2Screen(),
         '/stationmain': (context) => const StationMain(),
       },
       theme: ThemeData(
