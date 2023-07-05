@@ -35,7 +35,6 @@ class _StationMainState extends State<StationMain> {
   void initState() {
     super.initState();
     parseVideoUrls();
-    fetchMetaData();
   }
 
   @override
@@ -47,8 +46,7 @@ class _StationMainState extends State<StationMain> {
   }
 
   Future <List<String>> fetchMetaData() async{
-    List<String> titles = await getMetaData();
-  return titles;
+    return await getMetaData();
   }
 
   Future<void> parseVideoUrls() async {
@@ -76,13 +74,12 @@ class _StationMainState extends State<StationMain> {
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       final title = jsonResponse['items'][0]['snippet']['title'];
-      print(title);
       titles.add(title);
+      print(titles);
     } else {
       throw Exception('Failed to fetch video title');
     }
   }
-  setState(() {});
   return titles;
 
 }
@@ -261,7 +258,7 @@ class _StationMainState extends State<StationMain> {
           Expanded(
             child: FutureBuilder<List<String>>(
               future: fetchMetaData(),
-              builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: Image.asset('assets/car_moving_final.gif'),
@@ -270,9 +267,10 @@ class _StationMainState extends State<StationMain> {
                   return const Center(
                     child: Text('FutureBuilder에 값 없음'),
                   );
-                } else {
+                } 
+                else {
                   return ListView.builder(
-                    itemCount: titles.length,
+                    itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, index) {
                       return GestureDetector(
                         onTap: () {
@@ -314,35 +312,8 @@ class _StationMainState extends State<StationMain> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: titles[index]
-                                      .split('-')
-                                      .map((line) {
-                                        final text = line.trim();
-                                        final startIndex = text.indexOf('(');
-                                        final endIndex = text.indexOf(')');
-                                        final formattedText = startIndex != -1 && endIndex != -1
-                                            ? text.substring(0, startIndex) + text.substring(endIndex + 1)
-                                            : text;
-
-                                        return Text(
-                                          formattedText,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            color: Color(0xFF000000),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        );
-                                      })
-                                      .toList(),
-                                ),
-
- 
+                                  Flexible(child: Text(titles[index],style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),softWrap: true,)),
                                   const SizedBox(height: 10),
-                                  //Text(artist[index]),
                                 ],
                               ),
                               Expanded(child: SizedBox(width: width / 3)),
