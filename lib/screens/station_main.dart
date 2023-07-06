@@ -28,8 +28,6 @@ class _StationMainState extends State<StationMain> {
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
-  List<String> impT = [];
-  //final getTitle _getTitle = getTitle();
   
   late List<YoutubePlayerController> controllers;
   @override
@@ -46,12 +44,6 @@ class _StationMainState extends State<StationMain> {
     super.dispose();
   }
 
-  // void fetchVideo(){
-  //     _getTitle.fetchTitle(videoUrl){
-
-  //     }
-  // }
-
   Future <List<String>> fetchMetaData() async{         //List<String> titles의 값 
     await Future.delayed(const Duration(seconds: 2), (){});
     return await getMetaData();
@@ -60,11 +52,8 @@ class _StationMainState extends State<StationMain> {
   Future<void> parseVideoUrls() async {
     controllers = [];
     for (String url in videoUrl) {
-    //  fetchVideo();
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
-      impT.add(YoutubeMetaData(videoId: videoId).title);
-      print('impT : $impT');
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
@@ -77,7 +66,6 @@ class _StationMainState extends State<StationMain> {
   }
 
  Future<List<String>> getMetaData() async {
-  List<String> titles = [];
   final String? apiKey = dotenv.env['YOUTUBE_API'];
 
   for (String url in videoUrl) {
@@ -89,7 +77,6 @@ class _StationMainState extends State<StationMain> {
       final jsonResponse = jsonDecode(response.body);
       final title = jsonResponse['items'][0]['snippet']['title'];
       titles.add(title);
-      print(titles);
     } else {
       throw Exception('Failed to fetch video title');
     }
@@ -194,7 +181,7 @@ class _StationMainState extends State<StationMain> {
                         videoUrl: videoIds,
                         initialIndex: 0,
                         count: videoUrl.length,
-                        title : titles,
+                        songTitle : titles,
                       ),
                     ),
                   );
@@ -248,7 +235,7 @@ class _StationMainState extends State<StationMain> {
                     ),
                   ),
                   backgroundColor:
-                      MaterialStateProperty.all(const Color(0XFFC0C0C0)),
+                      MaterialStateProperty.all(const Color(0xFF438BC3),),
                   minimumSize: MaterialStateProperty.all(
                     Size(width * 2 / 5, height / 18),
                   ),
@@ -284,7 +271,6 @@ class _StationMainState extends State<StationMain> {
                 } 
                 else {
                   final count = snapshot.data!.length;
-                  print('count is $count');
                   return ListView.builder(
                     itemCount: count,
                     itemBuilder: (context, index) {
@@ -297,7 +283,7 @@ class _StationMainState extends State<StationMain> {
                                 videoUrl: videoIds,
                                 initialIndex: index,
                                 count: count,
-                                title : titles,
+                                songTitle : titles,
                               ),
                             ),
                           );

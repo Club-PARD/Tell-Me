@@ -34,7 +34,7 @@ class DLive extends StatelessWidget {
               videoUrl:
                   ModalRoute.of(context)?.settings.arguments as List<String>,
               initialIndex: ModalRoute.of(context)?.settings.arguments as int,
-              title :ModalRoute.of(context)?.settings.arguments as List<String>,
+              songTitle :ModalRoute.of(context)?.settings.arguments as List<String>,
             ),
         '/playingyoutube': (context) => const PlayingYoutubeScreen(),
         '/splash': (context) => const SplashPage(),
@@ -53,7 +53,7 @@ class DLive extends StatelessWidget {
         '/profilecharacter': (context) => const ProfileCharacterScreen(),
         '/profilecharacter2': (context) => const ProfileCharacter2Screen(),
         '/stationloading': (context) => const StationLoadingScreen(),
-        '/stationmain': (context) => const StationMain(),
+        '/stationmain': (context) =>  const StationMain(),
       },
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
