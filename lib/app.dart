@@ -47,7 +47,6 @@ class DLive extends StatelessWidget {
         '/makeroomexplain': (context) => const MakeRoomExplainpage(),
         '/makeroomqr': (context) => const MakeRoomQrScreen(),
         '/coremusicadd': (context) => const CoreMusicAdd(),
-        // '/coremusicaddselect': (context) => const CoreMusicAddSelectScreen(),
         '/makeroomwaiting': (context) => const MakeRoomWaitingScreen(),
         '/profile': (context) => const ProfileDetailScreen(),
         '/profilename': (context) => const ProfileNameScreen(),
