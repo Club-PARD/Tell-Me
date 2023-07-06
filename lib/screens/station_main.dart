@@ -45,7 +45,7 @@ class _StationMainState extends State<StationMain> {
     super.dispose();
   }
 
-  Future <List<String>> fetchMetaData() async{
+  Future <List<String>> fetchMetaData() async{         //List<String> titles의 값 
     return await getMetaData();
   }
 
