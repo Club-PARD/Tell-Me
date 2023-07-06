@@ -245,7 +245,8 @@ class HomePage extends StatelessWidget {
                                             leading: Image.asset(
                                                 'assets/room_default_color.png'),
                                             title: const Text('아직 생성된 방이 없어요'),
-                                            subtitle: const Text('함께 즐거운 음악을 들어보아요~'),
+                                            subtitle:
+                                                const Text('함께 즐거운 음악을 들어보아요~'),
                                           )),
                                     );
                                   }
@@ -277,6 +278,7 @@ class RoomListScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -289,7 +291,14 @@ class RoomListScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(onPressed: (){Navigator.pushNamed(context, '/stationmain');}, icon: const Icon(Icons.golf_course, color: Colors.black,)),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/stationmain');
+              },
+              icon: const Icon(
+                Icons.golf_course,
+                color: Colors.black,
+              )),
         ],
       ),
       body: SafeArea(
