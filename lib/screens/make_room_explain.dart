@@ -25,6 +25,7 @@ class MakeRoomExplainpage extends StatelessWidget {
       )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.black,
           leading: IconButton(
