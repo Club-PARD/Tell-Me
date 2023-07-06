@@ -74,7 +74,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     height: MediaQuery.of(context).size.height / 812 * 54,
                     width: MediaQuery.of(context).size.height / 812 * 54,
                     color: Colors.white,
-                    child: Icon(
+                    child: const Icon(
                       Icons.add,
                       size: 20,
                       color: Colors.black,
@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -181,7 +181,7 @@ class HomePage extends StatelessWidget {
                             ),
                             Text(
                               '${hostProvider.name}님,\n오늘도 즐거운 디라이브 ~',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
@@ -197,7 +197,7 @@ class HomePage extends StatelessWidget {
                                       375 *
                                       35,
                                 ),
-                                Text(
+                                const Text(
                                   '최근 참가 드라이브 방',
                                   style: TextStyle(
                                       fontSize: 18,
@@ -215,11 +215,11 @@ class HomePage extends StatelessWidget {
                                     ? hostProvider.room.length
                                     : 1,
                                 itemBuilder: (context, index) {
-                                  if (hostProvider.room.length > 0) {
+                                  if (hostProvider.room.isNotEmpty) {
                                     return GestureDetector(
                                       child: Container(
                                           decoration: BoxDecoration(
-                                            color: Color.fromARGB(
+                                            color: const Color.fromARGB(
                                                 54, 255, 255, 255),
                                             borderRadius:
                                                 BorderRadius.circular(47.0),
@@ -227,8 +227,8 @@ class HomePage extends StatelessWidget {
                                           child: ListTile(
                                             leading: Image.asset(
                                                 'assets/room_default_black.png'),
-                                            title: Text('설정 방이름'),
-                                            subtitle: Text('00명 생성날짜'),
+                                            title: const Text('설정 방이름'),
+                                            subtitle: const Text('00명 생성날짜'),
                                           )),
                                     );
                                   } else {
@@ -236,7 +236,7 @@ class HomePage extends StatelessWidget {
                                     return GestureDetector(
                                       child: Container(
                                           decoration: BoxDecoration(
-                                            color: Color(0xFFCCCCCC)
+                                            color: const Color(0xFFCCCCCC)
                                                 .withOpacity(0.54),
                                             borderRadius:
                                                 BorderRadius.circular(47.0),
@@ -244,8 +244,8 @@ class HomePage extends StatelessWidget {
                                           child: ListTile(
                                             leading: Image.asset(
                                                 'assets/room_default_color.png'),
-                                            title: Text('아직 생성된 방이 없어요'),
-                                            subtitle: Text('함께 즐거운 음악을 들어보아요~'),
+                                            title: const Text('아직 생성된 방이 없어요'),
+                                            subtitle: const Text('함께 즐거운 음악을 들어보아요~'),
                                           )),
                                     );
                                   }
@@ -280,7 +280,7 @@ class RoomListScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           '보관함',
           style: TextStyle(
             color: Colors.black,
@@ -288,6 +288,9 @@ class RoomListScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(onPressed: (){Navigator.pushNamed(context, '/stationmain');}, icon: const Icon(Icons.golf_course, color: Colors.black,)),
+        ],
       ),
       body: SafeArea(
         child: Column(
@@ -397,7 +400,7 @@ class RoomListScreen extends StatelessWidget {
                 ),
                 Text(
                   room.name, // Access the room's name property
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -408,7 +411,7 @@ class RoomListScreen extends StatelessWidget {
                 ),
                 Text(
                   '${room.member.length}명',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12,
                     color: Color(0xff929292),
                   ),
@@ -416,7 +419,7 @@ class RoomListScreen extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 375 * 89,
                 ),
-                Text(
+                const Text(
                   '생성 날짜',
                   style: TextStyle(
                     fontSize: 12,
