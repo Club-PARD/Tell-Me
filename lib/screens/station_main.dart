@@ -5,7 +5,6 @@ import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
-import 'package:youtube_parser/youtube_parser.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 
@@ -17,12 +16,12 @@ class StationMain extends StatefulWidget {
 
 class _StationMainState extends State<StationMain> {
   List<String> videoUrl = [
-    'https://www.youtube.com/watch?v=fHI8X4OXluQ',
-    'https://www.youtube.com/watch?v=ApXoWvfEYVU',
-    'https://www.youtube.com/watch?v=mEZqJ65ra08',
-    'https://www.youtube.com/watch?v=mNEUkkoUoIA',
-    'https://www.youtube.com/watch?v=XR7Ev14vUh8',
-    'https://www.youtube.com/watch?v=bfXsQ9k9PtY',
+    'fHI8X4OXluQ',
+    'ApXoWvfEYVU',
+    'mEZqJ65ra08',
+    'mNEUkkoUoIA',
+    'XR7Ev14vUh8',
+    'bfXsQ9k9PtY',
   ];
   late List<String> videoIds = [];
   late List<String> titles = [];
@@ -52,8 +51,8 @@ class _StationMainState extends State<StationMain> {
   Future<void> parseVideoUrls() async {
     controllers = [];
     for (String url in videoUrl) {
-      final String? videoId = getIdFromUrl(url);
-      videoIds.add(videoId!);
+    //  final String? videoId = getIdFromUrl(url);
+    //  videoIds.add(videoId!);
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
@@ -66,12 +65,12 @@ class _StationMainState extends State<StationMain> {
   }
 
  Future<List<String>> getMetaData() async {
-  final String? apiKey = dotenv.env['YOUTUBE_API'];
+  final String? apiKey = dotenv.env['YOUTUBE_API_KEY1'];
 
   for (String url in videoUrl) {
-    final String? videoId = getIdFromUrl(url);
-    thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
-    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$videoId&key=$apiKey'));
+  //  final String? videoId = getIdFromUrl(url);
+    thumbNail.add('https://img.youtube.com/vi/$url/0.jpg');
+    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$url&key=$apiKey'));
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
