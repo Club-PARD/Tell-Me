@@ -11,7 +11,6 @@ import 'package:dlive/screens/login_page.dart';
 import 'package:dlive/screens/signup_screen.dart';
 import 'package:dlive/screens/navigation_screen.dart';
 import 'package:dlive/screens/core_music_add.dart';
-import 'package:dlive/screens/core_music_add_select.dart';
 import 'package:dlive/screens/room_list_screen.dart';
 import 'package:dlive/screens/make_room.dart';
 import 'package:dlive/screens/make_room_explain.dart';
@@ -48,7 +47,7 @@ class DLive extends StatelessWidget {
         '/makeroomexplain': (context) => const MakeRoomExplainpage(),
         '/makeroomqr': (context) => const MakeRoomQrScreen(),
         '/coremusicadd': (context) => const CoreMusicAdd(),
-        '/coremusicaddselect': (context) => const CoreMusicAddSelectScreen(),
+        // '/coremusicaddselect': (context) => const CoreMusicAddSelectScreen(),
         '/makeroomwaiting': (context) => const MakeRoomWaitingScreen(),
         '/profile': (context) => const ProfileDetailScreen(),
         '/profilename': (context) => const ProfileNameScreen(),
