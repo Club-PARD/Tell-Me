@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:dlive/models/youtube_video_model.dart';
 import 'package:dlive/screens/core_music_add_select.dart';
 import 'package:dlive/services/youtube_service.dart';
+import 'package:dlive/utils/host_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 
 class CoreMusicAdd extends StatefulWidget {
   const CoreMusicAdd({Key? key}) : super(key: key);
@@ -16,11 +18,11 @@ class CoreMusicAdd extends StatefulWidget {
 class _CoreMusicAddState extends State<CoreMusicAdd> {
   final TextEditingController _queryController = TextEditingController();
   final ApiService _apiService = ApiService();
-  bool _isChecked = false;
   String query = "";
   List<YoutubeVideo> videos = [];
   List<List<String>> songs = [];
   Map<String, bool> videoIdSelections = {}; //각 videoId의 선택 상태를 저장하는 맵 추가
+  List<YoutubeVideo> selectedVideos = []; //선택된 비디오들을 저장하는 리스트 추가
 
   // List<List<String>> songs = [
   //   ["지코", "Artist"],
@@ -35,7 +37,6 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
   void initState() {
     super.initState();
     _queryController.addListener(_onQueryChanged);
-    _fetchVideos();
   }
 
   @override
@@ -50,43 +51,54 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
     });
   }
 
-  // void _fetchVideos() {
-  //   _apiService.fetchTopViewedVideos(songs).then((fetchedVideos) {
-  //     setState(() {
-  //       videos = fetchedVideos;
-  //     });
-  //   });
-  // }
-  void _fetchVideos() {
-    _apiService.fetchTopViewedVideos(songs).then((fetchedVideos) {
-      setState(() {
-        videos = fetchedVideos;
-        videoIdSelections = Map.fromIterable(
-          videos,
-          key: (video) => (video as YoutubeVideo).title,
-          value: (video) => false,
-        );
-      });
-    });
-  }
-
+  // 영상 검색 함수
   void _searchVideos(String query) {
     if (query.isNotEmpty) {
       _apiService.fetchVideos(query).then((videos) {
         setState(() {
           this.videos = videos;
-          videoIdSelections = Map.fromIterable(
-            videos,
-            key: (video) => (video as YoutubeVideo).title,
-            value: (video) => false,
-          );
+
+          // videos에 새로운 비디오들이 추가되었다면, videoIdSelections에도 초기 상태를 추가합니다.
+          videos.forEach((video) {
+            if (!videoIdSelections.containsKey(video.title)) {
+              videoIdSelections[video.title] = false;
+            }
+          });
         });
       });
     }
   }
 
+  // 비디오 리스트 눌렀을때 실행되는 함수
+  void _onVideoTap(int index) {
+    setState(() {
+      // 현재 선택된 항목 수를 계산합니다.
+      int currentSelectedCount = selectedVideos.length;
+
+      // 만약 3개 미만이라면, 현재 항목의 선택 상태를 토글합니다.
+      if (currentSelectedCount < 3 ||
+          videoIdSelections[videos[index].title] == true) {
+        videoIdSelections[videos[index].title] =
+            !(videoIdSelections[videos[index].title] ?? false);
+
+        if (videoIdSelections[videos[index].title] == true) {
+          selectedVideos.add(videos[index]); // 선택한 비디오를 추가합니다.
+        } else {
+          selectedVideos.remove(videos[index]); // 선택 취소한 비디오를 제거합니다.
+        }
+
+        _showModalSheet();
+      } else {
+        // 이미 3개가 선택되어 있다면, 경고 메시지를 표시합니다.
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('3개까지만 고를 수 있어요 ㅠㅠ')),
+        );
+      }
+    });
+  }
+
   // 포기할 수 없는 3곡(밑에서 슝 올라오는거)
-  void _showModalSheet(int index) {
+  void _showModalSheet() {
     Timer(const Duration(milliseconds: 1500), () {
       Navigator.pop(context); // 모달 닫기
     });
@@ -122,21 +134,21 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: videoIdSelections[videos[index].title] ?? false
+                          color: selectedVideos.length > index
                               ? const Color(0xFFDE3B15)
                               : const Color(0XFFD9D9D9),
                           width: 4,
                         ),
                       ),
                       child: ClipOval(
-                        child: (videoIdSelections[videos[index].title] ?? false)
+                        child: selectedVideos.length > index
                             ? Image.network(
-                                videos[index].thumbnailUrl,
+                                selectedVideos[index].thumbnailUrl,
                                 fit: BoxFit.cover,
                               )
                             : Image.asset(
                                 'assets/images/Black_logo.png',
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                               ),
                       ),
                     ),
@@ -145,7 +157,7 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 20,
                 ),
-                if (index == 2)
+                if (selectedVideos.length == 3)
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/makeroomwaiting');
@@ -175,6 +187,9 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
 
   @override
   Widget build(BuildContext context) {
+    HostProvider hostProvider = Provider.of<HostProvider>(context);
+    HostUtil hostUtil = HostUtil();
+    hostUtil.getHost(hostProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -201,16 +216,14 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CoreMusicAddSelectScreen(),
-                ),
-              );
+              _showModalSheet();
             },
             child: const Text(
               '확인',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+              ),
             ),
           ),
         ],
@@ -230,14 +243,6 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
               child: TextField(
                 controller: _queryController,
                 onSubmitted: (value) {
-                  // if (query.isNotEmpty) {
-                  //   _apiService.fetchVideos(query).then((videos) {
-                  //     setState(() {
-                  //       this.videos = videos;
-                  //     });
-                  //   });
-                  // }
-                  // _fetchVideos();
                   _searchVideos(query);
                 },
                 onChanged: (value) {
@@ -283,14 +288,6 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                           color: Color(0xFF9C9C9C),
                         ),
                         onPressed: () {
-                          // if (query.isNotEmpty) {
-                          //   _apiService.fetchVideos(query).then((videos) {
-                          //     setState(() {
-                          //       this.videos = videos;
-                          //     });
-                          //   });
-                          // }
-                          // _fetchVideos();
                           _searchVideos(query);
                         },
                       ),
@@ -306,11 +303,10 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
             ),
             Expanded(
               child: videos.isEmpty
-                  ? const Center(
-                      child: SpinKitCircle(
-                        color: Color(0xFFDE3B15),
-                        size: 50.0,
-                      ),
+                  ? Image.asset(
+                      hostUtil.getGifCharacter(hostProvider.character),
+                      fit: BoxFit.cover,
+                      // width: double.infinity,
                     )
                   : ListView.separated(
                       itemCount: videos.length,
@@ -318,30 +314,9 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              // 현재 선택된 항목 수를 계산합니다.
-                              int currentSelectedCount = videoIdSelections
-                                  .values
-                                  .where((v) => v)
-                                  .length;
-
-                              // 만약 3개 미만이라면, 현재 항목의 선택 상태를 토글합니다.
-                              if (currentSelectedCount < 3 ||
-                                  videoIdSelections[videos[index].title] ==
-                                      true) {
-                                videoIdSelections[videos[index].title] =
-                                    !(videoIdSelections[videos[index].title] ??
-                                        false);
-                                _showModalSheet(index);
-                              } else {
-                                // 이미 3개가 선택되어 있다면, 경고 메시지를 표시합니다.
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text(
-                                          'You can only select up to 3 videos.')),
-                                );
-                              }
-
                               print("Updated value: ${videos[index].title}");
+                              print(videos[index].id);
+                              _onVideoTap(index);
                             });
                           },
                           child: Padding(
@@ -365,31 +340,7 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                                 child: Checkbox(
                                   onChanged: (value) {
                                     setState(() {
-                                      // 현재 선택된 항목 수를 계산합니다.
-                                      int currentSelectedCount =
-                                          videoIdSelections.values
-                                              .where((v) => v)
-                                              .length;
-
-                                      // 만약 3개 미만이라면, 현재 항목의 선택 상태를 토글합니다.
-                                      if (currentSelectedCount < 3 ||
-                                          videoIdSelections[
-                                                  videos[index].title] ==
-                                              true) {
-                                        videoIdSelections[videos[index].title] =
-                                            !(videoIdSelections[
-                                                    videos[index].title] ??
-                                                false);
-                                        _showModalSheet(index);
-                                      } else {
-                                        // 이미 3개가 선택되어 있다면, 경고 메시지를 표시합니다.
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content: Text(
-                                                  'You can only select up to 3 videos.')),
-                                        );
-                                      }
+                                      _onVideoTap(index);
                                     });
                                   },
                                   value:
