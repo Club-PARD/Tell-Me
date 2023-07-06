@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dlive/screens/playlist_screen.dart';
@@ -29,6 +28,8 @@ class _StationMainState extends State<StationMain> {
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
+  List<String> impT = [];
+  //final getTitle _getTitle = getTitle();
   
   late List<YoutubePlayerController> controllers;
   @override
@@ -45,21 +46,34 @@ class _StationMainState extends State<StationMain> {
     super.dispose();
   }
 
-  Future <List<String>> fetchMetaData() async{
+  // void fetchVideo(){
+  //     _getTitle.fetchTitle(videoUrl){
+
+  //     }
+  // }
+
+  Future <List<String>> fetchMetaData() async{         //List<String> titles의 값 
+    await Future.delayed(const Duration(seconds: 2), (){});
     return await getMetaData();
   }
 
   Future<void> parseVideoUrls() async {
     controllers = [];
     for (String url in videoUrl) {
+    //  fetchVideo();
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
+      impT.add(YoutubeMetaData(videoId: videoId).title);
+      print('impT : $impT');
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
       controllers.add(controller);
     }
+    setState(() {
+      
+    });
   }
 
  Future<List<String>> getMetaData() async {
@@ -83,7 +97,6 @@ class _StationMainState extends State<StationMain> {
   return titles;
 
 }
-
 
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
@@ -269,9 +282,11 @@ class _StationMainState extends State<StationMain> {
                   );
                 } 
                 else {
+                  final count = snapshot.data!.length;
+                  print('count is $count');
                   return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (BuildContext context, index) {
+                    itemCount: count,
+                    itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -280,7 +295,7 @@ class _StationMainState extends State<StationMain> {
                               builder: (context) => PlaylistScreen(
                                 videoUrl: videoIds,
                                 initialIndex: index,
-                                count: videoUrl.length,
+                                count: count,
                               ),
                             ),
                           );
@@ -308,14 +323,15 @@ class _StationMainState extends State<StationMain> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(child: Text(titles[index],style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),softWrap: true,)),
-                                  const SizedBox(height: 10),
-                                ],
-                              ),
+                              Text(impT[index]),
+                              // Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     Flexible(child: Text(titles[index],style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),softWrap: true,)),
+                              //     const SizedBox(height: 10),
+                              //   ],
+                              // ),
                               Expanded(child: SizedBox(width: width / 3)),
                               IconButton(
                                 onPressed: () {

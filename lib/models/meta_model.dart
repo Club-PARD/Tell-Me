@@ -1,16 +1,13 @@
-class YoutubeMeta{
+class YoutubeTitle{
   final String title;
-  final String id;
 
-  YoutubeMeta({
+  YoutubeTitle({
     required this.title,
-    required this.id,
   });
 
-  factory YoutubeMeta.fromMap(Map<String,dynamic> snippet, String id){
-    return YoutubeMeta(
+  factory YoutubeTitle.fromMap(Map<String,dynamic> snippet){
+    return YoutubeTitle(
       title: snippet['title'],
-      id:id
     );
   }
 }
