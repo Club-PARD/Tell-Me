@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PlaylistScreen extends StatefulWidget {
-  List<String> videoUrl;
-  int initialIndex;
-  int count;
-  List<String> title;
+  final List<String> videoUrl;
+  final int initialIndex;
+  final int count;
+  final List<String> songTitle;
 
-  PlaylistScreen({Key? key, required this.videoUrl, required this.initialIndex, required this.count, required this.title}) : super(key: key);
+  const PlaylistScreen({Key? key, required this.videoUrl, required this.initialIndex, required this.count, required this.songTitle}) : super(key: key);
 
   @override
   State<PlaylistScreen> createState() => _PlaylistScreenState();
@@ -18,13 +18,12 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   late int initialIndex;
   static late String youtubeId ;
   late int currentIndex;
+  late List<String> titles = [];
   
   @override
   void initState() {
     super.initState();
-    for(int i=0;i<widget.videoUrl.length; i++){
-
-    }
+    addTitle();
     initialIndex=widget.initialIndex;
     currentIndex = initialIndex;
     youtubeId = widget.videoUrl[initialIndex];
@@ -35,6 +34,14 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       mute: false,
     ),
     );
+    setState(() {});
+  }
+
+  Future<void> addTitle() async{
+    for(int i=0;i<widget.songTitle.length;i++)
+    {
+      titles.add(widget.songTitle[i]);
+    }
   }
 
   @override
@@ -70,51 +77,48 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           onTap: () async{
                             setState(() {
                               currentIndex=index;
-                           con.load(widget.videoUrl[index]);
+                              con.load(widget.videoUrl[index]);
                             });
                           },
                           child: SizedBox(
                             width: width,
                             height: height/8,
-                            child: 
-                            Row(
+                            child: Row(
                               children: [
                                 const SizedBox(width: 5,),
-                                IconButton(onPressed: (){
-                                  showDialog(context: context, builder: (BuildContext context){
-                                        return AlertDialog(
-                                          backgroundColor: Colors.black,
-                                          content: 
-                                            Container(
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(70)),
-                                              width: width,
-                                              height: height/8,
-                                              child: TextButton(onPressed: (){
-                                              },
-                                              style: ButtonStyle(
-                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                        RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(30),
-                                                                  ),
-                                                                ),
-                                              ), 
-                                              child: const Row(
-                                                children: [
-                                                  Icon(Icons.delete, color: Colors.white,),
-                                                  Text('현재 스테이션 재생 목록에서 삭제',style: TextStyle(color: Colors.white, fontSize: 16),),
-                                                ],
-                                              )),
-                                            )
-                                          
-                                        );
-                                      });
-                                }, icon: const Icon(Icons.menu, color: Color(0XFF929292),)),
+                                IconButton(
+                                          onPressed: (){
+                                              showDialog(context: context, builder: (BuildContext context){
+                                                    return AlertDialog(
+                                                      backgroundColor: Colors.black,
+                                                      content: Container(
+                                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(70)),
+                                                                  width: width,
+                                                                  height: height/8,
+                                                                  child: TextButton(onPressed: (){},
+                                                                        style: ButtonStyle(
+                                                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                                          RoundedRectangleBorder(
+                                                                                          borderRadius: BorderRadius.circular(30),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                ), 
+                                                                          child: const Row(
+                                                                            children: [
+                                                                              Icon(Icons.delete, color: Colors.white,),
+                                                                              Text('현재 스테이션 재생 목록에서 삭제',style: TextStyle(color: Colors.white, fontSize: 16),),
+                                                                            ],
+                                                                          )),
+                                                                        )                                
+                                                                      );
+                                                                    });
+                                                              }, icon: const Icon(Icons.menu, color: Color(0XFF929292),)),
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
                                     currentIndex=index;
                                     con.load(widget.videoUrl[index]);
-                            });
+                                    });
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
@@ -123,13 +127,21 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                     child: Image.network('https://img.youtube.com/vi/${widget.videoUrl[index]}/0.jpg',fit: BoxFit.fill, )),
                                 ),
                                   const SizedBox(width: 10,),
-                                 // Expanded(child: SizedBox(width: width/3,)),
-                                 
+                                  Expanded(
+                                      child: Text(titles[index]
+                                      .split('-')
+                                      .join('\n')
+                                      .replaceAllMapped(RegExp(r'\([^()]*\)|\[[^\[\]]*\]|\|,'), (match) => ''),
+                                      softWrap: true,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 4,
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                   ),                                
                                   IconButton(onPressed: () {
                                       showDialog(context: context, builder: (BuildContext context){
                                         return AlertDialog(
                                           backgroundColor: Colors.black,
-                                         // contentPadding: EdgeInsets.zero,
                                           content: 
                                             Container(
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(70)),
