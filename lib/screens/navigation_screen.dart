@@ -295,8 +295,8 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                            width: MediaQuery.of(context).size.width / 375 * 17,
-                          ),
+                      width: MediaQuery.of(context).size.width / 375 * 17,
+                    ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,8 +324,9 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width / 375 * 16,
+                                width: MediaQuery.of(context).size.width /
+                                    375 *
+                                    16,
                               ),
                               const Text(
                                 '생성 날짜',
@@ -362,6 +363,7 @@ class RoomListScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
