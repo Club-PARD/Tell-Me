@@ -163,6 +163,27 @@ class HostUtil {
     return pinkProfile;
   }
 
+  String getCharacter(String character) {
+    String paleProfile = 'assets/character_pale.png';
+    String pinkProfile = 'assets/character_pink.png';
+    String yellowProfile = 'assets/character_yellow.png';
+    String greenProfile = 'assets/character_green.png';
+    String blueProfile = 'assets/character_blue.png';
+    switch (character) {
+      case 'assets/character_pale.png':
+        return paleProfile;
+      case 'assets/character_pink.png':
+        return pinkProfile;
+      case 'assets/character_yellow.png':
+        return yellowProfile;
+      case 'assets/character_green.png':
+        return greenProfile;
+      case 'assets/character_blue.png':
+        return blueProfile;
+    }
+    return pinkProfile;
+  }
+
   String getQr(String character) {
     String purpleQr = 'assets/purple_qr.png';
     String pinkQr = 'assets/pink_qr.png';
