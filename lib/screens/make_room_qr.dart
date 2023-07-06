@@ -84,6 +84,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
         actions: [
           TextButton(
             onPressed: () {
+              print(roomProvider.img);
               roomUtil.addRoom(
                 roomProvider.name,
                 roomProvider.id,

@@ -7,11 +7,11 @@ class Room {
   late List member;
 
   Room({
-    required this.name,
-    required this.img,
-    required this.url,
-    required this.playlist,
-    required this.member,
-    required String id,
-  });
+  required this.name,
+  required this.img,
+  required this.url,
+  required this.playlist,
+  required this.member,
+  required String id,
+});
 }

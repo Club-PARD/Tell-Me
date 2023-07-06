@@ -90,7 +90,6 @@ class _ProfileCharacterScreenState extends State<ProfileCharacterScreen> {
               ),
             ),
             onTap: () {
-              print('${profileProvider.character} 제발');
               if (profileProvider.character == '') {
                 profileProvider.setCharacter(character[0]);
               }

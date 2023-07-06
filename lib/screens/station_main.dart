@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dlive/screens/playlist_screen.dart';
@@ -29,13 +28,14 @@ class _StationMainState extends State<StationMain> {
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
+  List<String> impT = [];
+  //final getTitle _getTitle = getTitle();
   
   late List<YoutubePlayerController> controllers;
   @override
   void initState() {
     super.initState();
     parseVideoUrls();
-    fetchMetaData();
   }
 
   @override
@@ -46,22 +46,34 @@ class _StationMainState extends State<StationMain> {
     super.dispose();
   }
 
-  Future <List<String>> fetchMetaData() async{
-    List<String> titles = await getMetaData();
-  return titles;
+  // void fetchVideo(){
+  //     _getTitle.fetchTitle(videoUrl){
+
+  //     }
+  // }
+
+  Future <List<String>> fetchMetaData() async{         //List<String> titles의 값 
+    await Future.delayed(const Duration(seconds: 2), (){});
+    return await getMetaData();
   }
 
   Future<void> parseVideoUrls() async {
     controllers = [];
     for (String url in videoUrl) {
+    //  fetchVideo();
       final String? videoId = getIdFromUrl(url);
       videoIds.add(videoId!);
+      impT.add(YoutubeMetaData(videoId: videoId).title);
+      print('impT : $impT');
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
       controllers.add(controller);
     }
+    setState(() {
+      
+    });
   }
 
  Future<List<String>> getMetaData() async {
@@ -76,17 +88,15 @@ class _StationMainState extends State<StationMain> {
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       final title = jsonResponse['items'][0]['snippet']['title'];
-      print(title);
       titles.add(title);
+      print(titles);
     } else {
       throw Exception('Failed to fetch video title');
     }
   }
-  setState(() {});
   return titles;
 
 }
-
 
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
@@ -261,7 +271,7 @@ class _StationMainState extends State<StationMain> {
           Expanded(
             child: FutureBuilder<List<String>>(
               future: fetchMetaData(),
-              builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: Image.asset('assets/car_moving_final.gif'),
@@ -270,10 +280,13 @@ class _StationMainState extends State<StationMain> {
                   return const Center(
                     child: Text('FutureBuilder에 값 없음'),
                   );
-                } else {
+                } 
+                else {
+                  final count = snapshot.data!.length;
+                  print('count is $count');
                   return ListView.builder(
-                    itemCount: titles.length,
-                    itemBuilder: (BuildContext context, index) {
+                    itemCount: count,
+                    itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -282,7 +295,7 @@ class _StationMainState extends State<StationMain> {
                               builder: (context) => PlaylistScreen(
                                 videoUrl: videoIds,
                                 initialIndex: index,
-                                count: videoUrl.length,
+                                count: count,
                               ),
                             ),
                           );
@@ -310,41 +323,15 @@ class _StationMainState extends State<StationMain> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: titles[index]
-                                      .split('-')
-                                      .map((line) {
-                                        final text = line.trim();
-                                        final startIndex = text.indexOf('(');
-                                        final endIndex = text.indexOf(')');
-                                        final formattedText = startIndex != -1 && endIndex != -1
-                                            ? text.substring(0, startIndex) + text.substring(endIndex + 1)
-                                            : text;
-
-                                        return Text(
-                                          formattedText,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            color: Color(0xFF000000),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        );
-                                      })
-                                      .toList(),
-                                ),
-
- 
-                                  const SizedBox(height: 10),
-                                  //Text(artist[index]),
-                                ],
-                              ),
+                              Text(impT[index]),
+                              // Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     Flexible(child: Text(titles[index],style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),softWrap: true,)),
+                              //     const SizedBox(height: 10),
+                              //   ],
+                              // ),
                               Expanded(child: SizedBox(width: width / 3)),
                               IconButton(
                                 onPressed: () {

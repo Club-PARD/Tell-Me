@@ -11,7 +11,6 @@ import 'package:dlive/screens/login_page.dart';
 import 'package:dlive/screens/signup_screen.dart';
 import 'package:dlive/screens/navigation_screen.dart';
 import 'package:dlive/screens/core_music_add.dart';
-import 'package:dlive/screens/room_list_screen.dart';
 import 'package:dlive/screens/make_room.dart';
 import 'package:dlive/screens/make_room_explain.dart';
 import 'package:dlive/screens/station_loading_screen.dart';
@@ -53,7 +52,7 @@ class DLive extends StatelessWidget {
         '/profilecharacter': (context) => const ProfileCharacterScreen(),
         '/profilecharacter2': (context) => const ProfileCharacter2Screen(),
         '/stationloading': (context) => const StationLoadingScreen(),
-        '/stationmain': (context) => StationMain(),
+        '/stationmain': (context) => const StationMain(),
       },
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,

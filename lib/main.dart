@@ -25,7 +25,7 @@ void main() async {
         create: (_) => ProfileProvider(),
       ),
     ],
-    child: DLive(),
+    child: const DLive(),
   ));
 
   if (Platform.isMacOS) {
