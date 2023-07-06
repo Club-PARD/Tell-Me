@@ -16,7 +16,7 @@ class MakeRoomExplainpage extends StatelessWidget {
     double height = screenSize.height;
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           image: DecorationImage(
         fit: BoxFit.cover,
         image: AssetImage(
@@ -28,7 +28,7 @@ class MakeRoomExplainpage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.black,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -40,7 +40,7 @@ class MakeRoomExplainpage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: height / 812 * 23),
-              Text(
+              const Text(
                 '곧 스테이션이 만들어져요!',
                 style: TextStyle(
                   fontSize: 24,
@@ -49,7 +49,7 @@ class MakeRoomExplainpage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: height / 812 * 23),
-              Text(
+              const Text(
                 '음악 3개를 선택하시면 AI가 유사한 장르의 노래를\n대신 선곡해줘 즐거운 드라이브 경험을 완성시켜줄거에요',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 12, color: Colors.white),
@@ -69,7 +69,7 @@ class MakeRoomExplainpage extends StatelessWidget {
                     child: Text(
                       '@${roomProvider.name}',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                 ],
@@ -79,11 +79,11 @@ class MakeRoomExplainpage extends StatelessWidget {
                 child: Container(
                   height: MediaQuery.of(context).size.height / 812 * 40,
                   width: MediaQuery.of(context).size.width / 375 * 167,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       '음악 선택하러 가기',
                       style:
