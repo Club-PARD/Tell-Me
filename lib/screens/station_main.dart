@@ -84,7 +84,6 @@ class _StationMainState extends State<StationMain> {
 
 }
 
-
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
     videoIds.removeAt(index);
@@ -269,8 +268,9 @@ class _StationMainState extends State<StationMain> {
                   );
                 } 
                 else {
+                  final count = snapshot.data!.length;
                   return ListView.builder(
-                    itemCount: snapshot.data!.length,
+                    itemCount: count,
                     itemBuilder: (BuildContext context, index) {
                       return GestureDetector(
                         onTap: () {
