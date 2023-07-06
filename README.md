@@ -32,15 +32,12 @@
 ## Team 소개
 저희는 음악에 진심인 사람들이 모인 **'멜로디가 체질'** 입니다.<br>
 
-> This is BlockQuote
 > **기획자**<br>
 > 신하진<br>
 
-> This is BlockQuote
 > **디자이너**<br>
 > 박예봄<br>
 
-> This is BlockQuote
 > **개발자**<br>
 > 최성찬<br>
 > 김민혁<br>
