@@ -5,8 +5,9 @@ class PlaylistScreen extends StatefulWidget {
   List<String> videoUrl;
   int initialIndex;
   int count;
+  List<String> title;
 
-  PlaylistScreen({Key? key, required this.videoUrl, required this.initialIndex, required this.count}) : super(key: key);
+  PlaylistScreen({Key? key, required this.videoUrl, required this.initialIndex, required this.count, required this.title}) : super(key: key);
 
   @override
   State<PlaylistScreen> createState() => _PlaylistScreenState();
@@ -17,10 +18,13 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   late int initialIndex;
   static late String youtubeId ;
   late int currentIndex;
-
+  
   @override
   void initState() {
     super.initState();
+    for(int i=0;i<widget.videoUrl.length; i++){
+
+    }
     initialIndex=widget.initialIndex;
     currentIndex = initialIndex;
     youtubeId = widget.videoUrl[initialIndex];
@@ -80,7 +84,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                   showDialog(context: context, builder: (BuildContext context){
                                         return AlertDialog(
                                           backgroundColor: Colors.black,
-                                         // contentPadding: EdgeInsets.zero,
                                           content: 
                                             Container(
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(70)),
@@ -98,7 +101,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                               child: const Row(
                                                 children: [
                                                   Icon(Icons.delete, color: Colors.white,),
-                                                  //SizedBox(width: 10,),
                                                   Text('현재 스테이션 재생 목록에서 삭제',style: TextStyle(color: Colors.white, fontSize: 16),),
                                                 ],
                                               )),
@@ -121,7 +123,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                     child: Image.network('https://img.youtube.com/vi/${widget.videoUrl[index]}/0.jpg',fit: BoxFit.fill, )),
                                 ),
                                   const SizedBox(width: 10,),
-                                  Expanded(child: SizedBox(width: width/3,)),
+                                 // Expanded(child: SizedBox(width: width/3,)),
+                                 
                                   IconButton(onPressed: () {
                                       showDialog(context: context, builder: (BuildContext context){
                                         return AlertDialog(
