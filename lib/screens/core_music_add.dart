@@ -161,8 +161,26 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                 ),
                 if (selectedVideos.length == 3)
                   ElevatedButton(
-                    onPressed: () {
-                      roomProvider.setSelectedVideos(selectedVideos);
+                    onPressed: () async {
+                      //RoomProvider roomProvider =
+                      //Provider.of<RoomProvider>(context, listen: false);
+                      RoomUtil roomUtil = RoomUtil();
+                      HostProvider hostProvider =
+                          Provider.of<HostProvider>(context, listen: false);
+                      List<YoutubeVideo> currentSelectedVideos =
+                          List.from(selectedVideos); // 선택된 비디오 리스트를 복사
+
+                      await roomUtil.addRoom(
+                        roomProvider.name,
+                        roomProvider.id,
+                        roomProvider.img,
+                        roomProvider.url,
+                        roomProvider.playlist,
+                        [hostProvider.name],
+                      );
+
+                      roomProvider.setSelectedVideos(currentSelectedVideos);
+
                       Navigator.pushNamed(context, '/makeroomwaiting');
                     },
                     style: ElevatedButton.styleFrom(
