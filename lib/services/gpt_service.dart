@@ -88,7 +88,7 @@ class GptService {
       OpenAIChatCompletionChoiceMessageModel(
         role: OpenAIChatMessageRole.user,
         content:
-            '${selections[0][0]}\n${selections[1][0]}\n${selections[2][0]}\n${selections[3][0]}\n${selections[4][0]}\n${selections[5][0]}\n${selections[0][1]}\n${selections[1][1]}\n${selections[2][1]}\n${selections[3][1]}\n${selections[4][1]}\n${selections[5][1]}\n${selections[0][2]}\n${selections[1][2]}\n${selections[2][2]}\n${selections[3][2]}\n${selections[4][2]}\n${selections[5][2]}\n\nAdd all the songs in the playlist in this order, except for the song with the value "", and then add more songs of the same genre in the same order to create a playlist of {$numOfSongs} songs (Never print any other text, just the playlist).',
+            '${selections[0][0]}\n${selections[1][0]}\n${selections[2][0]}\n${selections[3][0]}\n${selections[4][0]}\n${selections[5][0]}\n${selections[0][1]}\n${selections[1][1]}\n${selections[2][1]}\n${selections[3][1]}\n${selections[4][1]}\n${selections[5][1]}\n${selections[0][2]}\n${selections[1][2]}\n${selections[2][2]}\n${selections[3][2]}\n${selections[4][2]}\n${selections[5][2]}\n\nAdd all the songs in the playlist in this order, except for the song with the value "", and then add more songs of the same genre in the same order to create a playlist of {$numOfSongs} songs (Never print any other text, just the playlist).\n\nEach song is output in the following format: <singer> - <title>',
       ),
     ]);
     return chatCompletion.choices.first.message.content;
