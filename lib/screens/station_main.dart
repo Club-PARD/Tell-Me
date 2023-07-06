@@ -5,7 +5,6 @@ import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
-import 'package:youtube_parser/youtube_parser.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 
@@ -17,19 +16,17 @@ class StationMain extends StatefulWidget {
 
 class _StationMainState extends State<StationMain> {
   List<String> videoUrl = [
-    'https://www.youtube.com/watch?v=fHI8X4OXluQ',
-    'https://www.youtube.com/watch?v=ApXoWvfEYVU',
-    'https://www.youtube.com/watch?v=mEZqJ65ra08',
-    'https://www.youtube.com/watch?v=mNEUkkoUoIA',
-    'https://www.youtube.com/watch?v=XR7Ev14vUh8',
-    'https://www.youtube.com/watch?v=bfXsQ9k9PtY',
+    'fHI8X4OXluQ',
+    'ApXoWvfEYVU',
+    'mEZqJ65ra08',
+    'mNEUkkoUoIA',
+    'XR7Ev14vUh8',
+    'bfXsQ9k9PtY',
   ];
   late List<String> videoIds = [];
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
-  List<String> impT = [];
-  //final getTitle _getTitle = getTitle();
   
   late List<YoutubePlayerController> controllers;
   @override
@@ -46,12 +43,6 @@ class _StationMainState extends State<StationMain> {
     super.dispose();
   }
 
-  // void fetchVideo(){
-  //     _getTitle.fetchTitle(videoUrl){
-
-  //     }
-  // }
-
   Future <List<String>> fetchMetaData() async{         //List<String> titles의 값 
     await Future.delayed(const Duration(seconds: 2), (){});
     return await getMetaData();
@@ -60,11 +51,8 @@ class _StationMainState extends State<StationMain> {
   Future<void> parseVideoUrls() async {
     controllers = [];
     for (String url in videoUrl) {
-    //  fetchVideo();
-      final String? videoId = getIdFromUrl(url);
-      videoIds.add(videoId!);
-      impT.add(YoutubeMetaData(videoId: videoId).title);
-      print('impT : $impT');
+    //  final String? videoId = getIdFromUrl(url);
+    //  videoIds.add(videoId!);
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
@@ -77,19 +65,17 @@ class _StationMainState extends State<StationMain> {
   }
 
  Future<List<String>> getMetaData() async {
-  List<String> titles = [];
-  final String? apiKey = dotenv.env['YOUTUBE_API'];
+  final String? apiKey = dotenv.env['YOUTUBE_API_KEY1'];
 
   for (String url in videoUrl) {
-    final String? videoId = getIdFromUrl(url);
-    thumbNail.add('https://img.youtube.com/vi/$videoId/0.jpg');
-    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$videoId&key=$apiKey'));
+  //  final String? videoId = getIdFromUrl(url);
+    thumbNail.add('https://img.youtube.com/vi/$url/0.jpg');
+    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$url&key=$apiKey'));
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       final title = jsonResponse['items'][0]['snippet']['title'];
       titles.add(title);
-      print(titles);
     } else {
       throw Exception('Failed to fetch video title');
     }
@@ -194,6 +180,7 @@ class _StationMainState extends State<StationMain> {
                         videoUrl: videoIds,
                         initialIndex: 0,
                         count: videoUrl.length,
+                        songTitle : titles,
                       ),
                     ),
                   );
@@ -247,7 +234,7 @@ class _StationMainState extends State<StationMain> {
                     ),
                   ),
                   backgroundColor:
-                      MaterialStateProperty.all(const Color(0XFFC0C0C0)),
+                      MaterialStateProperty.all(const Color(0xFF438BC3),),
                   minimumSize: MaterialStateProperty.all(
                     Size(width * 2 / 5, height / 18),
                   ),
@@ -271,7 +258,7 @@ class _StationMainState extends State<StationMain> {
           Expanded(
             child: FutureBuilder<List<String>>(
               future: fetchMetaData(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
+              builder: (BuildContext context, AsyncSnapshot <List<String>>snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: Image.asset('assets/car_moving_final.gif'),
@@ -283,7 +270,6 @@ class _StationMainState extends State<StationMain> {
                 } 
                 else {
                   final count = snapshot.data!.length;
-                  print('count is $count');
                   return ListView.builder(
                     itemCount: count,
                     itemBuilder: (context, index) {
@@ -296,6 +282,7 @@ class _StationMainState extends State<StationMain> {
                                 videoUrl: videoIds,
                                 initialIndex: index,
                                 count: count,
+                                songTitle : titles,
                               ),
                             ),
                           );
@@ -323,16 +310,18 @@ class _StationMainState extends State<StationMain> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text(impT[index]),
-                              // Column(
-                              //   crossAxisAlignment: CrossAxisAlignment.start,
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   children: [
-                              //     Flexible(child: Text(titles[index],style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),softWrap: true,)),
-                              //     const SizedBox(height: 10),
-                              //   ],
-                              // ),
-                              Expanded(child: SizedBox(width: width / 3)),
+                              Expanded(
+                                child: Text(
+                                  snapshot.data![index]
+                                      .split('-')
+                                      .join('\n')
+                                      .replaceAllMapped(RegExp(r'\([^()]*\)|\[[^\[\]]*\]|\|,'), (match) => ''),
+                                  softWrap: true,
+                                  overflow: TextOverflow.clip,
+                                  maxLines: 4,
+                                ),
+                              ),
+                            //  Expanded(child: SizedBox(width: width / 3)),
                               IconButton(
                                 onPressed: () {
                                   showDialog(
@@ -384,7 +373,7 @@ class _StationMainState extends State<StationMain> {
                                           ),
                                         contentPadding: const EdgeInsets.only(bottom: 10),
                                       );
-
+                              
                                     },
                                   );
                                 },
