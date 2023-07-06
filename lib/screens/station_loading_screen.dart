@@ -1,9 +1,13 @@
 import 'dart:ffi';
 
+import 'package:dlive/models/youtube_video_model.dart';
+import 'package:dlive/utils/room_util.dart';
 import 'package:flutter/material.dart';
 import 'package:dlive/services/gpt_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dart_openai/dart_openai.dart';
+import 'package:provider/provider.dart';
+import 'package:youtube_video_info/youtube_video_info.dart';
 
 class StationLoadingScreen extends StatefulWidget {
   const StationLoadingScreen({super.key});
@@ -18,14 +22,24 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
   @override
   Widget build(BuildContext context) {
     OpenAI.apiKey = dotenv.env['OPENAI_API_KEY']!;
+
+    RoomProvider roomProvider = Provider.of<RoomProvider>(context);
+
+    List selectedVideos = roomProvider.selectedVideos;
     List<List<String>> selections = [
-      ['지코 - Artist', '호미들 - 사이렌', '창모 - METHEO'],
-      ['아이유 - 팔레트', '폴킴 - 모든 날 모든 순간', ''],
-      ['김동률 - 감사', '', ''],
-      ['닐로 - 지나오다', '양다일 - 미안해', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
       ['', '', ''],
       ['', '', ''],
     ];
+    
+    for(int i=0; i<selectedVideos.length; i++) {
+      for(int j=0; j<3; j++) {
+        selections[0][j] = selectedVideos[i].title;
+      }
+    }
 
     List<List<String>> songs;
 
