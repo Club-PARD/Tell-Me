@@ -271,7 +271,7 @@ class _StationMainState extends State<StationMain> {
           Expanded(
             child: FutureBuilder<List<String>>(
               future: fetchMetaData(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
+              builder: (BuildContext context, AsyncSnapshot <List<String>>snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: Image.asset('assets/car_moving_final.gif'),
@@ -323,15 +323,21 @@ class _StationMainState extends State<StationMain> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text(impT[index]),
-                              // Column(
-                              //   crossAxisAlignment: CrossAxisAlignment.start,
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   children: [
-                              //     Flexible(child: Text(titles[index],style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),softWrap: true,)),
-                              //     const SizedBox(height: 10),
-                              //   ],
-                              // ),
+                            //  Text(
+                            //     snapshot.data![index].split('-').join('\n'),
+                            //     softWrap: true,
+                            //     overflow: TextOverflow.ellipsis,
+                            //     maxLines: 2,
+                            //   ),
+                              Text(
+                                snapshot.data![index]
+                                    .split('-')
+                                    .join('\n')
+                                    .replaceAllMapped(RegExp(r'\([^()]*\)|\[[^\[\]]*\]|\|,'), (match) => ''),
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: snapshot.data![index].length > width / 2 ? 3 : 2,
+                              ),
                               Expanded(child: SizedBox(width: width / 3)),
                               IconButton(
                                 onPressed: () {
