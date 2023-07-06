@@ -176,6 +176,27 @@ class HostUtil {
     return pinkProfile;
   }
 
+  String getGifCharacter(String character) {
+    String paleProfile = 'assets/character_pale.gif';
+    String pinkProfile = 'assets/character_pink.gif';
+    String yellowProfile = 'assets/character_yellow.gif';
+    String greenProfile = 'assets/character_green.gif';
+    String blueProfile = 'assets/character_blue.gif';
+    switch (character) {
+      case 'assets/character_pale.png':
+        return paleProfile;
+      case 'assets/character_pink.png':
+        return pinkProfile;
+      case 'assets/character_yellow.png':
+        return yellowProfile;
+      case 'assets/character_green.png':
+        return greenProfile;
+      case 'assets/character_blue.png':
+        return blueProfile;
+    }
+    return pinkProfile;
+  }
+
   String getQr(String character) {
     String purpleQr = 'assets/purple_qr.png';
     String pinkQr = 'assets/pink_qr.png';
