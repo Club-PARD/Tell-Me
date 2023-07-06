@@ -1,7 +1,7 @@
 # <img src = "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2d84f74b-2400-462d-ab8b-c89d880bbd12%2Fdlive_logo.png?table=block&id=b99ddc5a-4536-4328-8c77-32a5239a1cf0&spaceId=4bed42de-71b8-4266-b5a7-e99ce099274c&width=250&userId=d004bf15-60d6-4bbc-8417-a2eca108ac26&cache=v2" width="35" height="35" > 디라이브(DLive)
 
 ## 서비스 소개
-**:동승자 취향 기반 드라이브 선곡 AI 서비스**
+**:동승자 취향 기반 드라이브 선곡 AI 서비스**<br>
 (서비스 소개)https://www.notion.so/Dlive-b99ddc5a453643288c7732a5239a1cf0  
 <br><br>
 
@@ -19,13 +19,13 @@
 
 
 ## Technical
-**사용한 기술 스택**
+**사용한 기술 스택**<br>
 <img src = "https://firebase.google.com/static/images/brand-guidelines/logo-standard.png?hl=ko" height="50">
 <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Google-flutter-logo.svg/2560px-Google-flutter-logo.svg.png" height="50">
 <img src = "https://simplified.com/siteimages/design/figma-logo-free-design-tool-simplified.png" height="50"><br><br>
 
 
-**Data Structure**
+**Data Structure**<br>
 <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/ec1f6f3b-ea83-4a18-a6e5-05d940f3568c"><br><br>
 
 
