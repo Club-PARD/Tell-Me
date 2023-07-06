@@ -11,15 +11,15 @@
 
 ## Main 기능 
 > This is BlockQuote
-> 음악취향 수집
-> AI의 맞춤 노래 추천
-> 플레이리스트 보관
+> 음악취향 수집<br>
+> AI의 맞춤 노래 추천<br>
+> 플레이리스트 보관<br>
 
 ## Technical
 **사용한 기술 스택**
 <img src = "https://firebase.google.com/brand-guidelines?hl=ko" height="45">
-<img src = "https://ko.m.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Google-flutter-logo.svg" height="45">
-<img src = "https://icon-icons.com/ko/%EC%95%84%EC%9D%B4%EC%BD%98/figma-%EC%97%90-%EB%A1%9C%EA%B3%A0/171159" height="45">
+<img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Google-flutter-logo.svg/2560px-Google-flutter-logo.svg.png" height="45">
+<img src = "https://simplified.com/siteimages/design/figma-logo-free-design-tool-simplified.png" height="45">
 **Data Structure**
 <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/ec1f6f3b-ea83-4a18-a6e5-05d940f3568c">
 
@@ -27,13 +27,15 @@
 ## Team 멜로디가 체질
 저희는 음악에 진심인 사람들이 모인 **'멜로디가 체질'** 입니다.
 > This is BlockQuote
-> 기획자
+> **기획자**
 > 신하진
+
 > This is BlockQuote
-> 디자이너
+> **디자이너**
 > 박예봄
+
 > This is BlockQuote
-> 개발자
+> **개발자**
 > 최성찬
 > 김민혁
 > 천주현
