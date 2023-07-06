@@ -34,6 +34,7 @@ class DLive extends StatelessWidget {
               videoUrl:
                   ModalRoute.of(context)?.settings.arguments as List<String>,
               initialIndex: ModalRoute.of(context)?.settings.arguments as int,
+              title :ModalRoute.of(context)?.settings.arguments as List<String>,
             ),
         '/playingyoutube': (context) => const PlayingYoutubeScreen(),
         '/splash': (context) => const SplashPage(),

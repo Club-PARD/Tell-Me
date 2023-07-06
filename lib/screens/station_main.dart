@@ -194,6 +194,7 @@ class _StationMainState extends State<StationMain> {
                         videoUrl: videoIds,
                         initialIndex: 0,
                         count: videoUrl.length,
+                        title : titles,
                       ),
                     ),
                   );
@@ -296,6 +297,7 @@ class _StationMainState extends State<StationMain> {
                                 videoUrl: videoIds,
                                 initialIndex: index,
                                 count: count,
+                                title : titles,
                               ),
                             ),
                           );
@@ -323,22 +325,18 @@ class _StationMainState extends State<StationMain> {
                               const SizedBox(
                                 width: 10,
                               ),
-                            //  Text(
-                            //     snapshot.data![index].split('-').join('\n'),
-                            //     softWrap: true,
-                            //     overflow: TextOverflow.ellipsis,
-                            //     maxLines: 2,
-                            //   ),
-                              Text(
-                                snapshot.data![index]
-                                    .split('-')
-                                    .join('\n')
-                                    .replaceAllMapped(RegExp(r'\([^()]*\)|\[[^\[\]]*\]|\|,'), (match) => ''),
-                                softWrap: true,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: snapshot.data![index].length > width / 2 ? 3 : 2,
+                              Expanded(
+                                child: Text(
+                                  snapshot.data![index]
+                                      .split('-')
+                                      .join('\n')
+                                      .replaceAllMapped(RegExp(r'\([^()]*\)|\[[^\[\]]*\]|\|,'), (match) => ''),
+                                  softWrap: true,
+                                  overflow: TextOverflow.clip,
+                                  maxLines: 4,
+                                ),
                               ),
-                              Expanded(child: SizedBox(width: width / 3)),
+                            //  Expanded(child: SizedBox(width: width / 3)),
                               IconButton(
                                 onPressed: () {
                                   showDialog(
@@ -390,7 +388,7 @@ class _StationMainState extends State<StationMain> {
                                           ),
                                         contentPadding: const EdgeInsets.only(bottom: 10),
                                       );
-
+                              
                                     },
                                   );
                                 },
