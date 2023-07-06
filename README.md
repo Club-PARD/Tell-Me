@@ -1,4 +1,4 @@
-# <img src = "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2d84f74b-2400-462d-ab8b-c89d880bbd12%2Fdlive_logo.png?table=block&id=b99ddc5a-4536-4328-8c77-32a5239a1cf0&spaceId=4bed42de-71b8-4266-b5a7-e99ce099274c&width=250&userId=d004bf15-60d6-4bbc-8417-a2eca108ac26&cache=v2" width="35" height="35" > 디라이브(DLive)
+![image](https://github.com/Club-PARD/Tell-Me/assets/127292731/5c95b9d6-9559-4f5d-8d52-3c9827db7a9e)# <img src = "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2d84f74b-2400-462d-ab8b-c89d880bbd12%2Fdlive_logo.png?table=block&id=b99ddc5a-4536-4328-8c77-32a5239a1cf0&spaceId=4bed42de-71b8-4266-b5a7-e99ce099274c&width=250&userId=d004bf15-60d6-4bbc-8417-a2eca108ac26&cache=v2" width="35" height="35" > 디라이브(DLive)
 
 ## 서비스 소개
 **:동승자 취향 기반 드라이브 선곡 AI 서비스**<br>
@@ -15,7 +15,7 @@
 > This is BlockQuote
 > 음악취향 수집<br>
 > AI의 맞춤 노래 추천<br>
-> 플레이리스트 보관<br><br>
+> 플레이리스트 보관<br>
 
 
 ## Technical
@@ -30,18 +30,19 @@
 
 
 ## Team 소개
-저희는 음악에 진심인 사람들이 모인 **'멜로디가 체질'** 입니다.
-> This is BlockQuote
-> **기획자**
-> 신하진
+저희는 음악에 진심인 사람들이 모인 **'멜로디가 체질'** 입니다.<br>
 
 > This is BlockQuote
-> **디자이너**
-> 박예봄
+> **기획자**<br>
+> 신하진<br>
 
 > This is BlockQuote
-> **개발자**
-> 최성찬
-> 김민혁
-> 천주현
-> 임예진
+> **디자이너**<br>
+> 박예봄<br>
+
+> This is BlockQuote
+> **개발자**<br>
+> 최성찬<br>
+> 김민혁<br>
+> 천주현<br>
+> 임예진<br>
