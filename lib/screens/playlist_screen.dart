@@ -22,9 +22,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   void initState() {
     super.initState();
-    for(int i=0;i<widget.videoUrl.length; i++){
-
-    }
+ 
     initialIndex=widget.initialIndex;
     currentIndex = initialIndex;
     youtubeId = widget.videoUrl[initialIndex];
