@@ -12,6 +12,7 @@ class RoomProvider extends ChangeNotifier {
   String _playlist = '';
   List _member = [];
   List _rooms = [];
+  List _selectedVideos = [];
 
   String get name => _name;
   String get id => _id;
@@ -20,6 +21,7 @@ class RoomProvider extends ChangeNotifier {
   String get playlist => _playlist;
   List get member => _member;
   List get rooms => _rooms;
+  List get selectedVideos => _selectedVideos;
 
   void setName(String name) {
     _name = name;
@@ -55,6 +57,11 @@ class RoomProvider extends ChangeNotifier {
     _rooms = rooms;
     notifyListeners();
   }
+
+  void setSelectedVideos(List selectedVideos) {
+    _selectedVideos = selectedVideos;
+    notifyListeners();
+  }
 }
 
 class RoomUtil {
@@ -75,6 +82,7 @@ class RoomUtil {
       'url': url,
       'playlist': playlist,
       'member': member,
+      'timestamp': Timestamp.now()
     });
 
     hostDocument.update({
