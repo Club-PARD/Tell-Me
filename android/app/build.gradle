@@ -50,7 +50,7 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-    }
+    }ㅠ
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
@@ -73,6 +73,7 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
+    */
 
     buildTypes {
         release {
@@ -82,7 +83,6 @@ android {
         }
         
     }
-    */
 }
 
 flutter {
