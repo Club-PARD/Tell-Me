@@ -55,12 +55,14 @@ class RoomProvider extends ChangeNotifier {
     _rooms = rooms;
     notifyListeners();
   }
+
+
 }
 
 class RoomUtil {
   final FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  
   Future<void> addRoom(String name, String id, String img, String url,
       String playlist, List member) async {
     User? user = auth.currentUser;
@@ -75,6 +77,7 @@ class RoomUtil {
       'url': url,
       'playlist': playlist,
       'member': member,
+      'timestamp': Timestamp.now()
     });
 
     hostDocument.update({

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dlive/models/room_model.dart';
 import 'package:dlive/utils/room_util.dart';
+import 'dart:math';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -207,51 +208,9 @@ class HomePage extends StatelessWidget {
                             ),
                             SizedBox(
                               height:
-                                  MediaQuery.of(context).size.height / 812 * 6,
+                                  MediaQuery.of(context).size.height / 812 * 7,
                             ),
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: hostProvider.room.isNotEmpty
-                                    ? hostProvider.room.length
-                                    : 1,
-                                itemBuilder: (context, index) {
-                                  if (hostProvider.room.isNotEmpty) {
-                                    return GestureDetector(
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                54, 255, 255, 255),
-                                            borderRadius:
-                                                BorderRadius.circular(47.0),
-                                          ),
-                                          child: ListTile(
-                                            leading: Image.asset(
-                                                'assets/room_default_black.png'),
-                                            title: const Text('설정 방이름'),
-                                            subtitle: const Text('00명 생성날짜'),
-                                          )),
-                                    );
-                                  } else {
-                                    //방 없을 때,
-                                    return GestureDetector(
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFFCCCCCC)
-                                                .withOpacity(0.54),
-                                            borderRadius:
-                                                BorderRadius.circular(47.0),
-                                          ),
-                                          child: ListTile(
-                                            leading: Image.asset(
-                                                'assets/room_default_color.png'),
-                                            title: const Text('아직 생성된 방이 없어요'),
-                                            subtitle: const Text('함께 즐거운 음악을 들어보아요~'),
-                                          )),
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
+                            _buildRoomList(context),
                           ]),
                     ),
                   ),
@@ -260,6 +219,132 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildRoomList(BuildContext context) {
+    RoomProvider roomProvider = Provider.of<RoomProvider>(context);
+    List rooms = roomProvider.rooms;
+
+    if (rooms.isEmpty) {
+      return GestureDetector(
+        child: Container(
+          height: MediaQuery.of(context).size.height / 812 * 80,
+          width: MediaQuery.of(context).size.height / 375 * 340,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+              ),
+            ],
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(28.0),
+          ),
+          child: ListTile(
+            leading: Image.asset('assets/room_default_color.png'),
+            title: const Text('아직 생성된 방이 없어요', style: TextStyle(fontSize: 16)),
+            subtitle:
+                const Text('함께 즐거운 음악을 들어보아요~', style: TextStyle(fontSize: 12)),
+          ),
+        ),
+      );
+    }
+
+    return Expanded(
+      child: ListView.builder(
+        itemCount: min(2, rooms.length),
+        itemBuilder: (context, index) {
+          Room room = rooms[index];
+          return Container(
+            height: MediaQuery.of(context).size.height / 812 * 80,
+            width: MediaQuery.of(context).size.height / 375 * 340,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                ),
+              ],
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28.0),
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/stationmain');
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height / 812 * 61,
+                      width: MediaQuery.of(context).size.height / 812 * 61,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        image: DecorationImage(
+                          image: NetworkImage(room.img),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                            width: MediaQuery.of(context).size.width / 375 * 17,
+                          ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width / 375 * 12,
+                          ),
+                          Text(
+                            room.name,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                          Row(
+                            children: [
+                              const Icon(Icons.person),
+                              Text(
+                                '${room.member.length}명',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xff929292),
+                                ),
+                              ),
+                              SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width / 375 * 16,
+                              ),
+                              const Text(
+                                '생성 날짜',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xff929292),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -289,7 +374,14 @@ class RoomListScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(onPressed: (){Navigator.pushNamed(context, '/stationmain');}, icon: const Icon(Icons.golf_course, color: Colors.black,)),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/stationmain');
+              },
+              icon: const Icon(
+                Icons.golf_course,
+                color: Colors.black,
+              )),
         ],
       ),
       body: SafeArea(
@@ -360,6 +452,31 @@ class RoomListScreen extends StatelessWidget {
     roomUtil.getRooms(hostProvider.room, roomProvider);
 
     //print(hostProvider.room);
+    if (roomProvider.rooms.isEmpty) {
+      return Container(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 812 * 68,
+            ),
+            Image.asset(
+              'assets/room_default_grey.png',
+              width: MediaQuery.of(context).size.width / 375 * 115,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 812 * 38,
+            ),
+            const Text(
+              '아직 생성된 스테이션이 없어요',
+              style: TextStyle(fontSize: 20),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Expanded(
       child: ListView.builder(
         itemCount: hostProvider.room.length,
@@ -388,12 +505,20 @@ class RoomListScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          Container(
             height: MediaQuery.of(context).size.height / 812 * 68,
-            child: Image.network(room.img),
+            width: MediaQuery.of(context).size.height / 812 * 68,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: NetworkImage(room.img),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           Expanded(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 375 * 12,
@@ -416,8 +541,8 @@ class RoomListScreen extends StatelessWidget {
                     color: Color(0xff929292),
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 375 * 89,
+                Expanded(
+                  child: Container(),
                 ),
                 const Text(
                   '생성 날짜',
