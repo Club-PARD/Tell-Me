@@ -16,8 +16,8 @@
 ## <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/120b212a-7351-407e-b3b5-55cb54791c84" height="35">  Main 기능 
 > 음악취향 수집<br>
 > AI의 맞춤 노래 추천<br>
-> 플레이리스트 보관<br><br>
-<br><br>
+> 플레이리스트 보관<br>
+
 
 ### 기능 페이지
 - **홈 화면**<br>
