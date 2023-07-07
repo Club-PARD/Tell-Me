@@ -126,7 +126,7 @@ class HomePage extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                    top: MediaQuery.of(context).size.height / 812 * 120,
+                    top: MediaQuery.of(context).size.height / 812 * 143,
                     left: 0,
                     right: 0,
                     child: Container(
@@ -179,7 +179,7 @@ class HomePage extends StatelessWidget {
                             ),
                             SizedBox(
                               height:
-                                  MediaQuery.of(context).size.height / 812 * 10,
+                                  MediaQuery.of(context).size.height / 812 * 31,
                             ),
                             Text(
                               '${hostProvider.name}님,\n오늘도 즐거운 디라이브 ~',
@@ -189,7 +189,7 @@ class HomePage extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height /
                                   812 *
-                                  280,
+                                  310,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
