@@ -7,7 +7,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-
 class StationMain extends StatefulWidget {
   const StationMain({super.key});
   @override
@@ -27,7 +26,7 @@ class _StationMainState extends State<StationMain> {
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
-  
+
   late List<YoutubePlayerController> controllers;
   @override
   void initState() {
@@ -43,46 +42,45 @@ class _StationMainState extends State<StationMain> {
     super.dispose();
   }
 
-  Future <List<String>> fetchMetaData() async{         //List<String> titles의 값 
-    await Future.delayed(const Duration(seconds: 2), (){});
+  Future<List<String>> fetchMetaData() async {
+    //List<String> titles의 값
+    await Future.delayed(const Duration(seconds: 2), () {});
     return await getMetaData();
   }
 
   Future<void> parseVideoUrls() async {
     controllers = [];
     for (String url in videoUrl) {
-    //  final String? videoId = getIdFromUrl(url);
-    //  videoIds.add(videoId!);
+      //  final String? videoId = getIdFromUrl(url);
+      //  videoIds.add(videoId!);
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
       controllers.add(controller);
     }
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
- Future<List<String>> getMetaData() async {
-  final String? apiKey = dotenv.env['YOUTUBE_API_KEY1'];
+  Future<List<String>> getMetaData() async {
+    final String? apiKey = dotenv.env['YOUTUBE_API_KEY3'];
 
-  for (String url in videoUrl) {
-  //  final String? videoId = getIdFromUrl(url);
-    thumbNail.add('https://img.youtube.com/vi/$url/0.jpg');
-    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$url&key=$apiKey'));
+    for (String url in videoUrl) {
+      //  final String? videoId = getIdFromUrl(url);
+      thumbNail.add('https://img.youtube.com/vi/$url/0.jpg');
+      final response = await http.get(Uri.parse(
+          'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$url&key=$apiKey'));
 
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-      final title = jsonResponse['items'][0]['snippet']['title'];
-      titles.add(title);
-    } else {
-      throw Exception('Failed to fetch video title');
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final title = jsonResponse['items'][0]['snippet']['title'];
+        titles.add(title);
+      } else {
+        throw Exception('Failed to fetch video title');
+      }
     }
+    return titles;
   }
-  return titles;
-
-}
 
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
@@ -121,7 +119,7 @@ class _StationMainState extends State<StationMain> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.popUntil(context,ModalRoute.withName('/navigation'));
+              Navigator.popUntil(context, ModalRoute.withName('/navigation'));
             },
             icon: const Icon(Icons.home, color: Colors.black),
           )
@@ -180,7 +178,7 @@ class _StationMainState extends State<StationMain> {
                         videoUrl: videoIds,
                         initialIndex: 0,
                         count: videoUrl.length,
-                        songTitle : titles,
+                        songTitle: titles,
                       ),
                     ),
                   );
@@ -191,8 +189,7 @@ class _StationMainState extends State<StationMain> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.black),
+                  backgroundColor: MaterialStateProperty.all(Colors.black),
                   minimumSize: MaterialStateProperty.all(
                     Size(width * 2 / 5, height / 18),
                   ),
@@ -214,18 +211,18 @@ class _StationMainState extends State<StationMain> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                        videoUrl.clear();
-                        videoIds.clear();
-                        titles.clear();
-                        artist.clear();
-                        thumbNail.clear();
-                        for (var controller in controllers) {
-                          controller.dispose();
-                        }
-                        controllers.clear();
-                      });
-                      parseVideoUrls();
-                      getMetaData();
+                    videoUrl.clear();
+                    videoIds.clear();
+                    titles.clear();
+                    artist.clear();
+                    thumbNail.clear();
+                    for (var controller in controllers) {
+                      controller.dispose();
+                    }
+                    controllers.clear();
+                  });
+                  parseVideoUrls();
+                  getMetaData();
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -233,8 +230,9 @@ class _StationMainState extends State<StationMain> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  backgroundColor:
-                      MaterialStateProperty.all(const Color(0xFF438BC3),),
+                  backgroundColor: MaterialStateProperty.all(
+                    const Color(0xFF438BC3),
+                  ),
                   minimumSize: MaterialStateProperty.all(
                     Size(width * 2 / 5, height / 18),
                   ),
@@ -258,7 +256,8 @@ class _StationMainState extends State<StationMain> {
           Expanded(
             child: FutureBuilder<List<String>>(
               future: fetchMetaData(),
-              builder: (BuildContext context, AsyncSnapshot <List<String>>snapshot) {
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: Image.asset('assets/car_moving_final.gif'),
@@ -267,8 +266,7 @@ class _StationMainState extends State<StationMain> {
                   return const Center(
                     child: Text('FutureBuilder에 값 없음'),
                   );
-                } 
-                else {
+                } else {
                   final count = snapshot.data!.length;
                   return ListView.builder(
                     itemCount: count,
@@ -282,7 +280,7 @@ class _StationMainState extends State<StationMain> {
                                 videoUrl: videoIds,
                                 initialIndex: index,
                                 count: count,
-                                songTitle : titles,
+                                songTitle: titles,
                               ),
                             ),
                           );
@@ -315,65 +313,72 @@ class _StationMainState extends State<StationMain> {
                                   snapshot.data![index]
                                       .split('-')
                                       .join('\n')
-                                      .replaceAllMapped(RegExp(r'\([^()]*\)|\[[^\[\]]*\]|\|,'), (match) => ''),
+                                      .replaceAllMapped(
+                                          RegExp(
+                                              r'\([^()]*\)|\[[^\[\]]*\]|\|,'),
+                                          (match) => ''),
                                   softWrap: true,
                                   overflow: TextOverflow.clip,
                                   maxLines: 4,
                                 ),
                               ),
-                            //  Expanded(child: SizedBox(width: width / 3)),
+                              //  Expanded(child: SizedBox(width: width / 3)),
                               IconButton(
                                 onPressed: () {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        backgroundColor: const Color(0XFF212121),
+                                        backgroundColor:
+                                            const Color(0XFF212121),
                                         content: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(70),
-                                            ),
-                                            width: width,
-                                            height: height / 10,
-                                            child: TextButton(
-                                              onPressed: () {
-                                                setState(() {
-                                            videoUrl.removeAt(index);
-                                            videoIds.removeAt(index);
-                                            titles.removeAt(index);
-                                            artist.removeAt(index);
-                                            thumbNail.removeAt(index);
-                                          });
-                                                Navigator.pop(context);
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: const Color(0XFF212121),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(30),
-                                                ),
-                                                maximumSize: Size(width, height/10),
-                                                  ),
-                                              child: const Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.delete,
-                                                    color: Colors.white,
-                                                  ),
-                                                  Text(
-                                                    '현재 스테이션 재생 목록에서 삭제',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ],
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(70),
+                                          ),
+                                          width: width,
+                                          height: height / 10,
+                                          child: TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                videoUrl.removeAt(index);
+                                                videoIds.removeAt(index);
+                                                titles.removeAt(index);
+                                                artist.removeAt(index);
+                                                thumbNail.removeAt(index);
+                                              });
+                                              Navigator.pop(context);
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color(0XFF212121),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
                                               ),
+                                              maximumSize:
+                                                  Size(width, height / 10),
+                                            ),
+                                            child: const Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.delete,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                  '현재 스테이션 재생 목록에서 삭제',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        contentPadding: const EdgeInsets.only(bottom: 10),
+                                        ),
+                                        contentPadding:
+                                            const EdgeInsets.only(bottom: 10),
                                       );
-                              
                                     },
                                   );
                                 },

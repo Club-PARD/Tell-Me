@@ -85,14 +85,14 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
           TextButton(
             onPressed: () {
               print(roomProvider.img);
-              roomUtil.addRoom(
-                roomProvider.name,
-                roomProvider.id,
-                roomProvider.img,
-                roomProvider.url,
-                roomProvider.playlist,
-                [hostProvider.name],
-              );
+              // roomUtil.addRoom(
+              //   roomProvider.name,
+              //   roomProvider.id,
+              //   roomProvider.img,
+              //   roomProvider.url,
+              //   roomProvider.playlist,
+              //   [hostProvider.name],
+              // );
               Navigator.pushNamed(context, '/stationloading');
             },
             child: const Text(
