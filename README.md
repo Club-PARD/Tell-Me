@@ -27,7 +27,7 @@
 <img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28"/>
 <img src="https://img.shields.io/badge/Dart-white?style=for-the-badge&logo=Dart&logoColor=0175C2"/>
 <br>
-<img src="https://img.shields.io/badge/Figma?style=for-the-badge&logo=Figma"/>
+<img src="https://img.shields.io/badge/Figma-white?style=for-the-badge&logo=Figma"/>
 <img src="https://img.shields.io/badge/Git-grey?style=for-the-badge&logo=Git&logoColor=F05032"/>
 <img src="https://img.shields.io/badge/GitHub-grey?style=for-the-badge&logo=GitHub&logoColor=181717"/>
 <br><br><br>
