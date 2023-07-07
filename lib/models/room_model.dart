@@ -14,6 +14,6 @@ class Room {
     required this.playlist,
     required this.member,
     required this.videoTitles,
-    required String id,
+    required this.id,
   });
 }

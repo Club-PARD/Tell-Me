@@ -110,9 +110,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     HostProvider hostProvider = Provider.of<HostProvider>(context);
@@ -414,54 +419,6 @@ class RoomListScreen extends StatelessWidget {
     );
   }
 
-  // 최신순 정렬 버튼
-  // Widget _buildSortButton() {
-  //   return SizedBox(
-  //     width: 100,
-  //     height: 40,
-  //     child: TextButton(
-  //       onPressed: () {},
-  //       child: const Text(
-  //         '최신순',
-  //         style: TextStyle(
-  //           color: Colors.black,
-  //           fontSize: 18,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // 프로필 영역
-  // Widget _buildProfile() {
-  //   return const Row(
-  //     mainAxisAlignment: MainAxisAlignment.start,
-  //     crossAxisAlignment: CrossAxisAlignment.center,
-  //     children: [
-  //       SizedBox(
-  //         width: 162,
-  //         height: 102,
-  //         child: CircleAvatar(
-  //           radius: 51.0,
-  //           backgroundImage: NetworkImage(
-  //             'https://dddwwa.cafe24.com/web/product/extra/big/201703/25_shop1_742463.png',
-  //           ),
-  //         ),
-  //       ),
-  //       SizedBox(width: 10),
-  //       Text(
-  //         '언덕님,\n오늘도 즐거운 DLive~',
-  //         style: TextStyle(
-  //           height: 2,
-  //           fontSize: 18,
-  //           fontWeight: FontWeight.bold,
-  //           color: Colors.white,
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   // 방 목록 영역
   Widget _buildRoomListView(BuildContext context) {
     HostProvider hostProvider = Provider.of<HostProvider>(context);
@@ -518,8 +475,11 @@ class RoomListScreen extends StatelessWidget {
   Widget _buildRoomListItem(BuildContext context, int index) {
     RoomProvider roomProvider = Provider.of<RoomProvider>(context);
     Room room = roomProvider.rooms[index];
+
     return InkWell(
       onTap: () {
+        print('@@@@@@@@@@@@@@@@@@room${room.id}');
+        roomProvider.setId(room.id);
         Navigator.pushNamed(context, '/stationmain');
       },
       child: Row(
