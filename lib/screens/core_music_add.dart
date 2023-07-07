@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dlive/models/youtube_video_model.dart';
-import 'package:dlive/screens/core_music_add_select.dart';
 import 'package:dlive/services/youtube_service.dart';
 import 'package:dlive/utils/host_util.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import 'package:dlive/utils/room_util.dart';
@@ -20,20 +20,13 @@ class CoreMusicAdd extends StatefulWidget {
 class _CoreMusicAddState extends State<CoreMusicAdd> {
   final TextEditingController _queryController = TextEditingController();
   final ApiService _apiService = ApiService();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   String query = "";
+  String roomName = "";
   List<YoutubeVideo> videos = [];
-  List<List<String>> songs = [];
   Map<String, bool> videoIdSelections = {}; //각 videoId의 선택 상태를 저장하는 맵 추가
   List<YoutubeVideo> selectedVideos = []; //선택된 비디오들을 저장하는 리스트 추가
-
-  // List<List<String>> songs = [
-  //   ["지코", "Artist"],
-  //   ["아이유", "팔레트"],
-  //   ["김동률", "감사"],
-  //   ["닐로", "지나오다"],
-  //   ["호미들", "사이렌"],
-  //   ["폴킴", "모든 날 모든 순간"]
-  // ];
 
   @override
   void initState() {
@@ -51,6 +44,12 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
     setState(() {
       query = _queryController.text;
     });
+  }
+
+  void updateRoom(String roomId) {
+    firestore.collection('Room').doc(roomId).set({
+      'videoTitles': selectedVideos.map((video) => video.title).toList(),
+    }, SetOptions(merge: true));
   }
 
   // 영상 검색 함수
@@ -101,9 +100,12 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
 
   // 포기할 수 없는 3곡(밑에서 슝 올라오는거)
   void _showModalSheet(RoomProvider roomProvider) {
-    Timer(const Duration(milliseconds: 1500), () {
-      Navigator.pop(context); // 모달 닫기
-    });
+    if (selectedVideos.length < 3) {
+      Timer(const Duration(milliseconds: 1500), () {
+        Navigator.pop(context); // 모달 닫기
+      });
+    }
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -161,8 +163,11 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                 ),
                 if (selectedVideos.length == 3)
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       roomProvider.setSelectedVideos(selectedVideos);
+                      String roomId =
+                          await RoomUtil().getRoomId(roomProvider.id);
+                      updateRoom(roomId);
                       Navigator.pushNamed(context, '/makeroomwaiting');
                     },
                     style: ElevatedButton.styleFrom(

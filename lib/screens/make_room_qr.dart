@@ -90,7 +90,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                 roomProvider.id,
                 roomProvider.img,
                 roomProvider.url,
-                roomProvider.playlist,
+                // roomProvider.playlist,
                 [hostProvider.name],
               );
               Navigator.pushNamed(context, '/stationloading');

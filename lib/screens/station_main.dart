@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'package:dlive/services/youtube_service.dart';
+import 'package:dlive/utils/room_util.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 
 class StationMain extends StatefulWidget {
   const StationMain({super.key});
@@ -15,23 +17,17 @@ class StationMain extends StatefulWidget {
 }
 
 class _StationMainState extends State<StationMain> {
-  List<String> videoUrl = [
-    'fHI8X4OXluQ',
-    'ApXoWvfEYVU',
-    'mEZqJ65ra08',
-    'mNEUkkoUoIA',
-    'XR7Ev14vUh8',
-    'bfXsQ9k9PtY',
-  ];
+  List<String> videoUrl = [];
   late List<String> videoIds = [];
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
-  
+
   late List<YoutubePlayerController> controllers;
   @override
   void initState() {
     super.initState();
+    _fetchTopViewedVideos();
     parseVideoUrls();
   }
 
@@ -43,46 +39,56 @@ class _StationMainState extends State<StationMain> {
     super.dispose();
   }
 
-  Future <List<String>> fetchMetaData() async{         //List<String> titles의 값 
-    await Future.delayed(const Duration(seconds: 2), (){});
+  Future<void> _fetchTopViewedVideos() async {
+    RoomProvider roomProvider =
+        Provider.of<RoomProvider>(context, listen: false);
+    List<List<String>> songs = roomProvider.playlist;
+
+    if (songs != null && songs.isNotEmpty) {
+      ApiService apiService = ApiService();
+      List<String> videoIds = await apiService.fetchTopViewedVideoIds(songs);
+      setState(() {
+        videoUrl = videoIds;
+      });
+      print("@@@@@@@@@@@@@@@@@@@@@@@@@@$videoUrl");
+    }
+  }
+
+  Future<List<String>> fetchMetaData() async {
+    //List<String> titles의 값
+    await Future.delayed(const Duration(seconds: 2), () {});
     return await getMetaData();
   }
 
   Future<void> parseVideoUrls() async {
-    controllers = [];
     for (String url in videoUrl) {
-    //  final String? videoId = getIdFromUrl(url);
-    //  videoIds.add(videoId!);
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
       controllers.add(controller);
     }
-    setState(() {
-      
-    });
   }
 
- Future<List<String>> getMetaData() async {
-  final String? apiKey = dotenv.env['YOUTUBE_API_KEY1'];
+  Future<List<String>> getMetaData() async {
+    final String? apiKey = dotenv.env['YOUTUBE_API_KEY1'];
 
-  for (String url in videoUrl) {
-  //  final String? videoId = getIdFromUrl(url);
-    thumbNail.add('https://img.youtube.com/vi/$url/0.jpg');
-    final response = await http.get(Uri.parse('https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$url&key=$apiKey'));
+    for (String url in videoUrl) {
+      //  final String? videoId = getIdFromUrl(url);
+      thumbNail.add('https://img.youtube.com/vi/$url/0.jpg');
+      final response = await http.get(Uri.parse(
+          'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$url&key=$apiKey'));
 
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-      final title = jsonResponse['items'][0]['snippet']['title'];
-      titles.add(title);
-    } else {
-      throw Exception('Failed to fetch video title');
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final title = jsonResponse['items'][0]['snippet']['title'];
+        titles.add(title);
+      } else {
+        throw Exception('Failed to fetch video title');
+      }
     }
+    return titles;
   }
-  return titles;
-
-}
 
   void removeFromPlaylist(int index) {
     videoUrl.removeAt(index);
@@ -102,6 +108,9 @@ class _StationMainState extends State<StationMain> {
     double height = screenSize.height;
     DateTime now = DateTime.now();
     String formatDate = DateFormat('yyyy-MM-dd').format(now);
+    RoomProvider roomProvider =
+        Provider.of<RoomProvider>(context, listen: false);
+    RoomUtil roomUtil = RoomUtil();
 
     return Scaffold(
       appBar: AppBar(
@@ -121,7 +130,7 @@ class _StationMainState extends State<StationMain> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.popUntil(context,ModalRoute.withName('/navigation'));
+              Navigator.popUntil(context, ModalRoute.withName('/navigation'));
             },
             icon: const Icon(Icons.home, color: Colors.black),
           )
@@ -180,7 +189,7 @@ class _StationMainState extends State<StationMain> {
                         videoUrl: videoIds,
                         initialIndex: 0,
                         count: videoUrl.length,
-                        songTitle : titles,
+                        songTitle: titles,
                       ),
                     ),
                   );
@@ -191,8 +200,7 @@ class _StationMainState extends State<StationMain> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.black),
+                  backgroundColor: MaterialStateProperty.all(Colors.black),
                   minimumSize: MaterialStateProperty.all(
                     Size(width * 2 / 5, height / 18),
                   ),
@@ -214,18 +222,18 @@ class _StationMainState extends State<StationMain> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                        videoUrl.clear();
-                        videoIds.clear();
-                        titles.clear();
-                        artist.clear();
-                        thumbNail.clear();
-                        for (var controller in controllers) {
-                          controller.dispose();
-                        }
-                        controllers.clear();
-                      });
-                      parseVideoUrls();
-                      getMetaData();
+                    videoUrl.clear();
+                    videoIds.clear();
+                    titles.clear();
+                    artist.clear();
+                    thumbNail.clear();
+                    for (var controller in controllers) {
+                      controller.dispose();
+                    }
+                    controllers.clear();
+                  });
+                  parseVideoUrls();
+                  getMetaData();
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -233,8 +241,9 @@ class _StationMainState extends State<StationMain> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  backgroundColor:
-                      MaterialStateProperty.all(const Color(0xFF438BC3),),
+                  backgroundColor: MaterialStateProperty.all(
+                    const Color(0xFF438BC3),
+                  ),
                   minimumSize: MaterialStateProperty.all(
                     Size(width * 2 / 5, height / 18),
                   ),
@@ -258,7 +267,8 @@ class _StationMainState extends State<StationMain> {
           Expanded(
             child: FutureBuilder<List<String>>(
               future: fetchMetaData(),
-              builder: (BuildContext context, AsyncSnapshot <List<String>>snapshot) {
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: Image.asset('assets/car_moving_final.gif'),
@@ -267,8 +277,7 @@ class _StationMainState extends State<StationMain> {
                   return const Center(
                     child: Text('FutureBuilder에 값 없음'),
                   );
-                } 
-                else {
+                } else {
                   final count = snapshot.data!.length;
                   return ListView.builder(
                     itemCount: count,
@@ -282,7 +291,7 @@ class _StationMainState extends State<StationMain> {
                                 videoUrl: videoIds,
                                 initialIndex: index,
                                 count: count,
-                                songTitle : titles,
+                                songTitle: titles,
                               ),
                             ),
                           );
@@ -315,65 +324,72 @@ class _StationMainState extends State<StationMain> {
                                   snapshot.data![index]
                                       .split('-')
                                       .join('\n')
-                                      .replaceAllMapped(RegExp(r'\([^()]*\)|\[[^\[\]]*\]|\|,'), (match) => ''),
+                                      .replaceAllMapped(
+                                          RegExp(
+                                              r'\([^()]*\)|\[[^\[\]]*\]|\|,'),
+                                          (match) => ''),
                                   softWrap: true,
                                   overflow: TextOverflow.clip,
                                   maxLines: 4,
                                 ),
                               ),
-                            //  Expanded(child: SizedBox(width: width / 3)),
+                              //  Expanded(child: SizedBox(width: width / 3)),
                               IconButton(
                                 onPressed: () {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        backgroundColor: const Color(0XFF212121),
+                                        backgroundColor:
+                                            const Color(0XFF212121),
                                         content: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(70),
-                                            ),
-                                            width: width,
-                                            height: height / 10,
-                                            child: TextButton(
-                                              onPressed: () {
-                                                setState(() {
-                                            videoUrl.removeAt(index);
-                                            videoIds.removeAt(index);
-                                            titles.removeAt(index);
-                                            artist.removeAt(index);
-                                            thumbNail.removeAt(index);
-                                          });
-                                                Navigator.pop(context);
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: const Color(0XFF212121),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(30),
-                                                ),
-                                                maximumSize: Size(width, height/10),
-                                                  ),
-                                              child: const Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.delete,
-                                                    color: Colors.white,
-                                                  ),
-                                                  Text(
-                                                    '현재 스테이션 재생 목록에서 삭제',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ],
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(70),
+                                          ),
+                                          width: width,
+                                          height: height / 10,
+                                          child: TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                videoUrl.removeAt(index);
+                                                videoIds.removeAt(index);
+                                                titles.removeAt(index);
+                                                artist.removeAt(index);
+                                                thumbNail.removeAt(index);
+                                              });
+                                              Navigator.pop(context);
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color(0XFF212121),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
                                               ),
+                                              maximumSize:
+                                                  Size(width, height / 10),
+                                            ),
+                                            child: const Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.delete,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                  '현재 스테이션 재생 목록에서 삭제',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                        contentPadding: const EdgeInsets.only(bottom: 10),
+                                        ),
+                                        contentPadding:
+                                            const EdgeInsets.only(bottom: 10),
                                       );
-                              
                                     },
                                   );
                                 },
