@@ -133,7 +133,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                     image: const AssetImage('assets/logo_image.png'),
                     typeNumber: 3,
                     size: MediaQuery.of(context).size.height / 812 * 230,
-                    data: '${roomProvider.id}',
+                    data: 'https://pard-dlive-b27d9.web.app',
                     errorCorrectLevel: QrErrorCorrectLevel.M,
                     roundEdges: true,
                   ),
