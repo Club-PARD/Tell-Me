@@ -61,21 +61,21 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 BottomNavigationBarItem(
                   icon: Image.asset(
                     'assets/home_rounded.png',
-                    height: MediaQuery.of(context).size.height / 812 * 20,
-                    width: MediaQuery.of(context).size.height / 812 * 20,
+                    height: MediaQuery.of(context).size.height / 812 * 18,
+                    width: MediaQuery.of(context).size.height / 812 * 18,
                   ),
                   activeIcon: Image.asset(
                     'assets/home.png',
-                    height: MediaQuery.of(context).size.height / 812 * 20,
-                    width: MediaQuery.of(context).size.height / 812 * 20,
+                    height: MediaQuery.of(context).size.height / 812 * 18,
+                    width: MediaQuery.of(context).size.height / 812 * 18,
                   ),
                   label: '홈',
                 ),
                 BottomNavigationBarItem(
                   icon: ClipOval(
                     child: Container(
-                      height: MediaQuery.of(context).size.height / 812 * 45,
-                      width: MediaQuery.of(context).size.height / 812 * 45,
+                      height: MediaQuery.of(context).size.height / 812 * 54,
+                      width: MediaQuery.of(context).size.height / 812 * 54,
                       color: Colors.white,
                       child: const Icon(
                         Icons.add,
@@ -89,13 +89,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 BottomNavigationBarItem(
                   icon: Image.asset(
                     'assets/storage_rounded.png',
-                    height: MediaQuery.of(context).size.height / 812 * 20,
-                    width: MediaQuery.of(context).size.height / 812 * 20,
+                    height: MediaQuery.of(context).size.height / 812 * 18,
+                    width: MediaQuery.of(context).size.height / 812 * 18,
                   ),
                   activeIcon: Image.asset(
                     'assets/storage.png',
-                    height: MediaQuery.of(context).size.height / 812 * 20,
-                    width: MediaQuery.of(context).size.height / 812 * 20,
+                    height: MediaQuery.of(context).size.height / 812 * 18,
+                    width: MediaQuery.of(context).size.height / 812 * 18,
                   ),
                   label: '보관함',
                 ),
