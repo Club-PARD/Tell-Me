@@ -21,7 +21,7 @@
 
 **기능 페이지**<br>
 홈 화면
-<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/d7afb525-5cb8-4c0b-ae83-99f83306f8b4"> <br>
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/d7afb525-5cb8-4c0b-ae83-99f83306f8b4" width="130"> <br>
 방 생성 및 음악 추가 화면
 <img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/4cc98d8c-2bb4-4283-919c-5f566a307f02">
 <img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/286f5fb7-15bf-494e-884a-84b003abd109"> 
