@@ -19,16 +19,16 @@
 > 플레이리스트 보관<br><br>
 ![10](https://github.com/Club-PARD/Tell-Me/assets/74640695/12c71708-e5f3-4297-84f6-685c1258f7bd)
 
-**기능 페이지**<br>
-홈 화면<br>
-<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/d7afb525-5cb8-4c0b-ae83-99f83306f8b4" width="150"> <br><br>
-방 생성 및 음악 추가 화면<br>
-<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/4cc98d8c-2bb4-4283-919c-5f566a307f02" width="150">
-<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/286f5fb7-15bf-494e-884a-84b003abd109" width="150"> 
-<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/ba5d0c7c-7e09-4941-ae7b-36f396f829b8" width="150"> <br><br>
-플레이리스트 목록 화면<br>
-<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/c82132dc-dafe-4655-9f95-4e90c733c434" width="150">
-<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/7cb224bb-f66e-41f0-bd64-37a2d16f1fd6" width="150"><br><br><br>
+## 기능 페이지
+**홈 화면<br>**
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/d7afb525-5cb8-4c0b-ae83-99f83306f8b4" width="250"> <br><br>
+**방 생성 및 음악 추가 화면<br>**
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/4cc98d8c-2bb4-4283-919c-5f566a307f02" width="250">&nbsp;&nbsp;
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/286f5fb7-15bf-494e-884a-84b003abd109" width="250">&nbsp;&nbsp;
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/ba5d0c7c-7e09-4941-ae7b-36f396f829b8" width="250"> <br><br>
+**플레이리스트 목록 화면<br>**
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/c82132dc-dafe-4655-9f95-4e90c733c434" width="250">&nbsp;&nbsp;
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/7cb224bb-f66e-41f0-bd64-37a2d16f1fd6" width="250"><br><br><br>
 
 
 ## <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/12061128-e02b-41f8-a1c4-6fd16dd95835" height="35"> Technical
