@@ -10,19 +10,21 @@ class RoomProvider extends ChangeNotifier {
   String _img =
       'https://firebasestorage.googleapis.com/v0/b/pard-dlive-b27d9.appspot.com/o/room_img%2Froom_default_color.png?alt=media&token=22258b36-f315-4bc5-b159-f7e73f98baba';
   String _url = '';
-  List<List<String>> _playlist = [];
+  String _playlist = '';
   List _member = [];
   List _rooms = [];
   List _selectedVideos = [];
+  List _videoTitles = [];
 
   String get name => _name;
   String get id => _id;
   String get img => _img;
   String get url => _url;
-  List<List<String>> get playlist => _playlist;
+  String get playlist => _playlist;
   List get member => _member;
   List get rooms => _rooms;
   List get selectedVideos => _selectedVideos;
+  List get videoTitles => _videoTitles;
 
   void setName(String name) {
     _name = name;
@@ -44,7 +46,7 @@ class RoomProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPlaylist(List<List<String>> playlist) {
+  void setPlaylist(String playlist) {
     _playlist = playlist;
     notifyListeners();
   }
@@ -63,6 +65,11 @@ class RoomProvider extends ChangeNotifier {
     _selectedVideos = selectedVideos;
     notifyListeners();
   }
+
+  void setVideoTitles(List videoTitles) {
+    _videoTitles = videoTitles;
+    notifyListeners();
+  }
 }
 
 class RoomUtil {
@@ -70,7 +77,7 @@ class RoomUtil {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<void> addRoom(String name, String id, String img, String url,
-      /*String playlist,*/ List member) async {
+      String playlist, List member, List videoTitles) async {
     User? user = auth.currentUser;
     CollectionReference hostCollection = firestore.collection('Host');
     DocumentReference hostDocument = hostCollection.doc(user!.uid);
@@ -81,8 +88,9 @@ class RoomUtil {
       'id': id,
       'img': img,
       'url': url,
-      // 'playlist': playlist,
+      'playlist': playlist,
       'member': member,
+      'videoTitles': videoTitles,
       'timestamp': Timestamp.now()
     });
 
@@ -104,17 +112,18 @@ class RoomUtil {
         String id = roomData['id'];
         String img = roomData['img'];
         String url = roomData['url'];
-        // String playlist = roomData['playlist'];
+        String playlist = roomData['playlist'];
         List member = roomData['member'];
-        
+        List videoTitles = roomData['videoTitles'];
 
         Room room = Room(
           name: name,
           id: id,
           img: img,
           url: url,
-          // playlist: playlist,
+          playlist: playlist,
           member: member,
+          videoTitles: videoTitles,
         );
 
         rooms.add(room);
@@ -123,18 +132,38 @@ class RoomUtil {
     roomProvider.setRooms(rooms);
   }
 
-  Future<String> getRoomId(String roomId) async {
-    // Query the document
-    QuerySnapshot roomQuery =
-        await firestore.collection('Room').where('id', isEqualTo: roomId).get();
+  Future<void> updatePlaylistInRoom(String roomId, String playlistId) async {
+    CollectionReference roomCollection = firestore.collection('Room');
 
-    // Check if there are any documents returned
+    // Use roomId to find the document
+    var roomQuery = await roomCollection.where('id', isEqualTo: roomId).get();
+
+    // Check if a document was found
     if (roomQuery.docs.isNotEmpty) {
-      // Get the document ID
-      String docId = roomQuery.docs.first.id;
-      return docId;
+      DocumentReference roomDocument =
+          roomCollection.doc(roomQuery.docs.first.id);
+
+      return roomDocument.update({
+        'playlist': playlistId,
+      });
     } else {
-      throw Exception("No room found with ID: $roomId");
+      // Handle error, for example throw an exception
+      throw Exception('Room not found');
     }
   }
+
+  // Future<String> getRoomId(String roomId) async {
+  //   // Query the document
+  //   QuerySnapshot roomQuery =
+  //       await firestore.collection('Room').where('id', isEqualTo: roomId).get();
+
+  //   // Check if there are any documents returned
+  //   if (roomQuery.docs.isNotEmpty) {
+  //     // Get the document ID
+  //     String docId = roomQuery.docs.first.id;
+  //     return docId;
+  //   } else {
+  //     throw Exception("No room found with ID: $roomId");
+  //   }
+  // }
 }
