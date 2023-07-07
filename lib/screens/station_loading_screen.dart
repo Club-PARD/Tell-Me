@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:dlive/models/youtube_video_model.dart';
+import 'package:dlive/utils/playlist_util.dart';
 import 'package:dlive/utils/room_util.dart';
 import 'package:flutter/material.dart';
 import 'package:dlive/services/gpt_service.dart';
@@ -18,10 +19,12 @@ class StationLoadingScreen extends StatefulWidget {
 
 class _StationLoadingScreenState extends State<StationLoadingScreen> {
   GptService gptService = GptService();
+  PlaylistUtil playlistUtil = PlaylistUtil();
+  RoomUtil roomUtil = RoomUtil();
 
   @override
   Widget build(BuildContext context) {
-    OpenAI.apiKey = dotenv.env['OPENAI_API_KEY2']!;
+    OpenAI.apiKey = dotenv.env['OPENAI_API_KEY4']!;
 
     RoomProvider roomProvider = Provider.of<RoomProvider>(context);
 
@@ -37,7 +40,11 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
 
     for (int i = 0; i < selectedVideos.length; i++) {
       for (int j = 0; j < 3; j++) {
-        selections[0][j] = selectedVideos[i].title;
+        for (int i = 0; i < selectedVideos.length; i++) {
+          for (int j = 0; j < 3; j++) {
+            selections[0][j] = selectedVideos[i].title;
+          }
+        }
       }
     }
 

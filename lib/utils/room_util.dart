@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dlive/models/room_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 class RoomProvider extends ChangeNotifier {
   String _name = '';
@@ -13,6 +14,7 @@ class RoomProvider extends ChangeNotifier {
   List _member = [];
   List _rooms = [];
   List _selectedVideos = [];
+  List _videoTitles = [];
 
   String get name => _name;
   String get id => _id;
@@ -22,6 +24,7 @@ class RoomProvider extends ChangeNotifier {
   List get member => _member;
   List get rooms => _rooms;
   List get selectedVideos => _selectedVideos;
+  List get videoTitles => _videoTitles;
 
   void setName(String name) {
     _name = name;
@@ -62,6 +65,11 @@ class RoomProvider extends ChangeNotifier {
     _selectedVideos = selectedVideos;
     notifyListeners();
   }
+
+  void setVideoTitles(List videoTitles) {
+    _videoTitles = videoTitles;
+    notifyListeners();
+  }
 }
 
 class RoomUtil {
@@ -69,7 +77,7 @@ class RoomUtil {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<void> addRoom(String name, String id, String img, String url,
-      String playlist, List member) async {
+      String playlist, List member, List videoTitles) async {
     User? user = auth.currentUser;
     CollectionReference hostCollection = firestore.collection('Host');
     DocumentReference hostDocument = hostCollection.doc(user!.uid);
@@ -82,6 +90,7 @@ class RoomUtil {
       'url': url,
       'playlist': playlist,
       'member': member,
+      'videoTitles': videoTitles,
       'timestamp': Timestamp.now()
     });
 
@@ -105,6 +114,7 @@ class RoomUtil {
         String url = roomData['url'];
         String playlist = roomData['playlist'];
         List member = roomData['member'];
+        List videoTitles = roomData['videoTitles'];
 
         Room room = Room(
           name: name,
@@ -113,6 +123,7 @@ class RoomUtil {
           url: url,
           playlist: playlist,
           member: member,
+          videoTitles: videoTitles,
         );
 
         rooms.add(room);
@@ -120,4 +131,39 @@ class RoomUtil {
     }
     roomProvider.setRooms(rooms);
   }
+
+  Future<void> updatePlaylistInRoom(String roomId, String playlistId) async {
+    CollectionReference roomCollection = firestore.collection('Room');
+
+    // Use roomId to find the document
+    var roomQuery = await roomCollection.where('id', isEqualTo: roomId).get();
+
+    // Check if a document was found
+    if (roomQuery.docs.isNotEmpty) {
+      DocumentReference roomDocument =
+          roomCollection.doc(roomQuery.docs.first.id);
+
+      return roomDocument.update({
+        'playlist': playlistId,
+      });
+    } else {
+      // Handle error, for example throw an exception
+      throw Exception('Room not found');
+    }
+  }
+
+  // Future<String> getRoomId(String roomId) async {
+  //   // Query the document
+  //   QuerySnapshot roomQuery =
+  //       await firestore.collection('Room').where('id', isEqualTo: roomId).get();
+
+  //   // Check if there are any documents returned
+  //   if (roomQuery.docs.isNotEmpty) {
+  //     // Get the document ID
+  //     String docId = roomQuery.docs.first.id;
+  //     return docId;
+  //   } else {
+  //     throw Exception("No room found with ID: $roomId");
+  //   }
+  // }
 }

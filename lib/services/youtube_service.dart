@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dlive/models/youtube_video_model.dart';
 
 class ApiService {
-  final String? apiKey = dotenv.env['YOUTUBE_API_KEY1'];
+  final String? apiKey = dotenv.env['YOUTUBE_API_KEY3'];
 
   // 검색어를 받아와서 비디오를 로드
   Future<List<YoutubeVideo>> fetchVideos(String query) async {
@@ -55,25 +55,25 @@ class ApiService {
   }
 
   // 검색어 리스트를 받아와서 ID 리스트로 반환
-  // Future<List<String>> fetchTopViewedVideoIds(List<List<String>> songs) async {
-  //   List<String> videoIds = [];
+  Future<List<String>> fetchTopViewedVideoIds(List<List<String>> songs) async {
+    List<String> videoIds = [];
 
-  //   for (List<String> song in songs) {
-  //     // song[0]은 아티스트 이름, song[1]은 노래 제목
-  //     String query = '${song[0]} ${song[1]}';
-  //     final response = await http.get(Uri.parse(
-  //         'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=$query&type=video&key=$apiKey'));
+    for (List<String> song in songs) {
+      // song[0]은 아티스트 이름, song[1]은 노래 제목
+      String query = '${song[0]} ${song[1]}';
+      final response = await http.get(Uri.parse(
+          'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=$query&type=video&key=$apiKey'));
 
-  //     if (response.statusCode == 200) {
-  //       var data = json.decode(response.body);
-  //       var videoId = data['items'][0]['id']['videoId'];
-  //       videoIds.add(videoId);
-  //     } else {
-  //       throw Exception('Failed to load videos');
-  //     }
-  //   }
-  //   print(videoIds);
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        var videoId = data['items'][0]['id']['videoId'];
+        videoIds.add(videoId);
+      } else {
+        throw Exception('Failed to load videos');
+      }
+    }
+    print(videoIds);
 
-  //   return videoIds;
-  // }
+    return videoIds;
+  }
 }

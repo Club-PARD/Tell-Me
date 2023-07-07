@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'package:dlive/services/youtube_service.dart';
+import 'package:dlive/utils/playlist_util.dart';
+import 'package:dlive/utils/room_util.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dlive/screens/playlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class StationMain extends StatefulWidget {
@@ -14,23 +18,18 @@ class StationMain extends StatefulWidget {
 }
 
 class _StationMainState extends State<StationMain> {
-  List<String> videoUrl = [
-    'fHI8X4OXluQ',
-    'ApXoWvfEYVU',
-    'mEZqJ65ra08',
-    'mNEUkkoUoIA',
-    'XR7Ev14vUh8',
-    'bfXsQ9k9PtY',
-  ];
+  List<String> videoUrl = [];
   late List<String> videoIds = [];
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
+  PlaylistUtil playlistUtil = PlaylistUtil();
 
   late List<YoutubePlayerController> controllers;
   @override
   void initState() {
     super.initState();
+    _fetchTopViewedVideos();
     parseVideoUrls();
   }
 
@@ -42,6 +41,24 @@ class _StationMainState extends State<StationMain> {
     super.dispose();
   }
 
+  Future<void> _fetchTopViewedVideos() async {
+    RoomProvider roomProvider =
+        Provider.of<RoomProvider>(context, listen: false);
+
+    String? playlistId =
+        await playlistUtil.getPlaylistIdFromRoom(roomProvider.id);
+    List<List<String>> songs = await playlistUtil.getSongs(playlistId!);
+
+    if (songs != null && songs.isNotEmpty) {
+      ApiService apiService = ApiService();
+      List<String> videoIds = await apiService.fetchTopViewedVideoIds(songs);
+      setState(() {
+        videoUrl = videoIds;
+      });
+      print("@@@@@@@@@@@@@@@@@@@@@@@@@@$videoUrl");
+    }
+  }
+
   Future<List<String>> fetchMetaData() async {
     //List<String> titles의 값
     await Future.delayed(const Duration(seconds: 2), () {});
@@ -49,7 +66,6 @@ class _StationMainState extends State<StationMain> {
   }
 
   Future<void> parseVideoUrls() async {
-    controllers = [];
     for (String url in videoUrl) {
       //  final String? videoId = getIdFromUrl(url);
       //  videoIds.add(videoId!);
@@ -63,7 +79,7 @@ class _StationMainState extends State<StationMain> {
   }
 
   Future<List<String>> getMetaData() async {
-    final String? apiKey = dotenv.env['YOUTUBE_API_KEY3'];
+    final String? apiKey = dotenv.env['YOUTUBE_API_KEY1'];
 
     for (String url in videoUrl) {
       //  final String? videoId = getIdFromUrl(url);
@@ -100,6 +116,10 @@ class _StationMainState extends State<StationMain> {
     double height = screenSize.height;
     DateTime now = DateTime.now();
     String formatDate = DateFormat('yyyy-MM-dd').format(now);
+    RoomProvider roomProvider = Provider.of<RoomProvider>(context);
+    // RoomProvider roomProvider =
+    //     Provider.of<RoomProvider>(context, listen: false);
+    // RoomUtil roomUtil = RoomUtil();
 
     return Scaffold(
       appBar: AppBar(
