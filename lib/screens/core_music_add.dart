@@ -328,7 +328,7 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                           _searchVideos(query, roomProvider);
                         },
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.height / 80),
+                      SizedBox(width: MediaQuery.of(context).size.height / 50),
                     ],
                   ),
                 ),
