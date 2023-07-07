@@ -30,8 +30,29 @@
 <img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/1f65e255-4c51-4843-8a6b-e1dc9dbbd3e9" width="250"><br><br><br>
 
 
+### 기능 페이지
+- **홈 화면**<br>
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/0a403076-0af6-476a-9e8e-5db9fe881e35" width="250"> <br><br>
+- **방 생성 및 음악 추가 화면<br>**
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/f153bdbe-6eb0-4b4c-b434-4cd3ec4b2773" width="250">&nbsp;&nbsp;
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/9be36974-c080-404b-948d-1fcf8d251b93" width="250">&nbsp;&nbsp;
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/c091d9d1-a070-45f3-b645-2b503239ec3b" width="250"> <br><br>
+- **플레이리스트 목록 화면<br>**
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/0744c366-ed2b-41ad-929f-5042e66af85f" width="250">&nbsp;&nbsp;
+<img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/1f65e255-4c51-4843-8a6b-e1dc9dbbd3e9" width="250"><br><br><br>
+
+
 ## <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/12061128-e02b-41f8-a1c4-6fd16dd95835" height="35"> Technical
 **사용한 기술 스택**<br><br>
+<img src="https://img.shields.io/badge/Flutter-white?style=for-the-badge&logo=Flutter&logoColor=02569B"/>
+<img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28"/>
+<img src="https://img.shields.io/badge/Dart-white?style=for-the-badge&logo=Dart&logoColor=0175C2"/>
+<br>
+<img src="https://img.shields.io/badge/Figma-white?style=for-the-badge&logo=Figma"/>
+<img src="https://img.shields.io/badge/Git-white?style=for-the-badge&logo=Git&logoColor=F05032"/>
+<img src="https://img.shields.io/badge/GitHub-white?style=for-the-badge&logo=GitHub&logoColor=181717"/>
+<img src="https://img.shields.io/badge/.ENV-white?style=for-the-badge&logo=.ENV"/>
+<br><br><br>
 <img src="https://img.shields.io/badge/Flutter-white?style=for-the-badge&logo=Flutter&logoColor=02569B"/>
 <img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28"/>
 <img src="https://img.shields.io/badge/Dart-white?style=for-the-badge&logo=Dart&logoColor=0175C2"/>
