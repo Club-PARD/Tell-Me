@@ -49,6 +49,7 @@ class _ProfileNameScreenState extends State<ProfileNameScreen> {
             color: Colors.black,
           ),
           onPressed: () {
+            profileProvider.setName('');
             Navigator.pop(context);
           },
         ),
@@ -68,7 +69,7 @@ class _ProfileNameScreenState extends State<ProfileNameScreen> {
                 : () async{
                     profileProvider.setName(_controller.text); 
                     print(profileProvider.name);
-                    Navigator.pushNamed(context, '/profile');
+                    Navigator.pop(context);
                   },
             style: TextButton.styleFrom(
               primary: _isTextFieldEmpty ? Colors.grey : Color(0xFF50A7EB),
