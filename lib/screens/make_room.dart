@@ -30,15 +30,8 @@ class _MakeRoomState extends State<MakeRoom> {
     final roomProvider = Provider.of<RoomProvider>(context);
 
     return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage(
-          'assets/background.jpg',
-        ),
-      )),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
@@ -110,18 +103,18 @@ class _MakeRoomState extends State<MakeRoom> {
                             borderRadius: BorderRadius.circular(40.0),
                             child: Image.network(
                               roomProvider.img,
-                              height: height / 812 * 106,
+                              height: width / 375 * 106,
                               width: width / 375 * 106,
                               fit: BoxFit.cover,
                             ),
                           ),
                           Positioned(
-                            top: height / 812 * 76,
-                            left: width / 375 * 82,
+                            top: height / 812 * 88,
+                            left: width / 375 * 80,
                             child: Image.asset(
                               'assets/images/camera.png',
-                              width: width / 375 * 30,
-                              height: height / 812 * 30,
+                              width: width / 375 * 35,
+                              height: height / 812 * 35,
                             ),
                           ),
                         ],

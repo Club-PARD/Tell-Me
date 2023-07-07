@@ -16,13 +16,6 @@ class MakeRoomExplainpage extends StatelessWidget {
     double height = screenSize.height;
 
     return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage(
-          'assets/background_black.jpg',
-        ),
-      )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
@@ -75,14 +68,14 @@ class MakeRoomExplainpage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: height / 812 * 265),
+              SizedBox(height: height / 812 * 244),
               GestureDetector(
                 child: Container(
-                  height: MediaQuery.of(context).size.height / 812 * 40,
-                  width: MediaQuery.of(context).size.width / 375 * 167,
+                  height: MediaQuery.of(context).size.height / 812 * 46,
+                  width: MediaQuery.of(context).size.width / 375 * 249,
                   decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: const Center(
                     child: Text(

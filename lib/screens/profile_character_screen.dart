@@ -67,8 +67,17 @@ class _ProfileCharacterScreenState extends State<ProfileCharacterScreen> {
               );
             }).toList(),
           ),
+          const Text(
+            '스와이프로 다른 캐릭터를 살펴보세요',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xFFAFAFAF),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           SizedBox(
-            height: MediaQuery.of(context).size.height / 812 * 145,
+            height: MediaQuery.of(context).size.height / 812 * 104,
           ),
           GestureDetector(
             child: Container(
@@ -135,7 +144,7 @@ class _ProfileCharacter2ScreenState extends State<ProfileCharacter2Screen> {
                 width: MediaQuery.of(context).size.width / 375 * 68,
               ),
               Text(
-                '에 오신 ${profileProvider.name == '' ?hostProvider.name : profileProvider.name}님,',
+                '에 오신 ${profileProvider.name == '' ? hostProvider.name : profileProvider.name}님,',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 18,
@@ -151,7 +160,7 @@ class _ProfileCharacter2ScreenState extends State<ProfileCharacter2Screen> {
                 fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height / 812 * 48,
+            height: MediaQuery.of(context).size.height / 812 * 200,
           ),
           Image.asset(
             profileProvider.character,
@@ -159,7 +168,7 @@ class _ProfileCharacter2ScreenState extends State<ProfileCharacter2Screen> {
             height: MediaQuery.of(context).size.height / 812 * 280,
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height / 812 * 227,
+            height: MediaQuery.of(context).size.height / 812 * 100,
           ),
           GestureDetector(
             child: Container(
