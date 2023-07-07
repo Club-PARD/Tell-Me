@@ -1,4 +1,5 @@
 # <img src = "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2d84f74b-2400-462d-ab8b-c89d880bbd12%2Fdlive_logo.png?table=block&id=b99ddc5a-4536-4328-8c77-32a5239a1cf0&spaceId=4bed42de-71b8-4266-b5a7-e99ce099274c&width=250&userId=d004bf15-60d6-4bbc-8417-a2eca108ac26&cache=v2" width="35" height="35" > 디라이브(DLive)
+![banner](https://github.com/Club-PARD/Tell-Me/assets/74640695/8f7bc256-eccd-4118-b6a2-d7a850005a15)
 
 ## <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/12061128-e02b-41f8-a1c4-6fd16dd95835" height="35"> 서비스 소개
 **:동승자 취향 기반 드라이브 선곡 AI 서비스**<br>
