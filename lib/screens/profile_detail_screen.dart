@@ -22,6 +22,8 @@ class ProfileDetailScreen extends StatelessWidget {
             color: Colors.black,
           ),
           onPressed: () {
+            profileProvider.setName('');
+            profileProvider.setCharacter('');
             Navigator.pop(context);
           },
         ),
@@ -100,7 +102,7 @@ class ProfileDetailScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 375 * 45,
             ),
             Text(
-              profileProvider.name,
+              profileProvider.name == '' ?hostProvider.name : profileProvider.name,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,

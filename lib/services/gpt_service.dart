@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class GptService {
-  static String? apiKey = dotenv.env['OPENAI_API_KEY'];
+  static String? apiKey = dotenv.env['OPENAI_API_KEY1'];
 
 // class MyApp extends StatelessWidget {
 //   MyApp({super.key});

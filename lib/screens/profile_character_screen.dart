@@ -116,6 +116,7 @@ class _ProfileCharacter2ScreenState extends State<ProfileCharacter2Screen> {
   @override
   Widget build(BuildContext context) {
     final profileProvider = Provider.of<ProfileProvider>(context);
+    final hostProvider = Provider.of<HostProvider>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -134,7 +135,7 @@ class _ProfileCharacter2ScreenState extends State<ProfileCharacter2Screen> {
                 width: MediaQuery.of(context).size.width / 375 * 68,
               ),
               Text(
-                '에 오신 ${profileProvider.name}님,',
+                '에 오신 ${profileProvider.name == '' ?hostProvider.name : profileProvider.name}님,',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 18,
