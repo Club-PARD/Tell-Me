@@ -24,7 +24,7 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    OpenAI.apiKey = dotenv.env['OPENAI_API_KEY4']!;
+    OpenAI.apiKey = dotenv.env['OPENAI_API_KEY10']!;
 
     RoomProvider roomProvider = Provider.of<RoomProvider>(context);
 

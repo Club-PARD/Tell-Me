@@ -79,7 +79,7 @@ class _StationMainState extends State<StationMain> {
   }
 
   Future<List<String>> getMetaData() async {
-    final String? apiKey = dotenv.env['YOUTUBE_API_KEY1'];
+    final String? apiKey = dotenv.env['YOUTUBE_API_KEY2'];
 
     for (String url in videoUrl) {
       //  final String? videoId = getIdFromUrl(url);
