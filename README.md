@@ -19,9 +19,6 @@
 
 ## <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/12061128-e02b-41f8-a1c4-6fd16dd95835" height="35"> Technical
 **사용한 기술 스택**<br><br>
-<img src = "https://firebase.google.com/static/images/brand-guidelines/logo-standard.png?hl=ko" height="50">
-<img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Google-flutter-logo.svg/2560px-Google-flutter-logo.svg.png" height="50">
-<img src = "https://simplified.com/siteimages/design/figma-logo-free-design-tool-simplified.png" height="50">
 <br>
 <img src="https://img.shields.io/badge/Flutter-white?style=for-the-badge&logo=Flutter&logoColor=02569B"/>
 <img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28"/>
@@ -30,6 +27,8 @@
 <img src="https://img.shields.io/badge/Figma-white?style=for-the-badge&logo=Figma"/>
 <img src="https://img.shields.io/badge/Git-white?style=for-the-badge&logo=Git&logoColor=F05032"/>
 <img src="https://img.shields.io/badge/GitHub-white?style=for-the-badge&logo=GitHub&logoColor=181717"/>
+<br>
+<img src="https://img.shields.io/badge/.ENV-white?style=for-the-badge&logo=.ENV"/>
 <br><br><br>
 
 
