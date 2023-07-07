@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dlive/services/youtube_service.dart';
+import 'package:dlive/utils/playlist_util.dart';
 import 'package:dlive/utils/room_util.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -22,6 +23,7 @@ class _StationMainState extends State<StationMain> {
   late List<String> titles = [];
   late List<String> artist = [];
   List<String> thumbNail = [];
+  PlaylistUtil playlistUtil = PlaylistUtil();
 
   late List<YoutubePlayerController> controllers;
   @override
@@ -42,7 +44,10 @@ class _StationMainState extends State<StationMain> {
   Future<void> _fetchTopViewedVideos() async {
     RoomProvider roomProvider =
         Provider.of<RoomProvider>(context, listen: false);
-    List<List<String>> songs = roomProvider.playlist;
+
+    String? playlistId =
+        await playlistUtil.getPlaylistIdFromRoom(roomProvider.id);
+    List<List<String>> songs = await playlistUtil.getSongs(playlistId!);
 
     if (songs != null && songs.isNotEmpty) {
       ApiService apiService = ApiService();
@@ -111,9 +116,10 @@ class _StationMainState extends State<StationMain> {
     double height = screenSize.height;
     DateTime now = DateTime.now();
     String formatDate = DateFormat('yyyy-MM-dd').format(now);
-    RoomProvider roomProvider =
-        Provider.of<RoomProvider>(context, listen: false);
-    RoomUtil roomUtil = RoomUtil();
+    RoomProvider roomProvider = Provider.of<RoomProvider>(context);
+    // RoomProvider roomProvider =
+    //     Provider.of<RoomProvider>(context, listen: false);
+    // RoomUtil roomUtil = RoomUtil();
 
     return Scaffold(
       appBar: AppBar(
