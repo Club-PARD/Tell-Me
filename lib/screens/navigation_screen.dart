@@ -24,83 +24,85 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(17, 0, 17, 16),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.black,
-          ),
-          //margin: EdgeInsets.fromLTRB(12, 0, 12, 16),
-          height: MediaQuery.of(context).size.height / 812 * 70,
-          child: BottomNavigationBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            currentIndex: _selectedIndex,
-            onTap: (index) {
-              switch (index) {
-                case 0:
-                  break;
-                case 1:
-                  Navigator.pushNamed(context, '/makeroom');
-                  break;
-                case 2:
-                  break;
-              }
-              setState(() {
-                if (index != 1) {
-                  _selectedIndex = index;
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: _widgetOptions.elementAt(_selectedIndex),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.fromLTRB(17, 0, 17, 16),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.black,
+            ),
+            //margin: EdgeInsets.fromLTRB(12, 0, 12, 16),
+            height: MediaQuery.of(context).size.height / 812 * 70,
+            child: BottomNavigationBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              currentIndex: _selectedIndex,
+              onTap: (index) {
+                switch (index) {
+                  case 0:
+                    break;
+                  case 1:
+                    Navigator.pushNamed(context, '/makeroom');
+                    break;
+                  case 2:
+                    break;
                 }
-              });
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/home_rounded.png',
-                  height: MediaQuery.of(context).size.height / 812 * 20,
-                  width: MediaQuery.of(context).size.height / 812 * 20,
+                setState(() {
+                  if (index != 1) {
+                    _selectedIndex = index;
+                  }
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/home_rounded.png',
+                    height: MediaQuery.of(context).size.height / 812 * 20,
+                    width: MediaQuery.of(context).size.height / 812 * 20,
+                  ),
+                  activeIcon: Image.asset(
+                    'assets/home.png',
+                    height: MediaQuery.of(context).size.height / 812 * 20,
+                    width: MediaQuery.of(context).size.height / 812 * 20,
+                  ),
+                  label: '홈',
                 ),
-                activeIcon: Image.asset(
-                  'assets/home.png',
-                  height: MediaQuery.of(context).size.height / 812 * 20,
-                  width: MediaQuery.of(context).size.height / 812 * 20,
-                ),
-                label: '홈',
-              ),
-              BottomNavigationBarItem(
-                icon: ClipOval(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 812 * 45,
-                    width: MediaQuery.of(context).size.height / 812 * 45,
-                    color: Colors.white,
-                    child: const Icon(
-                      Icons.add,
-                      size: 20,
-                      color: Colors.black,
+                BottomNavigationBarItem(
+                  icon: ClipOval(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 812 * 45,
+                      width: MediaQuery.of(context).size.height / 812 * 45,
+                      color: Colors.white,
+                      child: const Icon(
+                        Icons.add,
+                        size: 20,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
+                  label: '',
                 ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/storage_rounded.png',
-                  height: MediaQuery.of(context).size.height / 812 * 20,
-                  width: MediaQuery.of(context).size.height / 812 * 20,
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/storage_rounded.png',
+                    height: MediaQuery.of(context).size.height / 812 * 20,
+                    width: MediaQuery.of(context).size.height / 812 * 20,
+                  ),
+                  activeIcon: Image.asset(
+                    'assets/storage.png',
+                    height: MediaQuery.of(context).size.height / 812 * 20,
+                    width: MediaQuery.of(context).size.height / 812 * 20,
+                  ),
+                  label: '보관함',
                 ),
-                activeIcon: Image.asset(
-                  'assets/storage.png',
-                  height: MediaQuery.of(context).size.height / 812 * 20,
-                  width: MediaQuery.of(context).size.height / 812 * 20,
-                ),
-                label: '보관함',
-              ),
-            ],
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white,
+              ],
+              selectedItemColor: Colors.white,
+              unselectedItemColor: Colors.white,
+            ),
           ),
         ),
       ),
