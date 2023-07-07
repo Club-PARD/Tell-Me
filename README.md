@@ -22,14 +22,14 @@
 <img src = "https://firebase.google.com/static/images/brand-guidelines/logo-standard.png?hl=ko" height="50">
 <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Google-flutter-logo.svg/2560px-Google-flutter-logo.svg.png" height="50">
 <img src = "https://simplified.com/siteimages/design/figma-logo-free-design-tool-simplified.png" height="50">
-<br>
 <img src="https://img.shields.io/badge/Flutter-white?style=for-the-badge&logo=Flutter&logoColor=02569B"/>
 <img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28"/>
+<br>
 <img src="https://img.shields.io/badge/Dart-white?style=for-the-badge&logo=Dart&logoColor=0175C2"/>
 <br>
-<img src="https://img.shields.io/badge/Figma-violet?style=for-the-badge&logo=Figma&logoColor=F24E1E"/>
+<img src="https://img.shields.io/badge/Figma-grey?style=for-the-badge&logo=Figma&logoColor=F24E1E"/>
 <img src="https://img.shields.io/badge/Git-grey?style=for-the-badge&logo=Git&logoColor=F05032"/>
-<img src="https://img.shields.io/badge/GitHub-white?style=for-the-badge&logo=GitHub&logoColor=181717"/>
+<img src="https://img.shields.io/badge/GitHub-grey?style=for-the-badge&logo=GitHub&logoColor=181717"/>
 <br><br><br>
 
 
