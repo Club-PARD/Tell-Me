@@ -102,12 +102,17 @@ class ProfileDetailScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 375 * 45,
             ),
             Text(
-              profileProvider.name == '' ?hostProvider.name : profileProvider.name,
+              profileProvider.name == ''
+                  ? hostProvider.name
+                  : profileProvider.name,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 375 * 4,
             ),
             GestureDetector(
               onTap: () {
