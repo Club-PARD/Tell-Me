@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
-
+import 'package:flutter/services.dart';
 import '../utils/room_util.dart';
 
 class MakeRoomQrScreen extends StatefulWidget {
@@ -133,7 +133,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                     image: const AssetImage('assets/logo_image.png'),
                     typeNumber: 3,
                     size: MediaQuery.of(context).size.height / 812 * 230,
-                    data: '${roomProvider.id}',
+                    data: 'https://pard-dlive-b27d9.web.app',
                     errorCorrectLevel: QrErrorCorrectLevel.M,
                     roundEdges: true,
                   ),
@@ -146,6 +146,8 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
           ),
           ElevatedButton(
             onPressed: () {
+              String textToCopy = roomProvider.id;
+              Clipboard.setData(ClipboardData(text: textToCopy));
               _showCopiedMessage();
             },
             style: ElevatedButton.styleFrom(
@@ -169,7 +171,7 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
                 ),
                 const SizedBox(width: 8), // 이미지와 텍스트 사이의 간격 조정
                 const Text(
-                  '링크 공유',
+                  '초대 코드 복사',
                   style: TextStyle(
                     fontSize: 16,
                     color: Color(0xFF438BC3),

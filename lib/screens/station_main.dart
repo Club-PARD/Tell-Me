@@ -31,8 +31,13 @@ class _StationMainState extends State<StationMain> {
   @override
   void initState() {
     super.initState();
-    _fetchTopViewedVideos();
     parseVideoUrls();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _fetchTopViewedVideos();
   }
 
   @override
@@ -46,18 +51,25 @@ class _StationMainState extends State<StationMain> {
   Future<void> _fetchTopViewedVideos() async {
     RoomProvider roomProvider =
         Provider.of<RoomProvider>(context, listen: false);
+    String roomId = roomProvider.id;
 
-    String? playlistId =
-        await playlistUtil.getPlaylistIdFromRoom(roomProvider.id);
-    List<List<String>> songs = await playlistUtil.getSongs(playlistId!);
+    String? playlistId = await playlistUtil.getPlaylistIdFromRoom(roomId);
+    // Check if playlistId is not null before proceeding
+    if (playlistId != null) {
+      List<List<String>> songs = await playlistUtil.getSongs(playlistId);
 
-    if (songs.isNotEmpty) {
-      ApiService apiService = ApiService();
-      List<String> videoIds = await apiService.fetchTopViewedVideoIds(songs);
-      setState(() {
-        videoUrl = videoIds;
-      });
-      print("@@@@@@@@@@@@@@@@@@@@@@@@@@$videoUrl");
+      if (songs != null && songs.isNotEmpty) {
+        ApiService apiService = ApiService();
+        List<String> videoIds = await apiService.fetchTopViewedVideoIds(songs);
+        setState(() {
+          videoUrl = videoIds;
+        });
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@$videoUrl");
+      }
+    } else {
+      // Handle case where playlistId is null
+      print("No playlistId found for room ${roomProvider.id}");
+
     }
   }
 
@@ -193,7 +205,7 @@ class _StationMainState extends State<StationMain> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PlaylistScreen(
-                        videoUrl: videoIds,
+                        videoUrl: videoUrl,
                         initialIndex: 0,
                         count: videoUrl.length,
                         songTitle: titles,
@@ -297,7 +309,7 @@ class _StationMainState extends State<StationMain> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => PlaylistScreen(
-                                videoUrl: videoIds,
+                                videoUrl: videoUrl,
                                 initialIndex: index,
                                 count: count,
                                 songTitle: titles,

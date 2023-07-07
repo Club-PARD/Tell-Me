@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dlive/models/youtube_video_model.dart';
 
 class ApiService {
-  final String? apiKey = dotenv.env['YOUTUBE_API_KEY5'];
+  final String? apiKey = dotenv.env['YOUTUBE_API_KEY11'];
 
   // 검색어를 받아와서 비디오를 로드
   Future<List<YoutubeVideo>> fetchVideos(String query) async {
@@ -60,6 +60,14 @@ class ApiService {
 
     for (List<String> song in songs) {
       // song[0]은 아티스트 이름, song[1]은 노래 제목
+      String artist = song.length > 0 ? song[0] : '';
+      String title = song.length > 1 ? song[1] : '';
+
+      if (artist.isEmpty || title.isEmpty) {
+        // 둘 다 비어있으면 다음 song으로 넘어갑니다.
+        continue;
+      }
+
       String query = '${song[0]} ${song[1]}';
       final response = await http.get(Uri.parse(
           'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&order=viewCount&q=$query&type=video&key=$apiKey'));
