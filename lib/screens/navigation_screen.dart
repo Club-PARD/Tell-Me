@@ -24,83 +24,85 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 0, 12, 16),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.black,
-          ),
-          //margin: EdgeInsets.fromLTRB(12, 0, 12, 16),
-          height: MediaQuery.of(context).size.height / 812 * 86,
-          child: BottomNavigationBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            currentIndex: _selectedIndex,
-            onTap: (index) {
-              switch (index) {
-                case 0:
-                  break;
-                case 1:
-                  Navigator.pushNamed(context, '/makeroom');
-                  break;
-                case 2:
-                  break;
-              }
-              setState(() {
-                if (index != 1) {
-                  _selectedIndex = index;
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: _widgetOptions.elementAt(_selectedIndex),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.fromLTRB(17, 0, 17, 16),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.black,
+            ),
+            //margin: EdgeInsets.fromLTRB(12, 0, 12, 16),
+            height: MediaQuery.of(context).size.height / 812 * 70,
+            child: BottomNavigationBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              currentIndex: _selectedIndex,
+              onTap: (index) {
+                switch (index) {
+                  case 0:
+                    break;
+                  case 1:
+                    Navigator.pushNamed(context, '/makeroom');
+                    break;
+                  case 2:
+                    break;
                 }
-              });
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/home_rounded.png',
-                  height: MediaQuery.of(context).size.height / 812 * 18,
-                  width: MediaQuery.of(context).size.height / 812 * 18,
+                setState(() {
+                  if (index != 1) {
+                    _selectedIndex = index;
+                  }
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/home_rounded.png',
+                    height: MediaQuery.of(context).size.height / 812 * 20,
+                    width: MediaQuery.of(context).size.height / 812 * 20,
+                  ),
+                  activeIcon: Image.asset(
+                    'assets/home.png',
+                    height: MediaQuery.of(context).size.height / 812 * 20,
+                    width: MediaQuery.of(context).size.height / 812 * 20,
+                  ),
+                  label: '홈',
                 ),
-                activeIcon: Image.asset(
-                  'assets/home.png',
-                  height: MediaQuery.of(context).size.height / 812 * 18,
-                  width: MediaQuery.of(context).size.height / 812 * 18,
-                ),
-                label: '홈',
-              ),
-              BottomNavigationBarItem(
-                icon: ClipOval(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 812 * 54,
-                    width: MediaQuery.of(context).size.height / 812 * 54,
-                    color: Colors.white,
-                    child: const Icon(
-                      Icons.add,
-                      size: 20,
-                      color: Colors.black,
+                BottomNavigationBarItem(
+                  icon: ClipOval(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 812 * 45,
+                      width: MediaQuery.of(context).size.height / 812 * 45,
+                      color: Colors.white,
+                      child: const Icon(
+                        Icons.add,
+                        size: 20,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
+                  label: '',
                 ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/storage_rounded.png',
-                  height: MediaQuery.of(context).size.height / 812 * 18,
-                  width: MediaQuery.of(context).size.height / 812 * 18,
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/storage_rounded.png',
+                    height: MediaQuery.of(context).size.height / 812 * 20,
+                    width: MediaQuery.of(context).size.height / 812 * 20,
+                  ),
+                  activeIcon: Image.asset(
+                    'assets/storage.png',
+                    height: MediaQuery.of(context).size.height / 812 * 20,
+                    width: MediaQuery.of(context).size.height / 812 * 20,
+                  ),
+                  label: '보관함',
                 ),
-                activeIcon: Image.asset(
-                  'assets/storage.png',
-                  height: MediaQuery.of(context).size.height / 812 * 18,
-                  width: MediaQuery.of(context).size.height / 812 * 18,
-                ),
-                label: '보관함',
-              ),
-            ],
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white,
+              ],
+              selectedItemColor: Colors.white,
+              unselectedItemColor: Colors.white,
+            ),
           ),
         ),
       ),
@@ -126,7 +128,7 @@ class HomePage extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                    top: MediaQuery.of(context).size.height / 812 * 143,
+                    top: MediaQuery.of(context).size.height / 812 * 133,
                     left: 0,
                     right: 0,
                     child: Container(
@@ -189,7 +191,7 @@ class HomePage extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height /
                                   812 *
-                                  310,
+                                  300,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -197,13 +199,13 @@ class HomePage extends StatelessWidget {
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width /
                                       375 *
-                                      35,
+                                      17,
                                 ),
                                 const Text(
                                   '최근 참가 드라이브 방',
                                   style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ],
                             ),
@@ -237,17 +239,18 @@ class HomePage extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 2,
+                spreadRadius: 4,
                 blurRadius: 5,
                 offset: Offset(0, 3),
               ),
             ],
             color: Colors.white,
-            borderRadius: BorderRadius.circular(28.0),
+            borderRadius: BorderRadius.circular(24.0),
           ),
           child: ListTile(
-            leading: Image.asset('assets/room_default_color.png'),
-            title: const Text('아직 생성된 방이 없어요', style: TextStyle(fontSize: 16)),
+            leading: Image.asset('assets/room_default_grey.png'),
+            title: const Text('아직 생성된 방이 없어요',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
             subtitle:
                 const Text('함께 즐거운 음악을 들어보아요~', style: TextStyle(fontSize: 12)),
           ),
@@ -574,8 +577,8 @@ class RoomListScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                      height: MediaQuery.of(context).size.width / 812 * 8,
-                    ),
+                  height: MediaQuery.of(context).size.width / 812 * 8,
+                ),
                 Row(
                   children: [
                     SizedBox(
