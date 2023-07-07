@@ -6,7 +6,7 @@ import 'package:youtube_parser/youtube_parser.dart';
 import 'package:http/http.dart' as http;
 
 class getTitle {
-  final String? apiKey = dotenv.env['YOUTUBE_API_KEY2'];
+  final String? apiKey = dotenv.env['YOUTUBE_API_KEY11'];
 
   Future<List<YoutubeTitle>> fetchTitle(String videoUrl) async {
     final String? videoId = getIdFromUrl(videoUrl);
