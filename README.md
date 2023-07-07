@@ -4,7 +4,7 @@
 ## <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/12061128-e02b-41f8-a1c4-6fd16dd95835" height="35"> 서비스 소개
 **:동승자 취향 기반 드라이브 선곡 AI 서비스**<br>
 ### [서비스 소개 바로보기](https://www.notion.so/Dlive-b99ddc5a453643288c7732a5239a1cf0)  
-<br><br>
+<br>
 
 > 드라이브 시 선곡의 부담을 느껴본 적이 있나요?<br>
 > 동승자들의 취향을 모르고, 분위기에 맞는 음악을 찾기 어렵고, 매번 새로운 음악을 찾기 힘들다면 드라이브를 즐기지 못하는 문제가 발생합니다.<br>
@@ -15,6 +15,8 @@
 > 음악취향 수집<br>
 > AI의 맞춤 노래 추천<br>
 > 플레이리스트 보관<br><br>
+![10](https://github.com/Club-PARD/Tell-Me/assets/74640695/12c71708-e5f3-4297-84f6-685c1258f7bd)
+
 
 
 ## <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/12061128-e02b-41f8-a1c4-6fd16dd95835" height="35"> Technical
