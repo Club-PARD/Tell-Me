@@ -27,6 +27,7 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
   List<YoutubeVideo> videos = [];
   Map<String, bool> videoIdSelections = {}; //각 videoId의 선택 상태를 저장하는 맵 추가
   List<YoutubeVideo> selectedVideos = []; //선택된 비디오들을 저장하는 리스트 추가
+  List<String> videoTitles = []; //선택된 비디오들의 제목을 저장하는 리스트 추가
 
   @override
   void initState() {
@@ -50,6 +51,16 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
     firestore.collection('Room').doc(roomId).set({
       'videoTitles': selectedVideos.map((video) => video.title).toList(),
     }, SetOptions(merge: true));
+  }
+
+  List<String> getVideoTitles(List<YoutubeVideo> selectedVideos) {
+    List<String> videoTitles = [];
+
+    for (YoutubeVideo video in selectedVideos) {
+      videoTitles.add(video.title);
+    }
+
+    return videoTitles;
   }
 
   // 영상 검색 함수
@@ -164,10 +175,9 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                 if (selectedVideos.length == 3)
                   ElevatedButton(
                     onPressed: () async {
+                      videoTitles = getVideoTitles(selectedVideos);
                       roomProvider.setSelectedVideos(selectedVideos);
-                      String roomId =
-                          await RoomUtil().getRoomId(roomProvider.id);
-                      updateRoom(roomId);
+                      roomProvider.setVideoTitles(videoTitles);
 
                       HostProvider hostProvider =
                           Provider.of<HostProvider>(context, listen: false);
@@ -179,8 +189,9 @@ class _CoreMusicAddState extends State<CoreMusicAdd> {
                         roomProvider.id,
                         roomProvider.img,
                         roomProvider.url,
-                        // roomProvider.playlist,
+                        roomProvider.playlist,
                         [hostProvider.name],
+                        roomProvider.videoTitles,
                       );
 
                       roomProvider.setSelectedVideos(currentSelectedVideos);
