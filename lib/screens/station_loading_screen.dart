@@ -21,7 +21,7 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    OpenAI.apiKey = dotenv.env['OPENAI_API_KEY']!;
+    OpenAI.apiKey = dotenv.env['OPENAI_API_KEY2']!;
 
     RoomProvider roomProvider = Provider.of<RoomProvider>(context);
 
@@ -34,9 +34,9 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
       ['', '', ''],
       ['', '', ''],
     ];
-    
-    for(int i=0; i<selectedVideos.length; i++) {
-      for(int j=0; j<3; j++) {
+
+    for (int i = 0; i < selectedVideos.length; i++) {
+      for (int j = 0; j < 3; j++) {
         selections[0][j] = selectedVideos[i].title;
       }
     }
@@ -67,16 +67,15 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                 return Stack(
                   children: [
                     Positioned(
-                    top: MediaQuery.of(context).size.height / 812 * 149,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height / 812 * 544,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            'assets/car_moving_2.gif'),
+                      top: MediaQuery.of(context).size.height / 812 * 149,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 812 * 544,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/car_moving_2.gif'),
                           ),
                         ),
                       ),
@@ -87,7 +86,8 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 812 * 21,
+                            height:
+                                MediaQuery.of(context).size.height / 812 * 21,
                           ),
                           Text(
                             '곧 스테이션이 만들어져요!',
@@ -98,7 +98,8 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 812 * 41,
+                            height:
+                                MediaQuery.of(context).size.height / 812 * 41,
                           ),
                           Text(
                             '모든 사람들의 곡을 받고\n플레이리스트를 생성 중입니다...',
@@ -109,7 +110,8 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 812 * 41,
+                            height:
+                                MediaQuery.of(context).size.height / 812 * 41,
                           ),
                           Text(
                             '그동안 동승자의 안부를 물어보는건 어때요?',
@@ -126,16 +128,15 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                 return Stack(
                   children: [
                     Positioned(
-                    top: MediaQuery.of(context).size.height / 812 * 149,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height / 812 * 544,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            'assets/car_moving_2.gif'),
+                      top: MediaQuery.of(context).size.height / 812 * 149,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 812 * 544,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/car_moving_2.gif'),
                           ),
                         ),
                       ),
@@ -146,7 +147,8 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 812 * 21,
+                            height:
+                                MediaQuery.of(context).size.height / 812 * 21,
                           ),
                           Text(
                             '죄송합니다.\n스테이션을 다시 생성해주세요',
@@ -157,15 +159,19 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 812 * 537,
+                            height:
+                                MediaQuery.of(context).size.height / 812 * 537,
                           ),
                           GestureDetector(
                             child: Container(
-                              height: MediaQuery.of(context).size.height / 812 * 46,
-                              width: MediaQuery.of(context).size.width / 375 * 249,
+                              height:
+                                  MediaQuery.of(context).size.height / 812 * 46,
+                              width:
+                                  MediaQuery.of(context).size.width / 375 * 249,
                               decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8))),
                               child: Center(
                                 child: Text(
                                   '스테이션 생성하기',
@@ -192,16 +198,15 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                 return Stack(
                   children: [
                     Positioned(
-                    top: MediaQuery.of(context).size.height / 812 * 149,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height / 812 * 544,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            'assets/car_moving_2.gif'),
+                      top: MediaQuery.of(context).size.height / 812 * 149,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 812 * 544,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/car_moving_2.gif'),
                           ),
                         ),
                       ),
@@ -209,51 +214,61 @@ class _StationLoadingScreenState extends State<StationLoadingScreen> {
                     Container(
                       width: double.infinity,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 812 * 28,
-                        ),
-                        Text(
-                          '스테이션 생성 완료!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 812 * 41,
-                        ),
-                        Text(
-                          '오래 기다렸습니다,\n이제 들으러 가시죠',
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 812 * 457,
-                        ),
-                        GestureDetector(
-                          child: Container(
-                            height: MediaQuery.of(context).size.height / 812 * 46,
-                            width: MediaQuery.of(context).size.width / 375 * 249,
-                            decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                            child: Center(
-                              child: Text(
-                                '입장하기',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height / 812 * 28,
+                            ),
+                            Text(
+                              '스테이션 생성 완료!',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(context, '/stationmain');
-                          },
-                        ),
-                      ]),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height / 812 * 41,
+                            ),
+                            Text(
+                              '오래 기다렸습니다,\n이제 들으러 가시죠',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height /
+                                  812 *
+                                  457,
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                height: MediaQuery.of(context).size.height /
+                                    812 *
+                                    46,
+                                width: MediaQuery.of(context).size.width /
+                                    375 *
+                                    249,
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                                child: Center(
+                                  child: Text(
+                                    '입장하기',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.pushNamed(context, '/stationmain');
+                              },
+                            ),
+                          ]),
                     ),
                   ],
                 );
