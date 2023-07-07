@@ -23,8 +23,13 @@
 <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Google-flutter-logo.svg/2560px-Google-flutter-logo.svg.png" height="50">
 <img src = "https://simplified.com/siteimages/design/figma-logo-free-design-tool-simplified.png" height="50">
 <img src="https://img.shields.io/badge/Flutter-white?style=for-the-badge&logo=Flutter&logoColor=02569B"/>
-<img src="https://img.shields.io/badge/{내용}-{배경 색깔}?style={스타일}&logo={로고이름}&logoColor={로고 색깔}"/>
-<img src="https://img.shields.io/badge/{내용}-{배경 색깔}?style={스타일}&logo={로고이름}&logoColor={로고 색깔}"/>
+<img src="https://img.shields.io/badge/Firebase-white?style=for-the-badge&logo=Firebase&logoColor=FFCA28"/>
+<br>
+<img src="https://img.shields.io/badge/Dart-white?style=for-the-badge&logo=Dart&logoColor=0175C2"/>
+<br>
+<img src="https://img.shields.io/badge/Figma-purple?style=for-the-badge&logo=Figma&logoColor=F24E1E"/>
+<img src="https://img.shields.io/badge/Git-grey?style=for-the-badge&logo=Git&logoColor=F05032"/>
+<img src="https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=GitHub&logoColor=181717"/>
 <br><br><br>
 
 
