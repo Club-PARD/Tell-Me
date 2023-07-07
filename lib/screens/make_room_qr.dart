@@ -65,7 +65,8 @@ class _MakeRoomQrScreenState extends State<MakeRoomQrScreen> {
         elevation: 1,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.popUntil(context, ModalRoute.withName('/coremusicadd'));
+            Navigator.pushNamed(context, '/coremusicadd');
           },
           icon: const Icon(
             Icons.close,
