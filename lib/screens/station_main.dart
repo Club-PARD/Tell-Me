@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:dlive/services/youtube_service.dart';
+import 'package:dlive/utils/host_util.dart';
 import 'package:dlive/utils/playlist_util.dart';
 import 'package:dlive/utils/room_util.dart';
+import 'package:dlive/widgets/member_circle_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dlive/screens/playlist_screen.dart';
@@ -49,7 +51,7 @@ class _StationMainState extends State<StationMain> {
         await playlistUtil.getPlaylistIdFromRoom(roomProvider.id);
     List<List<String>> songs = await playlistUtil.getSongs(playlistId!);
 
-    if (songs != null && songs.isNotEmpty) {
+    if (songs.isNotEmpty) {
       ApiService apiService = ApiService();
       List<String> videoIds = await apiService.fetchTopViewedVideoIds(songs);
       setState(() {
@@ -117,9 +119,8 @@ class _StationMainState extends State<StationMain> {
     DateTime now = DateTime.now();
     String formatDate = DateFormat('yyyy-MM-dd').format(now);
     RoomProvider roomProvider = Provider.of<RoomProvider>(context);
-    // RoomProvider roomProvider =
-    //     Provider.of<RoomProvider>(context, listen: false);
-    // RoomUtil roomUtil = RoomUtil();
+    HostProvider hostProvider = Provider.of<HostProvider>(context);
+    HostUtil hostUtil = HostUtil();
 
     return Scaffold(
       appBar: AppBar(
@@ -172,10 +173,7 @@ class _StationMainState extends State<StationMain> {
                     '참여자',
                     style: TextStyle(color: Color(0XFF929292)),
                   ),
-                  const Text(
-                    '멜로디언',
-                    style: TextStyle(),
-                  ),
+                  getMemberCircles(context, roomProvider),
                   SizedBox(
                     height: height / 15,
                   ),
@@ -280,7 +278,9 @@ class _StationMainState extends State<StationMain> {
                   (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: Image.asset('assets/car_moving_final.gif'),
+                    child: Image.asset(
+                            hostUtil.getCar(hostProvider.character),
+                          ),
                   );
                 } else if (snapshot.hasError) {
                   return const Center(
