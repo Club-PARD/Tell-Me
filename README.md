@@ -17,7 +17,7 @@
 > 음악취향 수집<br>
 > AI의 맞춤 노래 추천<br>
 > 플레이리스트 보관<br><br>
-![10](https://github.com/Club-PARD/Tell-Me/assets/74640695/12c71708-e5f3-4297-84f6-685c1258f7bd)<br><br>
+<br><br>
 
 ### 기능 페이지
 - **홈 화면**<br>
