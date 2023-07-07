@@ -19,8 +19,8 @@
 > 플레이리스트 보관<br><br>
 ![10](https://github.com/Club-PARD/Tell-Me/assets/74640695/12c71708-e5f3-4297-84f6-685c1258f7bd)
 
-## 기능 페이지
-**홈 화면<br>**
+### 기능 페이지
+#### 홈 화면
 <img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/d7afb525-5cb8-4c0b-ae83-99f83306f8b4" width="250"> <br><br>
 **방 생성 및 음악 추가 화면<br>**
 <img src = "https://github.com/I-mYejin/2023OSS_TeamProject/assets/127292731/4cc98d8c-2bb4-4283-919c-5f566a307f02" width="250">&nbsp;&nbsp;
