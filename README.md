@@ -22,7 +22,7 @@
 <img src = "https://firebase.google.com/static/images/brand-guidelines/logo-standard.png?hl=ko" height="50">
 <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Google-flutter-logo.svg/2560px-Google-flutter-logo.svg.png" height="50">
 <img src = "https://simplified.com/siteimages/design/figma-logo-free-design-tool-simplified.png" height="50">
-<img src="https://img.shields.io/badge/Flutter-blue?style=for-the-badge&logo=Flutter&logoColor=02569B"/>
+<img src="https://img.shields.io/badge/Flutter-white?style=for-the-badge&logo=Flutter&logoColor=02569B"/>
 <img src="https://img.shields.io/badge/{내용}-{배경 색깔}?style={스타일}&logo={로고이름}&logoColor={로고 색깔}"/>
 <img src="https://img.shields.io/badge/{내용}-{배경 색깔}?style={스타일}&logo={로고이름}&logoColor={로고 색깔}"/>
 <br><br><br>
