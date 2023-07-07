@@ -62,12 +62,15 @@ class _StationMainState extends State<StationMain> {
 
   Future<void> parseVideoUrls() async {
     for (String url in videoUrl) {
+      //  final String? videoId = getIdFromUrl(url);
+      //  videoIds.add(videoId!);
       final controller = YoutubePlayerController(
         initialVideoId: url,
         flags: const YoutubePlayerFlags(autoPlay: false),
       );
       controllers.add(controller);
     }
+    setState(() {});
   }
 
   Future<List<String>> getMetaData() async {

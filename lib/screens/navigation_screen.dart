@@ -1,4 +1,5 @@
 import 'package:dlive/utils/host_util.dart';
+import 'package:dlive/widgets/member_circle_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dlive/models/room_model.dart';
@@ -125,7 +126,7 @@ class HomePage extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                    top: MediaQuery.of(context).size.height / 812 * 149,
+                    top: MediaQuery.of(context).size.height / 812 * 143,
                     left: 0,
                     right: 0,
                     child: Container(
@@ -188,7 +189,7 @@ class HomePage extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height /
                                   812 *
-                                  290,
+                                  310,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -262,6 +263,9 @@ class HomePage extends StatelessWidget {
           return Container(
             height: MediaQuery.of(context).size.height / 812 * 80,
             width: MediaQuery.of(context).size.height / 375 * 340,
+            margin: const EdgeInsets.only(
+              bottom: 10,
+            ),
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -304,18 +308,29 @@ class HomePage extends StatelessWidget {
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 375 * 12,
                           ),
-                          Text(
-                            room.name,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                room.name,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Expanded(child: Container()),
+                              getMemberCircles(context, roomProvider),
+                            ],
                           ),
                           Expanded(child: Container()),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              const Icon(Icons.person),
+                              const Icon(
+                                Icons.person,
+                                size: 15,
+                                color: Color(0xff929292),
+                              ),
                               Text(
                                 '${room.member.length}명',
                                 style: const TextStyle(
@@ -519,39 +534,55 @@ class RoomListScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Row(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 375 * 12,
+                    ),
+                    Text(
+                      room.name, // Access the room's name property
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 375 * 6,
+                    ),
+                    Text(
+                      '${room.member.length}명',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff929292),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(),
+                    ),
+                    const Text(
+                      '생성 날짜',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff929292),
+                      ),
+                    ),
+                  ],
+                ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 375 * 12,
-                ),
-                Text(
-                  room.name, // Access the room's name property
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 375 * 6,
-                ),
-                Text(
-                  '${room.member.length}명',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xff929292),
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                const Text(
-                  '생성 날짜',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xff929292),
-                  ),
+                      height: MediaQuery.of(context).size.width / 812 * 8,
+                    ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 375 * 12,
+                    ),
+                    getMemberCircles(context, roomProvider),
+                  ],
                 ),
               ],
             ),

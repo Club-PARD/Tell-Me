@@ -106,6 +106,7 @@ class RoomUtil {
         String url = roomData['url'];
         // String playlist = roomData['playlist'];
         List member = roomData['member'];
+        
 
         Room room = Room(
           name: name,
