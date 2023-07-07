@@ -3,7 +3,7 @@
 
 ## <img src = "https://github.com/1st-PARD-APP-PART/pixel_n_semicolon/assets/127292731/12061128-e02b-41f8-a1c4-6fd16dd95835" height="35"> 서비스 소개
 **:동승자 취향 기반 드라이브 선곡 AI 서비스**<br>
-서비스 소개 바로보기(https://www.notion.so/Dlive-b99ddc5a453643288c7732a5239a1cf0)  
+###[서비스 소개 바로보기](https://www.notion.so/Dlive-b99ddc5a453643288c7732a5239a1cf0)  
 <br><br>
 
 > 드라이브 시 선곡의 부담을 느껴본 적이 있나요?<br>
